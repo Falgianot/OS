@@ -33,15 +33,18 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 	void * stack = malloc(STACK_SIZE);
 	c.uc_stack.ss_sp = stack;
 	c.uc_stack.ss_size = STACK_SIZE;
-	c.uc_link = 0;
+	c.uc_link = &uctx_main;
 	c.uc_stack.ss_flags=0;
 	control_block.stack = stack;
 	control_block.next = NULL;
-	
-	//must add timesplice and priority later
-	
-	return control_block.tid;
-};
+	thread[0]=control_block.tid;
+	makecontext(&c,(void*)function,1,arg);
+	swapcontext(&uctx_main,&c);
+
+		//must add timesplice and priority later
+		//count for error if insufficient stack space etc.
+	return 0;
+	};
 
 /* give CPU pocession to other user level threads voluntarily */
 int my_pthread_yield() {
@@ -76,4 +79,5 @@ int my_pthread_mutex_unlock(my_pthread_mutex_t *mutex) {
 int my_pthread_mutex_destroy(my_pthread_mutex_t *mutex) {
 	return 0;
 };
+
 
