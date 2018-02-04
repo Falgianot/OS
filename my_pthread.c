@@ -7,10 +7,40 @@
 // iLab Server:
 
 #include "my_pthread_t.h"
+#include <ucontext.h>
+
+
+
+//defining global vars
+#define STACK_SIZE 1024
+#define splice 25
+static ucontext_t uctx_main;
+int tid = 1;
 
 /* create a new thread */
 int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*function)(void*), void * arg) {
-	return 0;
+	tcb control_block;
+	control_block.tid = tid;
+	tid++;
+	control_block.state = embryo;
+	
+	if(getcontext(&control_block.cxt)==-1){
+		perror("getcontext failed");
+		exit(0);
+	}
+	
+	ucontext_t c = control_block.cxt;
+	void * stack = malloc(STACK_SIZE);
+	c.uc_stack.ss_sp = stack;
+	c.uc_stack.ss_size = STACK_SIZE;
+	c.uc_link = 0;
+	c.uc_stack.ss_flags=0;
+	control_block.stack = stack;
+	control_block.next = NULL;
+	
+	//must add timesplice and priority later
+	
+	return control_block.tid;
 };
 
 /* give CPU pocession to other user level threads voluntarily */
