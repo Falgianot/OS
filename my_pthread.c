@@ -12,7 +12,7 @@
 
 
 //defining global vars
-#define STACK_SIZE 1024
+#define STACK_SIZE 1024*64
 #define splice 25
 static ucontext_t uctx_main;
 int tid = 1;
