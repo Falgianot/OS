@@ -4,7 +4,7 @@
 #include "my_pthread_t.h"
 
 my_pthread_t * threadArray;
-//comment
+//comment?
 void * dummy(){
 int j=0;
 for(j=0;j<10;j++){
