@@ -21,10 +21,10 @@ int main(int argc, char** arg){
    for(i = 0; i< 2; i++){
     my_pthread_create(&threadArray[0],NULL,dummy,NULL);
    }
-    /*int j = 0;
-    for(j = 0; j<5; j++){
-        printf("tid:%d\n",threadArray[j]);
-    }*/
+    
+    
+    
+    
 	return 0;
 }
 
