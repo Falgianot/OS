@@ -4,12 +4,22 @@
 #include "my_pthread_t.h"
 
 my_pthread_t * threadArray;
-//comment?
-void * dummy(){
+//comment
+void * dummy1(){
 int j=0;
-for(j=0;j<10;j++){
+for(j=0;j<100000;j++){
     printf("%d\n",j);
 	}
+    my_pthread_exit(0);
+return 0;
+}
+
+void * dummy2(){
+int j=0;
+for(j=0;j<20;j++){
+    printf("%d\n",j);
+	}
+    my_pthread_exit(0);
 return 0;
 }
 
@@ -18,13 +28,15 @@ int main(int argc, char** arg){
 	//getcontext(&uctx_main);
     threadArray = (my_pthread_t *)malloc(sizeof(my_pthread_t)*10);
     int i;
-   for(i = 0; i< 2; i++){
-    my_pthread_create(&threadArray[0],NULL,dummy,NULL);
-   }
-    /*int j = 0;
-    for(j = 0; j<5; j++){
-        printf("tid:%d\n",threadArray[j]);
-    }*/
+   
+    my_pthread_create(&threadArray[0],NULL,dummy1,NULL);
+    my_pthread_create(&threadArray[0],NULL,dummy2,NULL);
+    
+   
+    
+    
+    
+    
 	return 0;
 }
 
