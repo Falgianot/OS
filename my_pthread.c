@@ -8,17 +8,125 @@
 
 #include "my_pthread_t.h"
 #include <ucontext.h>
-
+#include <signal.h>
+#include <unistd.h>
 
 
 //defining global vars
+//4096
 #define STACK_SIZE 1024*64
 #define splice 25
+#define mutexSize 5
 static ucontext_t uctx_main;
 int tid = 1;
 
+
+
+typedef struct Node{
+	tcb * thread;
+	struct Node * next;
+	
+}node;
+
+node** priority = NULL;
+my_pthread_mutex_t** waitQueue = NULL;
+int isInit = 0;
+int queueInit = 0;
+
+
+//initializeScheduler
+void initialize(){
+	if(isInit == 0){
+		priority = ( node **)malloc(sizeof( node *)*5);
+		int i = 0;
+		
+		
+		while(i<5){
+			priority[i] = NULL;
+			i++;
+		}
+		
+		
+		isInit = 1;
+	}else{
+		return;
+	}
+	
+}
+
+void queueInitialize(my_pthread_mutex_t *mutex){
+	int i = 0;
+	mutex->locked = 0;    //unlocked at start
+	mutex->isInit = 1;    //Initiliazed the lock with boolean 1
+	if(queueInit == 0){
+		waitQueue = ( my_pthread_mutex_t **)malloc(sizeof( my_pthread_mutex_t *)*mutexSize); //malloc size of max amount of locks	
+		while(i<5){
+			waitQueue[i] = NULL;
+			i++;
+		}
+		i=0;
+		while(i<5){
+			if(waitQueue[i]==NULL){   //initializing lock 
+				waitQueue[i] = mutex; 
+				break;
+				
+			}
+			i++;
+		}	
+		
+		queueInit = 1;
+	}
+	else{
+		i=0;
+		while(i<5){             //initializing lock 
+			if(waitQueue[i] == NULL){
+				waitQueue[i] = mutex; 
+				break;
+				
+			}
+		i++;
+		}		
+	}
+}
+//handles signals
+//signals used if time runs out or if pthread yield called.
+void my_handler(int signum){
+	if(signum==SIGUSR1){
+		//scheduler stuff
+		
+		
+	}
+}
+
+/*inserts into scheduler
+Params: p - priority level. cb - thread
+*/
+void enqueue(int p, tcb * cb){
+		node * insert = (node *) malloc(sizeof(node));
+		insert->thread = cb;
+		insert->next = NULL;
+		if(priority[p] == NULL){
+			priority[p] = insert;
+			
+			
+		}else{
+		
+		node *ptr = priority[p];
+		node * prev = ptr;
+		
+		while(ptr!=NULL){
+			prev = ptr;
+			ptr=ptr->next;
+		}
+		prev->next = insert;
+		}
+}
+
 /* create a new thread */
 int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*function)(void*), void * arg) {
+	
+	signal(SIGALRM, my_handler);
+	
 	tcb *control_block = (tcb*)malloc(sizeof(tcb));
 	control_block->tid = tid;
 	tid++;
@@ -38,17 +146,27 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 	control_block->stack = stack;
 	control_block->next = NULL;
 	thread[0]=control_block->tid;
+	
 	makecontext(&c,(void*)function,1,arg);
 	swapcontext(&uctx_main,&c);
 	//swapcontext(&c,&uctx_main);
 
 		//must add timesplice and priority later
 		//count for error if insufficient stack space etc.
+		initialize();
+		enqueue(0, control_block);
+		
+		
+		
+		my_pthread_yield();
 	return 0;
 	};
 
 /* give CPU pocession to other user level threads voluntarily */
 int my_pthread_yield() {
+	
+	raise(SIGALRM);
+	
 	return 0;
 };
 
@@ -63,11 +181,21 @@ int my_pthread_join(my_pthread_t thread, void **value_ptr) {
 
 /* initial the mutex lock */
 int my_pthread_mutex_init(my_pthread_mutex_t *mutex, const pthread_mutexattr_t *mutexattr) {
+	queueInitialize(mutex);
 	return 0;
 };
 
 /* aquire the mutex lock */
 int my_pthread_mutex_lock(my_pthread_mutex_t *mutex) {
+	int i = 0;
+		while(i<5){
+			if(waitQueue[i]==mutex){
+				waitQueue[i] = mutex; 
+				break;
+				
+			}
+			i++;
+		}	
 	return 0;
 };
 
@@ -80,5 +208,4 @@ int my_pthread_mutex_unlock(my_pthread_mutex_t *mutex) {
 int my_pthread_mutex_destroy(my_pthread_mutex_t *mutex) {
 	return 0;
 };
-
 
