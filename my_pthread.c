@@ -31,6 +31,7 @@ typedef struct Node{
  
 int isInit = 0;
 
+//initializeScheduler
 void initialize(){
 	if(isInit == 0){
 		priority = ( node **)malloc(sizeof( node *)*5);
@@ -48,10 +49,10 @@ void initialize(){
 		return;
 	}
 	
-	
-	
-	
 }
+
+//handles signals
+//signals used if time runs out or if pthread yield called.
 void my_handler(int signum){
 	if(signum==SIGUSR1){
 		//scheduler stuff
@@ -59,6 +60,10 @@ void my_handler(int signum){
 		
 	}
 }
+
+/*inserts into scheduler
+Params: p - priority level. cb - thread
+*/
 void enqueue(int p, tcb * cb){
 		node * insert = (node *) malloc(sizeof(node));
 		insert->thread = cb;
