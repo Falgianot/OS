@@ -10,13 +10,14 @@
 #include <ucontext.h>
 #include <signal.h>
 #include <unistd.h>
+#include <time.h>
 
 
 //defining global vars
 //4096
 #define STACK_SIZE 1024*64
 #define MAX_THREADS 64
-#define slice 2500000
+#define slice 25000
 #define priorities 5
 static ucontext_t uctx_main;
 static ucontext_t uctx_handler;
@@ -24,6 +25,26 @@ int tid = 1;
 int isInit = 0;
 tcb * running_thread;
 struct itimerval timer;
+struct timeval interval;
+struct itimerval thread_timer;
+struct timeval thread_interval;
+
+
+int pick [5]= {16, 8 ,6 ,4 ,2};
+int times [5] = {15000, 30000,45000, 50000, 55000};
+
+void pause_timer(){
+	struct itimerval zero_timer = {0};
+	setitimer(ITIMER_REAL, &zero_timer, &timer);
+}
+
+void resume_timer(){
+	setitimer(ITIMER_REAL, &timer, NULL);
+}
+
+
+
+
 
 typedef struct Node{
 	tcb * thread;
@@ -72,6 +93,42 @@ queue * running_queue;
 		}
 		running_queue->size = running_queue->size + 1;
 }
+
+struct Node * dequeue_running(){
+	if(running_queue->front == NULL){
+		return NULL;
+	}
+	
+	node * delete = running_queue->front;
+	running_queue->front = running_queue->front->next;
+	
+	if(running_queue->front == NULL){
+		running_queue->tail = NULL;
+	}
+	//what do we want to do with it
+	running_queue->size = running_queue->size - 1;
+	return delete;
+}
+struct Node * dequeue(int p){
+	queue * q = priority[p];
+	
+	if(q->front == NULL){
+		return NULL;
+	}
+	
+	node * delete = q->front;
+	q->front = q->front->next;
+	
+	if(q->front == NULL){
+		q->tail = NULL;
+	}
+	//what do we want to do with it
+	q->size = q->size - 1;
+	return delete;
+	
+}
+
+
  void print_running(){
 	node * search = running_queue->front;
 	while(search!=NULL){
@@ -81,23 +138,63 @@ queue * running_queue;
 	}
 }
  
+ 
+ void contextSwap(){
+	
+ }
+ 
+ 
+ 
+ 
+ //pick 16,8,4,2,1
 void my_handler(int signum){
 	int i = 0;
 	//start inserting into running queue
 	
+	
 	while(i<priorities){
+		//Get number of threads we are picking at the priority level and enqueue into running queue
+		//If there aren't enough threads in that level just go to the next
+		int p = pick[i];
 		queue * q = priority[i];
-		node * search = q->front;
-		while(search!=NULL){
-			enqueue_running(search);
-			search = search->next;
+		int k = 0;
+		while(priority[i]!=NULL&&k<p){
+			node * node_leaving = dequeue(i);
+			enqueue_running(node_leaving);
+			k++;
 		}
 		i++;
 	}
-	printf("running queue\n");
-	print_running();
 	
+	
+	if(running_thread->state == running){
+		//Thread is not finished so put it back in the scheduler
 		
+	}else if(running_thread->state == terminate){
+		//Thread called exit so put it in the done queue
+	}
+	
+	
+	//swapping contexts
+	while(running_queue->size>0){
+		node * temp = dequeue_running();
+		running_thread = temp->thread;
+		int running_priority = running_thread->priority;
+		
+		thread_interval.tv_sec = 0;
+		thread_interval.tv_usec = times[running_priority];
+			
+		thread_timer.it_interval = thread_interval;
+		thread_timer.it_value = thread_interval;
+		
+		
+			
+		setitimer(ITIMER_REAL,&thread_timer,NULL);
+		
+		swapcontext(&uctx_handler,&running_thread->cxt);
+	
+	}
+	
 	
 }
 
@@ -136,14 +233,19 @@ void initialize(){
 		
 		//setting itimer
 		
-		timer.it_value.tv_sec = 0;
-		timer.it_value.tv_usec = slice;
+		interval.tv_sec = 0;
+		interval.tv_usec = slice;
 		
-		timer.it_interval.tv_sec = 0;
-		timer.it_interval.tv_usec = slice;
+		
+		timer.it_interval = interval;
+		timer.it_value = interval;
 		
 		setitimer(ITIMER_REAL,&timer,NULL);
 		
+		
+		while(1){
+			
+		}
 		isInit = 1;
 	}else{
 		return;
@@ -174,24 +276,7 @@ void enqueue(int p, tcb * cb){
 
 
 
-struct Node * dequeue(int p){
-	queue * q = priority[p];
-	
-	if(q->front == NULL){
-		return NULL;
-	}
-	
-	node * delete = q->front;
-	q->front = q->front->next;
-	
-	if(q->front == NULL){
-		q->tail = NULL;
-	}
-	//what do we want to do with it
-	q->size = q->size - 1;
-	return delete;
-	
-}
+
 void print_schedule(){
 	int i = 0;
 	while(i<priorities){
