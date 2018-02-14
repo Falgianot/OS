@@ -7,7 +7,7 @@ my_pthread_t * threadArray;
 //comment
 void * dummy1(){
 int j=0;
-for(j=0;j<100000;j++){
+for(j=0;j<2;j++){
     printf("%d\n",j);
 	}
     //my_pthread_exit(0);
@@ -32,7 +32,7 @@ int main(int argc, char** arg){
 	
     my_pthread_create(&threadArray[0],NULL,dummy1,NULL);
     my_pthread_create(&threadArray[0],NULL,dummy2,NULL);
-
+    
 	
     
    

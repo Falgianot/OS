@@ -36,10 +36,12 @@ int times [5] = {15000, 30000,45000, 50000, 55000};
 void pause_timer(){
 	struct itimerval zero_timer = {0};
 	setitimer(ITIMER_REAL, &zero_timer, &timer);
+	
 }
 
 void resume_timer(){
 	setitimer(ITIMER_REAL, &timer, NULL);
+	
 }
 
 
@@ -141,6 +143,32 @@ struct Node * dequeue(int p){
  
  void contextSwap(){
 	
+	pause_timer();
+
+	
+	//swapping contexts
+	while(running_queue->size>0){
+		signal(SIGALRM,contextSwap);
+		//This block adjusts timer for different priorities.
+		node * temp = dequeue_running();
+		running_thread = temp->thread;
+		int running_priority = running_thread->priority;
+		
+		thread_interval.tv_sec = 0;
+		thread_interval.tv_usec = times[running_priority];
+			
+		thread_timer.it_interval = thread_interval;
+		thread_timer.it_value = thread_interval;
+		
+			
+		setitimer(ITIMER_REAL,&thread_timer,NULL);
+		
+		swapcontext(&uctx_handler,&running_thread->cxt);
+	
+	}
+	
+	signal(SIGALRM,my_handler);
+	resume_timer();
  }
  
  
@@ -158,7 +186,7 @@ void my_handler(int signum){
 		int p = pick[i];
 		queue * q = priority[i];
 		int k = 0;
-		while(priority[i]!=NULL&&k<p){
+		while(priority[i]->size>0&&k<p){
 			node * node_leaving = dequeue(i);
 			enqueue_running(node_leaving);
 			k++;
@@ -167,33 +195,15 @@ void my_handler(int signum){
 	}
 	
 	
-	if(running_thread->state == running){
+	//if(running_thread->state == running){
 		//Thread is not finished so put it back in the scheduler
 		
-	}else if(running_thread->state == terminate){
+	//}else if(running_thread->state == terminate){
 		//Thread called exit so put it in the done queue
-	}
+	//}
 	
+	contextSwap();
 	
-	//swapping contexts
-	while(running_queue->size>0){
-		node * temp = dequeue_running();
-		running_thread = temp->thread;
-		int running_priority = running_thread->priority;
-		
-		thread_interval.tv_sec = 0;
-		thread_interval.tv_usec = times[running_priority];
-			
-		thread_timer.it_interval = thread_interval;
-		thread_timer.it_value = thread_interval;
-		
-		
-			
-		setitimer(ITIMER_REAL,&thread_timer,NULL);
-		
-		swapcontext(&uctx_handler,&running_thread->cxt);
-	
-	}
 	
 	
 }
@@ -243,9 +253,7 @@ void initialize(){
 		setitimer(ITIMER_REAL,&timer,NULL);
 		
 		
-		while(1){
-			
-		}
+		
 		isInit = 1;
 	}else{
 		return;
