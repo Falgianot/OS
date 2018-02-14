@@ -16,13 +16,14 @@
 //4096
 #define STACK_SIZE 1024*64
 #define MAX_THREADS 64
-#define slice 25000
+#define slice 2500000
 #define priorities 5
 static ucontext_t uctx_main;
 static ucontext_t uctx_handler;
 int tid = 1;
 int isInit = 0;
 tcb * running_thread;
+struct itimerval timer;
 
 typedef struct Node{
 	tcb * thread;
@@ -30,28 +31,73 @@ typedef struct Node{
 	
 }node;
 
+typedef struct Queue{
+	struct Node * front;
+	struct Node * tail;
+	int size;
+}queue;
+
+struct Queue *createQueue()
+{
+    struct Queue *q = (struct Queue*)malloc(sizeof(struct Queue));
+    q->front = q->tail = NULL;
+	q->size = 0;
+    return q;
+}
+
+queue * ready_queue;
+queue * waiting_queue;
+queue * running_queue;
+
 //priority array - scheduler
- node** priority = NULL;
+ queue** priority = NULL;
  node * current_thread;
- node * running_queue;
+
  
  //for exit and join
  //done array - finished threads
  tcb * done;
  
+ void enqueue_running(node * insert){
+		
+		
+		if(running_queue->front == NULL){
+			running_queue->front = insert;
+			running_queue->tail = insert;
+			
+		}else{
+			running_queue->tail->next = insert;
+			running_queue->tail = insert;
+		
+		}
+		running_queue->size = running_queue->size + 1;
+}
+ void print_running(){
+	node * search = running_queue->front;
+	while(search!=NULL){
+		tcb * cb = search->thread;
+		printf("tid:%i\n",cb->tid);
+		search = search->next;
+	}
+}
+ 
 void my_handler(int signum){
 	int i = 0;
+	//start inserting into running queue
+	
 	while(i<priorities){
-		if(priority[i] == NULL){
-			continue;
+		queue * q = priority[i];
+		node * search = q->front;
+		while(search!=NULL){
+			enqueue_running(search);
+			search = search->next;
 		}
-		node * search = priority[i];
-		while(search->next != NULL){
-			node * head = search;
-			head = head->next;
-			running_queue = search;
-		}
+		i++;
 	}
+	printf("running queue\n");
+	print_running();
+	
+		
 	
 }
 
@@ -59,13 +105,15 @@ void my_handler(int signum){
 void initialize(){
 	if(isInit == 0){
 		done = (tcb *) malloc(sizeof(tcb*)*MAX_THREADS);
-		running_queue = (node *) malloc(sizeof(node*)*MAX_THREADS);
+		running_queue = createQueue();
+		waiting_queue = createQueue();
+		//ready_queue = createQueue();
 		current_thread = (node *) malloc(sizeof(node));
 		signal(SIGALRM, my_handler);
-		priority = ( node **)malloc(sizeof( node *)*5);
+		priority = ( queue **)malloc(sizeof( queue *)*5);
 		int i = 0;
 		while(i<priorities){
-			priority[i] = NULL;
+			priority[i] = createQueue();
 			i++;
 		}
 		
@@ -87,7 +135,7 @@ void initialize(){
 		
 		
 		//setting itimer
-		struct itimerval timer;
+		
 		timer.it_value.tv_sec = 0;
 		timer.it_value.tv_usec = slice;
 		
@@ -109,26 +157,58 @@ void enqueue(int p, tcb * cb){
 		cb->state = ready;
 		insert->thread = cb;
 		insert->next = NULL;
-		if(priority[p] == NULL){
-			priority[p] = insert;
-			
+		
+		queue * q = priority[p];
+		
+		if(q->front == NULL){
+			q->front = insert;
+			q->tail = insert;
 			
 		}else{
+			q->tail->next = insert;
+			q->tail = insert;
 		
-		node *ptr = priority[p];
-		node * prev = ptr;
-		
-		while(ptr!=NULL){
-			prev = ptr;
-			ptr=ptr->next;
 		}
-		prev->next = insert;
-		}
+		q->size = q->size + 1;
 }
 
-void enqueue_running(){
+
+
+struct Node * dequeue(int p){
+	queue * q = priority[p];
+	
+	if(q->front == NULL){
+		return NULL;
+	}
+	
+	node * delete = q->front;
+	q->front = q->front->next;
+	
+	if(q->front == NULL){
+		q->tail = NULL;
+	}
+	//what do we want to do with it
+	q->size = q->size - 1;
+	return delete;
 	
 }
+void print_schedule(){
+	int i = 0;
+	while(i<priorities){
+		queue * q = priority[i];
+		node * search = q->front;
+		while(search!=NULL){
+			tcb * cb = search->thread;
+			printf("Priority:%i \t Size:%i tid:%i\n",i,q->size,cb->tid);
+			search = search->next;
+		}
+		i++;
+	}
+
+}
+
+
+
 /* create a new thread */
 int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*function)(void*), void * arg) {
 	initialize();
@@ -166,6 +246,7 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 		//count for error if insufficient stack space etc.
 		
 		enqueue(0, control_block);
+		raise(SIGALRM);
 		
 		
 		
