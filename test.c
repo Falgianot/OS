@@ -7,20 +7,24 @@ my_pthread_t * threadArray;
 //comment
 void * dummy1(){
 int j=0;
-for(j=0;j<2;j++){
+
+for(j=0;j<1000000;j++){
+    
     printf("%d\n",j);
+  
 	}
+
     //my_pthread_exit(0);
-return 0;
+
 }
 
 void * dummy2(){
 int j=0;
-for(j=0;j<20;j++){
-    printf("%d\n",j);
+for(j=0;j<200;j++){
+    printf("hello\n");
 	}
     //my_pthread_exit(0);
-return 0;
+
 }
 
 int main(int argc, char** arg){
@@ -31,7 +35,12 @@ int main(int argc, char** arg){
     
 	
     my_pthread_create(&threadArray[0],NULL,dummy1,NULL);
-    my_pthread_create(&threadArray[0],NULL,dummy2,NULL);
+    printf("back in main\n");
+    my_pthread_create(&threadArray[1],NULL,dummy2,NULL);
+    
+    
+    
+    //my_pthread_create(&threadArray[0],NULL,dummy2,NULL);
     
 	
     

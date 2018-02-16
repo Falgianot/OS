@@ -26,10 +26,11 @@ typedef struct threadControlBlock {
     int tid;
     enum states{ready, running, wait, terminate,embryo}state;
     void* return_val;
-    ucontext_t cxt;
+    ucontext_t * cxt;
     void* stack;
     struct itimerval timesplice;
     int priority;
+	int isMain;
     struct threadControlBlock * next;
 } tcb; 
 
