@@ -4,18 +4,22 @@
 #include "my_pthread_t.h"
 
 my_pthread_t * threadArray;
-//comment
+
+
+
+	
 void * dummy1(){
 int j=0;
 
-for(j=0;j<1000000;j++){
+for(j=0;j<100000;j++){
     
     printf("%d\n",j);
   
 	}
-    return 0;
+   
     //my_pthread_exit(0);
-
+	
+ //return 0;
 }
 
 void * dummy2(){

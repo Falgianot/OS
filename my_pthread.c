@@ -17,7 +17,7 @@
 //4096
 #define STACK_SIZE 4096
 #define MAX_THREADS 64
-#define slice 25000
+#define slice 250
 #define priorities 5
  ucontext_t * uctx_main;
  ucontext_t * uctx_handler;
@@ -78,7 +78,8 @@ queue * running_queue;
 
 //priority array - scheduler
  queue** priority = NULL;
- node * current_thread;
+ tcb * current_thread;
+ tcb * prev_thread;
  tcb * mainThread;
 
  
@@ -218,30 +219,17 @@ void my_handler(int signum){
 	//maintenance
 	//insert into running
 	
-	
-	
-	
 	if(running_thread!=NULL){
 		printf("thread slice done\n");
-		swapcontext(running_thread->cxt,mainThread->cxt);
-		
-		
-		//running_thread = NULL;
-		
 		
 		
 	}
-	
-	/*what to do if interrupted and we are in the context of the running_thread
-	swap back to main?
-	swap to another thread?
-	want to ensure when we later swap back to that thread, we resume where we left off
-	*/
-	
+
+	//start inserting into running queue	
 	if(running_queue->size==0){
 	int i = 0;
-	//start inserting into running queue	
 	while(i<priorities){
+		
 		//Get number of threads we are picking at the priority level and enqueue into running queue
 		//If there aren't enough threads in that level just go to the next
 		int p = pick[i];
@@ -251,9 +239,9 @@ void my_handler(int signum){
 			node * node_leaving = dequeue(i);
 			enqueue_running(node_leaving);
 			k++;
-		}
+			}
 		i++;
-	}
+		}
 	
 	}
 
@@ -285,18 +273,21 @@ void my_handler(int signum){
 		 */
 		
 		
-		if(firstSwap==0&&running_thread->tid==0){
-		firstSwap = 1;
+		//Cases to account for when doing first swap.
+		//Main thread will get dequeued first
 		
+		if(firstSwap == 0 && running_thread->isMain == 1){
+			printf("main dequeue\n");
+			prev_thread = running_thread;
+			enqueue(0,running_thread);
+			firstSwap = 1;
+		}else{
+			swapcontext(prev_thread->cxt, running_thread->cxt);
 		}
-		
-		//
-		printf("haha");
-		enqueue(running_thread->priority, running_thread);
-		running_thread=NULL;
 		
 	
 	}
+	printf("gone\n");
 
 	
 }
@@ -319,19 +310,24 @@ void garbage(){
 void initialize(){
 	if(isInit == 0){
 		done = (tcb *) malloc(sizeof(tcb*)*MAX_THREADS); //for threads that are done, and might be waited on
-		running_queue = createQueue(); 
-		waiting_queue = createQueue();
+		running_queue = createQueue(); // queue for threads that are ready to run
+		waiting_queue = createQueue();// queue for threads waiting on a lock
 		running_thread = NULL;
 		//ready_queue = createQueue();
-		current_thread = (node *) malloc(sizeof(node)); //thread we are currently executing for a certain time slice
-		signal(SIGVTALRM, my_handler); //linking our handler to the OS
+		current_thread = (tcb *) malloc(sizeof(tcb)); //thread we are currently executing for a certain time slice
+		signal(SIGALRM, my_handler); //linking our handler to the OS
 		priority = ( queue **)malloc(sizeof( queue *)*5); //our scheduler data structure. an array of queues
 		int i = 0;
+		
+		//initialize our array of queues(scheduler)
 		while(i<priorities){
 			priority[i] = createQueue();
 			i++;
 		}
 		
+		
+		
+		//Create a context for our garbage collector. All threads will go here once done
 		uctx_garbage = (ucontext_t *)malloc(sizeof(ucontext_t));
 		if(getcontext(uctx_garbage)==-1){
 		perror("getcontext failed");
@@ -342,12 +338,10 @@ void initialize(){
 		uctx_garbage->uc_stack.ss_size = STACK_SIZE;
 		uctx_garbage->uc_link = 0;
 		uctx_garbage->uc_stack.ss_flags=0;	
-		//?? why does this exist
 		makecontext(uctx_garbage,(void *)garbage,0);
 		
 		//get context of main
 		mainThread = (tcb *) malloc(sizeof(tcb));
-		
 		uctx_main = (ucontext_t *)malloc(sizeof(ucontext_t));
 		if(getcontext(uctx_main)==-1){
 		perror("getcontext failed");
@@ -361,9 +355,12 @@ void initialize(){
 		mainThread->cxt = uctx_main;
 		mainThread->isMain = 1;
 		
+		//Put main into our scheduler. Treat it like any other thread
 		enqueue(0,mainThread);
-		//set up context of my_handler
-		//??double threads on same context
+		
+		
+		//set up context of my_handler. Do we need this?
+	
 		uctx_handler = (ucontext_t *)malloc(sizeof(ucontext_t));
 		if(getcontext(uctx_handler)==-1){
 		perror("getcontext failed");
@@ -374,8 +371,7 @@ void initialize(){
 		uctx_handler->uc_stack.ss_size = STACK_SIZE;
 		uctx_handler->uc_link = 0;
 		uctx_handler->uc_stack.ss_flags=0;	
-		//?? why does this exist
-		makecontext(uctx_handler,(void *)my_handler,1, SIGVTALRM);
+		makecontext(uctx_handler,(void *)my_handler,1, SIGALRM);
 		
 		
 		//setting itimer
@@ -387,7 +383,7 @@ void initialize(){
 		timer.it_interval = interval;
 		timer.it_value = interval;
 		//?? this timer may or may not act within pthread create time
-		setitimer(ITIMER_VIRTUAL,&timer,NULL);
+		setitimer(ITIMER_REAL,&timer,NULL);
 		
 		
 		isInit = 1;
@@ -419,24 +415,24 @@ void print_schedule(){
 
 
 
+
 /* create a new thread */
 int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*function)(void*), void * arg) {
 	initialize();
 	
+	//Start setting up the control block for the thread
 	tcb *control_block = (tcb*)malloc(sizeof(tcb));
 	control_block->tid = tid;
 	tid++;
 	control_block->state = embryo;
 	
-	
+	//Make a context for the thread
 	ucontext_t * c = (ucontext_t *)malloc(sizeof(ucontext_t));
 	
 	if(getcontext(c)==-1){
 		perror("getcontext failed");
 		exit(0);
 	}
-	
-	
 	
 	
 	void * stack = malloc(STACK_SIZE);
@@ -448,26 +444,33 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 	control_block->next = NULL;
 	thread[0]=control_block->tid;
 	
+	
+	//wrap function user passes so that it call pthread_exit
+	
+	
+	
 	makecontext(c,(void*)function,1,arg);
 	control_block->cxt = c;
 	control_block->isMain = 0;
 	
 
-		//must add timesplice and priority later
-		//count for error if insufficient stack space etc.
-		enqueue(0, control_block);
+	//must add timesplice and priority later
+	//count for error if insufficient stack space etc.
+	
+	
 		
+	//Put thread into our scheduler
+	enqueue(0, control_block);	
 		
-		
-		
-		my_pthread_yield();
+	//Yield so scheduler can do stuff
+	my_pthread_yield();
 	return 0;
 	};
 
 /* give CPU pocession to other user level threads voluntarily */
 int my_pthread_yield() {
 	
-	raise(SIGVTALRM);
+	raise(SIGALRM);
 	
 	return 0;
 };
@@ -478,7 +481,13 @@ int my_pthread_yield() {
 //for join continue based on TID check, set value_ptr
 //add to complete just in case thread calls join
 void my_pthread_exit(void *value_ptr) {
-	
+	if(running_thread->state == terminate){
+		//do nothing probably
+	}else{
+		//terminate and do something with value_ptr
+		running_thread->state = terminate;
+		
+	}
 };
 
 /* wait for thread termination */
