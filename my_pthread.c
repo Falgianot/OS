@@ -15,21 +15,24 @@
 
 //defining global vars
 //4096
-#define STACK_SIZE 1024*64
+#define STACK_SIZE 4096
 #define MAX_THREADS 64
 #define slice 2000
 #define priorities 5
 static ucontext_t * uctx_main;
-static ucontext_t * uctx_handler;
+static ucontext_t * uctx_garbage;
 int tid = 1;
 int isInit = 0;
 tcb * running_thread;
+
 struct itimerval timer;
 struct timeval interval;
 struct itimerval thread_timer;
 struct timeval thread_interval;
 int isHandler =0;
 int firstSwap =0;
+int mainDone =0;
+ tcb * mainThread;
 
 
 int pick [5]= {16, 8 ,6 ,4 ,2};
@@ -178,12 +181,12 @@ struct Node * dequeue(int p){
 		running_thread = temp->thread;
 		int running_priority = running_thread->priority;
 		
-		thread_interval.tv_sec = 0;
+		/*thread_interval.tv_sec = 0;
 		thread_interval.tv_usec = times[running_priority];
 			
 		thread_timer.it_interval = thread_interval;
 		thread_timer.it_value = thread_interval;
-		
+	*/
 			
 		//setitimer(ITIMER_REAL,&thread_timer,NULL);
 		
@@ -200,14 +203,18 @@ struct Node * dequeue(int p){
 	
 	//}
 	printf("%d is now running\n", running_thread->tid);
+	if(running_thread->tid ==0){               //create boolean for first time through, swap to the next thread in the running queue.
+		enqueue(running_thread->priority, running_thread);
+		contextSwap();
+	}
 	swapcontext(uctx_main,running_thread->cxt);
+	printf("Helllo");
 	//raise(SIGALRM);
 	//signal(SIGALRM,my_handler);
 	//resume_timer();
  }
  
- 
- 
+ 	
  //pick 16,8,4,2,1
  //try to only call swap once during function call
 void my_handler(int signum){
@@ -246,27 +253,42 @@ void my_handler(int signum){
 		}
 		contextSwap();
 	}
-	else{
+	else if(running_queue->size != 0){
 		
 		contextSwap();
 	}
 	
+}
+
+
+
+
+void garbage(){
 	
-	
+	if(running_thread->isMain==1){
+		//main is done
+		printf("main done\n");
+		mainDone = 1;
 		
-	
+	}
+	printf("garbage\n");
+	running_thread=NULL;
+	printf("garbage1\n");
+	//raise(SIGALRM);
 }
 
 
 void initialize(){
 	if(isInit == 0){
 		done = (tcb *) malloc(sizeof(tcb*)*MAX_THREADS); //for threads that are done, and might be waited on
+		void * stack1 = malloc(STACK_SIZE);
+		void * stack2 = malloc(STACK_SIZE);
 		running_queue = createQueue(); 
 		waiting_queue = createQueue();
 		running_thread = NULL;
 		//ready_queue = createQueue();
 		current_thread = (node *) malloc(sizeof(node)); //thread we are currently executing for a certain time slice
-		signal(SIGALRM, my_handler); //linking our handler to the OS
+		signal(SIGVTALRM, my_handler); //linking our handler to the OS
 		priority = ( queue **)malloc(sizeof( queue *)*5); //our scheduler data structure. an array of queues
 		int i = 0;
 		while(i<priorities){
@@ -274,6 +296,17 @@ void initialize(){
 			i++;
 		}
 		
+		uctx_garbage = (ucontext_t *)malloc(sizeof(ucontext_t));
+		if(getcontext(uctx_garbage)==-1){
+		perror("getcontext failed");
+		exit(0);
+	}
+		uctx_garbage->uc_stack.ss_sp = stack1;
+		uctx_garbage->uc_stack.ss_size = STACK_SIZE;
+		uctx_garbage->uc_link = 0;
+		uctx_garbage->uc_stack.ss_flags=0;	
+		//?? why does this exist
+		makecontext(uctx_garbage,(void *)garbage,0);
 		
 		//get context of main
 		uctx_main = (ucontext_t *)malloc(sizeof(ucontext_t));
@@ -281,28 +314,25 @@ void initialize(){
 		perror("getcontext failed");
 		exit(0);
 	}
-		void * stack = malloc(STACK_SIZE);
-		uctx_main->uc_stack.ss_sp = stack;
+		
+		uctx_main->uc_stack.ss_sp = stack2;
 		uctx_main->uc_stack.ss_size = STACK_SIZE;
-		uctx_main->uc_link = 0;
+		uctx_main->uc_link = uctx_garbage;
 		uctx_main->uc_stack.ss_flags=0;	
+		
+				mainThread = (tcb *) malloc(sizeof(tcb));
+		mainThread->tid = 0;
+		mainThread->state = running;
+		mainThread->cxt = uctx_main;
+		mainThread->isMain = 1;
 		
 		//set up context of my_handler
 		//??double threads on same context
-		uctx_handler = (ucontext_t *)malloc(sizeof(ucontext_t));
-		if(getcontext(uctx_handler)==-1){
-		perror("getcontext failed");
-		exit(0);
-	}
+		
+		
 		//void * stack = malloc(STACK_SIZE);
-		uctx_handler->uc_stack.ss_sp = stack;
-		uctx_handler->uc_stack.ss_size = STACK_SIZE;
-		uctx_handler->uc_link = 0;
-		uctx_handler->uc_stack.ss_flags=0;	
-		//?? why does this exist
-		makecontext(uctx_handler,(void *)my_handler,1,SIGALRM);
-		
-		
+	
+		enqueue(0,mainThread);
 		//setting itimer
 		
 		interval.tv_sec = 0;
@@ -312,7 +342,7 @@ void initialize(){
 		timer.it_interval = interval;
 		timer.it_value = interval;
 		//?? this timer may or may not act within pthread create time
-		setitimer(ITIMER_REAL,&timer,NULL);
+		setitimer(ITIMER_VIRTUAL,&timer,NULL);
 		
 		
 		isInit = 1;
@@ -364,7 +394,7 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 	void * stack = malloc(STACK_SIZE);
 	c->uc_stack.ss_sp = stack;
 	c->uc_stack.ss_size = STACK_SIZE;
-	c->uc_link = uctx_handler;
+	c->uc_link = uctx_garbage;
 	c->uc_stack.ss_flags=0;
 	control_block->stack = stack;
 	control_block->next = NULL;
@@ -388,7 +418,7 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 /* give CPU pocession to other user level threads voluntarily */
 int my_pthread_yield() {
 	
-	raise(SIGALRM);
+	raise(SIGVTALRM);
 	
 	return 0;
 };
@@ -401,9 +431,9 @@ int my_pthread_yield() {
 void my_pthread_exit(void *value_ptr) {
 	printf("EXIT");
 	//free(running_thread->cxt);
-	
+	//swapcontext(running_thread->cxt,running_queue->front->thread->cxt);
 	//running_thread == NULL;
-	setcontext(uctx_main);
+	//setcontext(uctx_main);
 
 };
 
