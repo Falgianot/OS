@@ -47,6 +47,8 @@ that thread will it continue where it left off?
 
 2.How many threads should we be able to handle.
 
-3.Why is our context restarting?
+3.What happens at the end of our scheduler?
 
-4.What happens at the end of our scheduler?
+4.SIGVTALRM? raising handler in handler
+
+5.How to get main context?
