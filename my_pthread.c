@@ -30,6 +30,7 @@ struct timeval interval;
 struct itimerval thread_timer;
 struct timeval thread_interval;
 int mainDone = 0;
+int firstSwap = 0;
 
 
 
@@ -222,9 +223,11 @@ void my_handler(int signum){
 	
 	if(running_thread!=NULL){
 		printf("thread slice done\n");
-		enqueue(running_thread->priority, running_thread);
-		ucontext_t * temp = running_thread->cxt;
+		swapcontext(running_thread->cxt,mainThread->cxt);
+		
+		
 		//running_thread = NULL;
+		
 		
 		
 	}
@@ -281,9 +284,16 @@ void my_handler(int signum){
 		 *		Needs to be long enough at least.
 		 */
 		
-		swapcontext(mainThread->cxt,running_thread->cxt);
 		
+		if(firstSwap==0&&running_thread->tid==0){
+		firstSwap = 1;
 		
+		}
+		
+		//
+		printf("haha");
+		enqueue(running_thread->priority, running_thread);
+		running_thread=NULL;
 		
 	
 	}
@@ -301,7 +311,7 @@ void garbage(){
 		
 	}
 	printf("garbage\n");
-	running_thread=NULL;
+	//running_thread=NULL;
 	printf("garbage1\n");
 	//raise(SIGALRM);
 }
@@ -314,7 +324,7 @@ void initialize(){
 		running_thread = NULL;
 		//ready_queue = createQueue();
 		current_thread = (node *) malloc(sizeof(node)); //thread we are currently executing for a certain time slice
-		signal(SIGALRM, my_handler); //linking our handler to the OS
+		signal(SIGVTALRM, my_handler); //linking our handler to the OS
 		priority = ( queue **)malloc(sizeof( queue *)*5); //our scheduler data structure. an array of queues
 		int i = 0;
 		while(i<priorities){
@@ -336,7 +346,8 @@ void initialize(){
 		makecontext(uctx_garbage,(void *)garbage,0);
 		
 		//get context of main
-		mainThread = (tcb *) malloc(sizeof(tcb*));
+		mainThread = (tcb *) malloc(sizeof(tcb));
+		
 		uctx_main = (ucontext_t *)malloc(sizeof(ucontext_t));
 		if(getcontext(uctx_main)==-1){
 		perror("getcontext failed");
@@ -350,7 +361,7 @@ void initialize(){
 		mainThread->cxt = uctx_main;
 		mainThread->isMain = 1;
 		
-		//enqueue(0,mainThread);
+		enqueue(0,mainThread);
 		//set up context of my_handler
 		//??double threads on same context
 		uctx_handler = (ucontext_t *)malloc(sizeof(ucontext_t));
@@ -364,7 +375,7 @@ void initialize(){
 		uctx_handler->uc_link = 0;
 		uctx_handler->uc_stack.ss_flags=0;	
 		//?? why does this exist
-		makecontext(uctx_handler,(void *)my_handler,1, SIGALRM);
+		makecontext(uctx_handler,(void *)my_handler,1, SIGVTALRM);
 		
 		
 		//setting itimer
@@ -376,7 +387,7 @@ void initialize(){
 		timer.it_interval = interval;
 		timer.it_value = interval;
 		//?? this timer may or may not act within pthread create time
-		setitimer(ITIMER_REAL,&timer,NULL);
+		setitimer(ITIMER_VIRTUAL,&timer,NULL);
 		
 		
 		isInit = 1;
@@ -456,7 +467,7 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 /* give CPU pocession to other user level threads voluntarily */
 int my_pthread_yield() {
 	
-	raise(SIGALRM);
+	raise(SIGVTALRM);
 	
 	return 0;
 };

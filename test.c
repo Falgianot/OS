@@ -13,7 +13,7 @@ for(j=0;j<1000000;j++){
     printf("%d\n",j);
   
 	}
-
+    return 0;
     //my_pthread_exit(0);
 
 }
@@ -36,7 +36,7 @@ int main(int argc, char** arg){
 	
     my_pthread_create(&threadArray[0],NULL,dummy1,NULL);
     printf("back in main\n");
-    my_pthread_create(&threadArray[1],NULL,dummy2,NULL);
+    //my_pthread_create(&threadArray[1],NULL,dummy2,NULL);
     
     
     
