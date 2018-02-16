@@ -12,7 +12,7 @@ Create our scheduler
 pthread create
 -set up our tcb
 -create a context for the thread that points to the function user passed
--enqueu into our scheduler at priority 0
+-enqueue into our scheduler at priority 0
 -*for now raise SIGALRM to test scheduler
 
 signal handler
