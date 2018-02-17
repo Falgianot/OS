@@ -17,7 +17,7 @@
 //4096
 #define STACK_SIZE 1024*10
 #define MAX_THREADS 64
-#define slice 2500
+#define slice 3000
 #define priorities 5
  ucontext_t * uctx_main;
  ucontext_t * uctx_handler;
@@ -168,7 +168,7 @@ void my_handler(int signum){
 		toInsert->next = NULL;
 		enqueue_other(toInsert,done_queue);
 		prev_thread = running_thread;
-		free(running_thread->cxt->uc_stack.ss_sp);
+		//free(running_thread->cxt->uc_stack.ss_sp);
 		running_thread = NULL;
 	}
 	
@@ -242,7 +242,7 @@ void my_handler(int signum){
 			node * temp = dequeue_other(running_queue);
 			running_thread = temp->thread;
 			//might have to move around nodes instead of just freeing
-			free(temp);
+			//free(temp);
 			int running_priority = running_thread->priority;
 			timeCounter++;
 			swapcontext(prev_thread->cxt, running_thread->cxt);
@@ -491,6 +491,7 @@ int my_pthread_join(my_pthread_t thread, void **value_ptr) {
 				if(search->thread->tid == thread){
 					*value_ptr = search->thread->return_val;
 					foundIt=1;
+					break;
 				}
 				search = search->next;
 			
@@ -498,6 +499,10 @@ int my_pthread_join(my_pthread_t thread, void **value_ptr) {
 			if(foundIt==1){
 				
 				break;
+			}
+			if(timeCounter > 4){
+				timeCounter =0;
+				
 			}
 		}
 		
