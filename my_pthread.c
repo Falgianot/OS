@@ -413,7 +413,11 @@ void print_schedule(){
 
 }
 
+void* wrapper(void* function, void* arg){
+	void* retval = function(arg);
+	my_pthread_exit(retval);
 
+}
 
 
 /* create a new thread */
@@ -449,7 +453,7 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 	
 	
 	
-	makecontext(c,(void*)function,1,arg);
+	makecontext(c,(void*)wrapper,2,function,arg);
 	control_block->cxt = c;
 	control_block->isMain = 0;
 	
