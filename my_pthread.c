@@ -13,6 +13,7 @@
 #include <time.h>
 
 
+
 //defining global vars
 //4096
 #define STACK_SIZE 1024*64
@@ -463,11 +464,79 @@ void wrapper(void *(*function)(void*), void* arg){
 }
 
 
+
+
+typedef struct Node{
+	tcb * thread;
+	struct Node * next;
+	
+}node;
+
+ node** priority = NULL;
+ 
+int isInit = 0;
+
+//initializeScheduler
+void initialize(){
+	if(isInit == 0){
+		priority = ( node **)malloc(sizeof( node *)*5);
+		int i = 0;
+		
+		
+		while(i<5){
+			priority[i] = NULL;
+			i++;
+		}
+		
+		
+		isInit = 1;
+	}else{
+		return;
+	}
+	
+}
+
+//handles signals
+//signals used if time runs out or if pthread yield called.
+void my_handler(int signum){
+	if(signum==SIGUSR1){
+		//scheduler stuff
+		
+		
+	}
+}
+
+/*inserts into scheduler
+Params: p - priority level. cb - thread
+*/
+void enqueue(int p, tcb * cb){
+		node * insert = (node *) malloc(sizeof(node));
+		insert->thread = cb;
+		insert->next = NULL;
+		if(priority[p] == NULL){
+			priority[p] = insert;
+			
+			
+		}else{
+		
+		node *ptr = priority[p];
+		node * prev = ptr;
+		
+		while(ptr!=NULL){
+			prev = ptr;
+			ptr=ptr->next;
+		}
+		prev->next = insert;
+		}
+}
+
 /* create a new thread */
 int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*function)(void*), void * arg) {
+
 	initialize();
 	
 	//Start setting up the control block for the thread
+
 	tcb *control_block = (tcb*)malloc(sizeof(tcb));
 	control_block->tid = tid;
 	tid++;
@@ -491,6 +560,7 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 	control_block->next = NULL;
 	thread[0]=control_block->tid;
 	
+
 	
 	//wrap function user passes so that it call pthread_exit
 	
@@ -562,5 +632,6 @@ int my_pthread_mutex_unlock(my_pthread_mutex_t *mutex) {
 int my_pthread_mutex_destroy(my_pthread_mutex_t *mutex) {
 	return 0;
 };
+
 
 

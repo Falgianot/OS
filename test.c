@@ -5,6 +5,7 @@
 
 my_pthread_t * threadArray;
 //comment
+
 void * dummy1(){
 int j=0;
 
@@ -33,7 +34,6 @@ int main(int argc, char** arg){
 	//getcontext(&uctx_main);
     threadArray = (my_pthread_t *)malloc(sizeof(my_pthread_t)*10);
     int i;
-    
 	
     my_pthread_create(&threadArray[0],NULL,dummy1,NULL);
     printf("back in main\n");
@@ -49,7 +49,6 @@ while(i >0){
     
 }*/
      
-      
 	return 0;
 }
 
