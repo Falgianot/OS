@@ -12,7 +12,7 @@
 
 /* include lib header files that you need here: */
 #include <unistd.h>
-#include <sys/syscall.h>
+//#include <sys/syscall.h>
 #include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,7 +26,8 @@ typedef struct threadControlBlock {
     int tid;
     enum states{ready, running, wait, terminate,embryo}state;
     void* return_val;
-    ucontext_t cxt;
+    ucontext_t * cxt;
+int isMain;
     void* stack;
     struct itimerval timesplice;
     int priority;
@@ -47,6 +48,8 @@ typedef struct my_pthread_mutex_t {
 
 
 /* Function Declarations: */
+
+void my_handler(int signum);
 
 /* create a new thread */
 int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*function)(void*), void * arg);
@@ -73,4 +76,5 @@ int my_pthread_mutex_unlock(my_pthread_mutex_t *mutex);
 int my_pthread_mutex_destroy(my_pthread_mutex_t *mutex);
 
 #endif
+
 
