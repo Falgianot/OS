@@ -27,10 +27,10 @@ typedef struct threadControlBlock {
     enum states{ready, running, wait, terminate,embryo}state;
     void* return_val;
     ucontext_t * cxt;
+int isMain;
     void* stack;
     struct itimerval timesplice;
     int priority;
-	int isMain;
     struct threadControlBlock * next;
 } tcb; 
 
@@ -76,4 +76,5 @@ int my_pthread_mutex_unlock(my_pthread_mutex_t *mutex);
 int my_pthread_mutex_destroy(my_pthread_mutex_t *mutex);
 
 #endif
+
 

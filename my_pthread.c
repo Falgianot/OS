@@ -15,9 +15,9 @@
 
 //defining global vars
 //4096
-#define STACK_SIZE 4096
+#define STACK_SIZE 1024*64
 #define MAX_THREADS 64
-#define slice 250
+#define slice 2500
 #define priorities 5
  ucontext_t * uctx_main;
  ucontext_t * uctx_handler;
@@ -31,6 +31,7 @@ struct itimerval thread_timer;
 struct timeval thread_interval;
 int mainDone = 0;
 int firstSwap = 0;
+int timeCounter =-1;
 
 
 
@@ -72,7 +73,7 @@ struct Queue *createQueue()
     return q;
 }
 
-queue * done_queue;
+queue * ready_queue;
 queue * waiting_queue;
 queue * running_queue;
 
@@ -122,7 +123,7 @@ void enqueue(int p, tcb * cb){
 }
 
 
-struct Node * dequeue_running(){
+node * dequeue_running(){
 	if(running_queue->front == NULL){
 		return NULL;
 	}
@@ -137,7 +138,7 @@ struct Node * dequeue_running(){
 	running_queue->size = running_queue->size - 1;
 	return delete;
 }
-struct Node * dequeue(int p){
+node * dequeue(int p){
 	queue * q = priority[p];
 	
 	if(q->front == NULL){
@@ -219,14 +220,33 @@ void my_handler(int signum){
 	//maintenance
 	//insert into running
 	
+	
+	
+	//If running thread is not null, that means the thread got interrupted
 	if(running_thread!=NULL){
-		printf("thread slice done\n");
-	}
-	
-	
-	//for exiting
-	if(running_thread->state==terminate){
-		node* toMove = dequeue_running();
+		
+		//This is the case for if the thread did not finish running for its time slice(timeslice * priority)
+		if(timeCounter != running_thread->priority){
+			timeCounter++;
+			return;
+		}
+		else{
+			
+		//These cases are for if the thread is not done so insert it back into scheduler down a priority unless its already 4 because that is the max
+		printf("I am running for %d\n",timeCounter);
+		if(running_thread->priority ==4){
+			prev_thread = running_thread;
+			enqueue(4,running_thread);
+			timeCounter = -1;
+		}
+		else{
+			running_thread->priority = running_thread->priority +1;
+			prev_thread = running_thread;
+			enqueue(running_thread->priority,running_thread);
+			timeCounter =-1;
+		}
+		running_thread = NULL;
+		}
 		
 	}
 
@@ -247,13 +267,13 @@ void my_handler(int signum){
 			}
 		i++;
 		}
-	
+	//my_pthread_yield();
 	}
 
 	
-	
+	 if(running_queue->size != 0){
 	//run all threads in running queue
-	while(running_queue->size>0){
+	//	while(running_queue->size>0 && firstswap == 0){
 		
 		//dequeue from running queue
 		node * temp = dequeue_running();
@@ -280,17 +300,35 @@ void my_handler(int signum){
 		
 		//Cases to account for when doing first swap.
 		//Main thread will get dequeued first
-		
+		//Make it swap to another context
 		if(firstSwap == 0 && running_thread->isMain == 1){
 			printf("main dequeue\n");
 			prev_thread = running_thread;
 			enqueue(0,running_thread);
 			firstSwap = 1;
-		}else{
+			node * temp = dequeue_running();
+			running_thread = temp->thread;
+			int running_priority = running_thread->priority;
+			timeCounter++;
 			swapcontext(prev_thread->cxt, running_thread->cxt);
+		
+
+		}else{
+			//if we encounter the same context, let it run again
+			if(prev_thread->cxt == running_thread ->cxt){
+				timeCounter++;
+				return;
+			}
+			else{
+			//Swap from current context to a new one
+			timeCounter++;
+			swapcontext(prev_thread->cxt, running_thread->cxt);
+			}
+			
 		}
 		
 	
+		//}
 	}
 	printf("gone\n");
 
@@ -307,9 +345,11 @@ void garbage(){
 		
 	}
 	printf("garbage\n");
+	prev_thread = running_thread;
+	running_thread = NULL;
 	//running_thread=NULL;
 	printf("garbage1\n");
-	//raise(SIGALRM);
+	raise(SIGALRM);
 }
 
 void initialize(){
@@ -343,7 +383,7 @@ void initialize(){
 		uctx_garbage->uc_stack.ss_size = STACK_SIZE;
 		uctx_garbage->uc_link = 0;
 		uctx_garbage->uc_stack.ss_flags=0;	
-		makecontext(uctx_garbage,(void *)garbage,0);
+		makecontext(uctx_garbage,(void *)&garbage,0);
 		
 		//get context of main
 		mainThread = (tcb *) malloc(sizeof(tcb));
@@ -376,14 +416,13 @@ void initialize(){
 		uctx_handler->uc_stack.ss_size = STACK_SIZE;
 		uctx_handler->uc_link = 0;
 		uctx_handler->uc_stack.ss_flags=0;	
-		makecontext(uctx_handler,(void *)my_handler,1, SIGALRM);
+		makecontext(uctx_handler,(void *)&my_handler,1, SIGALRM);
 		
 		
 		//setting itimer
 		
 		interval.tv_sec = 0;
 		interval.tv_usec = slice;
-		
 		
 		timer.it_interval = interval;
 		timer.it_value = interval;
@@ -421,7 +460,6 @@ void print_schedule(){
 void wrapper(void *(*function)(void*), void* arg){
 	void* retval = function(arg);
 	my_pthread_exit(retval);
-
 }
 
 
@@ -457,9 +495,8 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 	//wrap function user passes so that it call pthread_exit
 	
 	
-	//makecontext(c,(void*)function,1,arg);
-
-	makecontext(c,(void*)&wrapper,2,function,arg);
+	
+	makecontext(c,(void*)function,1,arg);
 	control_block->cxt = c;
 	control_block->isMain = 0;
 	
@@ -491,9 +528,13 @@ int my_pthread_yield() {
 //for join continue based on TID check, set value_ptr
 //add to complete just in case thread calls join
 void my_pthread_exit(void *value_ptr) {
-	running_thread->state = terminate;
-	my_pthread_yield();
-	
+	if(running_thread->state == terminate){
+		//do nothing probably
+	}else{
+		//terminate and do something with value_ptr
+		running_thread->state = terminate;
+		
+	}
 };
 
 /* wait for thread termination */
