@@ -24,7 +24,8 @@ typedef uint my_pthread_t;
 typedef struct threadControlBlock {
 	/* add something here */
     int tid;
-    enum states{ready, running, wait, terminate,embryo}state;
+	int waitid;
+    enum states{ready, running, waitmutex, waitjoin, terminate,embryo}state;
     void* return_val;
     ucontext_t * cxt;
 int isMain;
@@ -32,6 +33,7 @@ int isMain;
     struct itimerval timesplice;
     int priority;
     struct threadControlBlock * next;
+	
 } tcb; 
 
 /* mutex struct definition */
