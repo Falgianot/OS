@@ -168,6 +168,7 @@ void my_handler(int signum){
 		toInsert->next = NULL;
 		enqueue_other(toInsert,done_queue);
 		prev_thread = running_thread;
+		free(running_thread->cxt->uc_stack.ss_sp);
 		running_thread = NULL;
 	}
 	
@@ -239,12 +240,15 @@ void my_handler(int signum){
 			firstSwap = 1;
 			node * temp = dequeue_other(running_queue);
 			running_thread = temp->thread;
+			//might have to move around nodes instead of just freeing
+			free(temp);
 			int running_priority = running_thread->priority;
 			timeCounter++;
 			swapcontext(prev_thread->cxt, running_thread->cxt);
 		
 
 		}else{
+			//GO THROUGH THE ENTIRE RUNNING QUEUE
 			//if we encounter the same context, let it run again
 			if(prev_thread->cxt == running_thread ->cxt){
 				printf("swap same context\n");
@@ -259,6 +263,7 @@ void my_handler(int signum){
 			}
 			
 		}
+		//Check entire waiting queue for mutexes and joins
 		
 	
 		//}
@@ -471,6 +476,19 @@ void my_pthread_exit(void *value_ptr) {
 /* wait for thread termination */
 
 int my_pthread_join(my_pthread_t thread, void **value_ptr) {
+	//Upon call, search done queue
+	//If its there, check value_ptr and set accordingly and return
+	//If not there, move to waiting queue,
+	if(done_queue->size==0){
+		//not there, so wait
+		//running_thread
+	}	
+	else  {
+		//search
+		
+		
+		
+	}
 	return 0;
 };
 

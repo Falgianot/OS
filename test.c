@@ -45,9 +45,9 @@ int main(int argc, char** arg){
     my_pthread_create(&threadArray[1],NULL,dummy2,NULL);
     printf("back in main\n");
     
-    int i = 1000000000000000000;
-while(i>0){
-    i--;
+    
+while(1){
+   printf("hell\n");
 }
      
       
