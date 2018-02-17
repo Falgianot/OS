@@ -13,10 +13,9 @@
 #include <time.h>
 
 
-
 //defining global vars
 //4096
-#define STACK_SIZE 1024*64
+#define STACK_SIZE 1024*10
 #define MAX_THREADS 64
 #define slice 2500
 #define priorities 5
@@ -28,29 +27,10 @@ int isInit = 0;
 tcb * running_thread;
 struct itimerval timer;
 struct timeval interval;
-struct itimerval thread_timer;
-struct timeval thread_interval;
 int mainDone = 0;
 int firstSwap = 0;
 int timeCounter =-1;
-
-
-
 int pick [5]= {16, 8 ,6 ,4 ,2};
-int times [5] = {15000, 30000,45000, 50000, 55000};
-
-void pause_timer(){
-	struct itimerval zero_timer = {0};
-	setitimer(ITIMER_REAL, &zero_timer, &timer);
-	
-}
-
-void resume_timer(){
-	setitimer(ITIMER_REAL, &timer, NULL);
-	
-}
-
-
 
 
 
@@ -74,7 +54,7 @@ struct Queue *createQueue()
     return q;
 }
 
-queue * ready_queue;
+queue * done_queue;
 queue * waiting_queue;
 queue * running_queue;
 
@@ -85,24 +65,42 @@ queue * running_queue;
  tcb * mainThread;
 
  
- //for exit and join
- //done array - finished threads
- tcb * done;
  
- void enqueue_running(node * insert){
+ 
+ //enqueue and dequeue for waiting, done, running
+ void enqueue_other(node * insert, queue * q){
 		
 		
-		if(running_queue->front == NULL){
-			running_queue->front = insert;
-			running_queue->tail = insert;
+		if(q->front == NULL){
+			q->front = insert;
+			q->tail = insert;
 			
 		}else{
-			running_queue->tail->next = insert;
-			running_queue->tail = insert;
+			q->tail->next = insert;
+			q->tail = insert;
 		
 		}
-		running_queue->size = running_queue->size + 1;
+		q->size = q->size + 1;
 }
+
+node * dequeue_other(queue * q){
+	if(q->front == NULL){
+		return NULL;
+	}
+	
+	node * delete = q->front;
+	q->front = q->front->next;
+	
+	if(q->front == NULL){
+		q->tail = NULL;
+	}
+	//what do we want to do with it
+	q->size = q->size - 1;
+	return delete;
+}
+
+
+//enqueue and dequeue for our scheduler
 void enqueue(int p, tcb * cb){
 		node * insert = (node *) malloc(sizeof(node));
 		cb->state = ready;
@@ -123,22 +121,6 @@ void enqueue(int p, tcb * cb){
 		q->size = q->size + 1;
 }
 
-
-node * dequeue_running(){
-	if(running_queue->front == NULL){
-		return NULL;
-	}
-	
-	node * delete = running_queue->front;
-	running_queue->front = running_queue->front->next;
-	
-	if(running_queue->front == NULL){
-		running_queue->tail = NULL;
-	}
-	//what do we want to do with it
-	running_queue->size = running_queue->size - 1;
-	return delete;
-}
 node * dequeue(int p){
 	queue * q = priority[p];
 	
@@ -169,49 +151,6 @@ node * dequeue(int p){
 }
  
  
- void contextSwap(){
-	
-	//pause_timer();
-
-	
-	//swapping contexts
-	while(running_queue->size>0){
-		//signal(SIGALRM,contextSwap);
-		//This block adjusts timer for different priorities.
-		node * temp = dequeue_running();
-		running_thread = temp->thread;
-		int running_priority = running_thread->priority;
-		
-		thread_interval.tv_sec = 0;
-		thread_interval.tv_usec = times[running_priority];
-			
-		thread_timer.it_interval = thread_interval;
-		thread_timer.it_value = thread_interval;
-		
-			
-		//setitimer(ITIMER_REAL,&thread_timer,NULL);
-		
-		/*Problem: Itimer from initialize runs for one interval
-		 *		then alarm goes off, and it never switches back to thread to finish the job.
-		 *		Longer time intervals means more increments, shorter means other problems.
-		 *		Needs to be long enough at least.
-		 */
-		swapcontext(uctx_main,running_thread->cxt);
-		printf("im back\n");
-		enqueue(running_thread->priority, running_thread);
-		ucontext_t * temp1 = running_thread->cxt;
-		running_thread = NULL;
-		
-
-	
-	}
-	//raise(SIGALRM);
-	//signal(SIGALRM,my_handler);
-	//resume_timer();
- }
- 
- 
- 
  
  //pick 16,8,4,2,1
  //try to only call swap once during function call
@@ -222,6 +161,15 @@ void my_handler(int signum){
 	//insert into running
 	
 	
+	//If thread called pthread_exit. Insert into done queue
+	if(firstSwap!=0&&running_thread!=NULL&&running_thread->state == terminate){
+		node * toInsert = (node *)malloc(sizeof(node));
+		toInsert->thread = running_thread;
+		toInsert->next = NULL;
+		enqueue_other(toInsert,done_queue);
+		prev_thread = running_thread;
+		running_thread = NULL;
+	}
 	
 	//If running thread is not null, that means the thread got interrupted
 	if(running_thread!=NULL){
@@ -255,7 +203,7 @@ void my_handler(int signum){
 	if(running_queue->size==0){
 	int i = 0;
 	while(i<priorities){
-		
+		printf("inserting into running\n");
 		//Get number of threads we are picking at the priority level and enqueue into running queue
 		//If there aren't enough threads in that level just go to the next
 		int p = pick[i];
@@ -263,12 +211,11 @@ void my_handler(int signum){
 		int k = 0;
 		while(priority[i]->size>0&&k<p){
 			node * node_leaving = dequeue(i);
-			enqueue_running(node_leaving);
+			enqueue_other(node_leaving,running_queue);
 			k++;
 			}
 		i++;
 		}
-	//my_pthread_yield();
 	}
 
 	
@@ -277,27 +224,10 @@ void my_handler(int signum){
 	//	while(running_queue->size>0 && firstswap == 0){
 		
 		//dequeue from running queue
-		node * temp = dequeue_running();
+		node * temp = dequeue_other(running_queue);
 		running_thread = temp->thread;
 		int running_priority = running_thread->priority;
-		
-		
-		//This block adjusts timer for different priorities.
-		thread_interval.tv_sec = 0;
-		thread_interval.tv_usec = times[running_priority];
-			
-		thread_timer.it_interval = thread_interval;
-		thread_timer.it_value = thread_interval;
-		
-			
-		//setitimer(ITIMER_REAL,&thread_timer,NULL);
-		
-		/*Problem: Itimer from initialize runs for one interval
-		 *		then alarm goes off, and it never switches back to thread to finish the job.
-		 *		Longer time intervals means more increments, shorter means other problems.
-		 *		Needs to be long enough at least.
-		 */
-		
+	
 		
 		//Cases to account for when doing first swap.
 		//Main thread will get dequeued first
@@ -307,7 +237,7 @@ void my_handler(int signum){
 			prev_thread = running_thread;
 			enqueue(0,running_thread);
 			firstSwap = 1;
-			node * temp = dequeue_running();
+			node * temp = dequeue_other(running_queue);
 			running_thread = temp->thread;
 			int running_priority = running_thread->priority;
 			timeCounter++;
@@ -317,11 +247,13 @@ void my_handler(int signum){
 		}else{
 			//if we encounter the same context, let it run again
 			if(prev_thread->cxt == running_thread ->cxt){
+				printf("swap same context\n");
 				timeCounter++;
 				return;
 			}
 			else{
 			//Swap from current context to a new one
+			printf("prev:%i   run:%i\n",prev_thread->tid,running_thread->tid);
 			timeCounter++;
 			swapcontext(prev_thread->cxt, running_thread->cxt);
 			}
@@ -347,15 +279,14 @@ void garbage(){
 	}
 	printf("garbage\n");
 	prev_thread = running_thread;
-	running_thread = NULL;
-	//running_thread=NULL;
+	running_thread =  NULL;
 	printf("garbage1\n");
 	raise(SIGALRM);
 }
 
 void initialize(){
 	if(isInit == 0){
-		done = (tcb *) malloc(sizeof(tcb*)*MAX_THREADS); //for threads that are done, and might be waited on
+		done_queue = createQueue();//for threads that are done, and might be waited on
 		running_queue = createQueue(); // queue for threads that are ready to run
 		waiting_queue = createQueue();// queue for threads waiting on a lock
 		running_thread = NULL;
@@ -393,7 +324,7 @@ void initialize(){
 		perror("getcontext failed");
 		exit(0);
 	}
-		uctx_main->uc_link = uctx_garbage;
+		uctx_main->uc_link = 0;
 		uctx_main->uc_stack.ss_flags=0;
 		
 		mainThread->tid = 0;
@@ -464,79 +395,11 @@ void wrapper(void *(*function)(void*), void* arg){
 }
 
 
-
-
-typedef struct Node{
-	tcb * thread;
-	struct Node * next;
-	
-}node;
-
- node** priority = NULL;
- 
-int isInit = 0;
-
-//initializeScheduler
-void initialize(){
-	if(isInit == 0){
-		priority = ( node **)malloc(sizeof( node *)*5);
-		int i = 0;
-		
-		
-		while(i<5){
-			priority[i] = NULL;
-			i++;
-		}
-		
-		
-		isInit = 1;
-	}else{
-		return;
-	}
-	
-}
-
-//handles signals
-//signals used if time runs out or if pthread yield called.
-void my_handler(int signum){
-	if(signum==SIGUSR1){
-		//scheduler stuff
-		
-		
-	}
-}
-
-/*inserts into scheduler
-Params: p - priority level. cb - thread
-*/
-void enqueue(int p, tcb * cb){
-		node * insert = (node *) malloc(sizeof(node));
-		insert->thread = cb;
-		insert->next = NULL;
-		if(priority[p] == NULL){
-			priority[p] = insert;
-			
-			
-		}else{
-		
-		node *ptr = priority[p];
-		node * prev = ptr;
-		
-		while(ptr!=NULL){
-			prev = ptr;
-			ptr=ptr->next;
-		}
-		prev->next = insert;
-		}
-}
-
 /* create a new thread */
 int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*function)(void*), void * arg) {
-
 	initialize();
 	
 	//Start setting up the control block for the thread
-
 	tcb *control_block = (tcb*)malloc(sizeof(tcb));
 	control_block->tid = tid;
 	tid++;
@@ -554,19 +417,19 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 	void * stack = malloc(STACK_SIZE);
 	c->uc_stack.ss_sp = stack;
 	c->uc_stack.ss_size = STACK_SIZE;
-	c->uc_link = uctx_garbage;
+	c->uc_link = 0;
 	c->uc_stack.ss_flags=0;
 	control_block->stack = stack;
 	control_block->next = NULL;
 	thread[0]=control_block->tid;
 	
-
 	
 	//wrap function user passes so that it call pthread_exit
 	
 	
 	
-	makecontext(c,(void*)function,1,arg);
+	//makecontext(c,(void*)function,1,arg);
+	makecontext(c,(void *)&wrapper,2,function,arg);
 	control_block->cxt = c;
 	control_block->isMain = 0;
 	
@@ -598,13 +461,11 @@ int my_pthread_yield() {
 //for join continue based on TID check, set value_ptr
 //add to complete just in case thread calls join
 void my_pthread_exit(void *value_ptr) {
-	if(running_thread->state == terminate){
-		//do nothing probably
-	}else{
-		//terminate and do something with value_ptr
-		running_thread->state = terminate;
-		
-	}
+	
+	running_thread->state = terminate;
+	running_thread->return_val = (void *) value_ptr;
+	
+	my_pthread_yield();
 };
 
 /* wait for thread termination */
@@ -632,6 +493,5 @@ int my_pthread_mutex_unlock(my_pthread_mutex_t *mutex) {
 int my_pthread_mutex_destroy(my_pthread_mutex_t *mutex) {
 	return 0;
 };
-
 
 
