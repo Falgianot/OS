@@ -413,10 +413,9 @@ void print_schedule(){
 
 }
 
-void* wrapper(void* function, void* arg){
+void wrapper(void *(*function)(void*), void* arg){
 	void* retval = function(arg);
 	my_pthread_exit(retval);
-
 }
 
 
@@ -452,8 +451,9 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 	//wrap function user passes so that it call pthread_exit
 	
 	
-	
-	makecontext(c,(void*)wrapper,2,function,arg);
+	//makecontext(c,(void*)function,1,arg);
+
+	makecontext(c,(void*)&wrapper,2,function,arg);
 	control_block->cxt = c;
 	control_block->isMain = 0;
 	
