@@ -72,7 +72,7 @@ struct Queue *createQueue()
     return q;
 }
 
-queue * ready_queue;
+queue * done_queue;
 queue * waiting_queue;
 queue * running_queue;
 
@@ -221,7 +221,12 @@ void my_handler(int signum){
 	
 	if(running_thread!=NULL){
 		printf("thread slice done\n");
-		
+	}
+	
+	
+	//for exiting
+	if(running_thread->state==terminate){
+		node* toMove = dequeue_running();
 		
 	}
 
@@ -416,6 +421,7 @@ void print_schedule(){
 void wrapper(void *(*function)(void*), void* arg){
 	void* retval = function(arg);
 	my_pthread_exit(retval);
+
 }
 
 
@@ -485,13 +491,9 @@ int my_pthread_yield() {
 //for join continue based on TID check, set value_ptr
 //add to complete just in case thread calls join
 void my_pthread_exit(void *value_ptr) {
-	if(running_thread->state == terminate){
-		//do nothing probably
-	}else{
-		//terminate and do something with value_ptr
-		running_thread->state = terminate;
-		
-	}
+	running_thread->state = terminate;
+	my_pthread_yield();
+	
 };
 
 /* wait for thread termination */
