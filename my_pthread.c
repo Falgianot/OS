@@ -178,13 +178,13 @@ void my_handler(int signum){
 		//This is the case for if the thread did not finish running for its time slice(timeslice * priority)
 		if(timeCounter != running_thread->priority){
 			timeCounter++;
-			printf("%d\n",timeCounter);
+			//printf("%d\n",timeCounter);
 			return;
 		}
 		else{
 			
 		//These cases are for if the thread is not done so insert it back into scheduler down a priority unless its already 4 because that is the max
-		printf("I am running for %d\n",timeCounter);
+	//	printf("I am running for %d\n",timeCounter);
 		if(running_thread->priority ==4){
 			prev_thread = running_thread;
 			enqueue(4,running_thread);
@@ -205,7 +205,7 @@ void my_handler(int signum){
 	if(running_queue->size==0){
 	int i = 0;
 	while(i<priorities){
-		printf("inserting into running\n");
+		//printf("inserting into running\n");
 		//Get number of threads we are picking at the priority level and enqueue into running queue
 		//If there aren't enough threads in that level just go to the next
 		int p = pick[i];
@@ -468,11 +468,16 @@ int my_pthread_yield() {
 //for join continue based on TID check, set value_ptr
 //add to complete just in case thread calls join
 void my_pthread_exit(void *value_ptr) {
-	
-	running_thread->state = terminate;
-	running_thread->return_val = (void *) value_ptr;
-	
-	my_pthread_yield();
+	if(value_ptr == NULL){
+		running_thread->state = terminate;
+		running_thread->return_val =NULL;
+		my_pthread_yield();
+	}
+	else{
+		running_thread->state = terminate;
+		running_thread->return_val = (void *) value_ptr;
+		my_pthread_yield();
+	}
 };
 
 /* wait for thread termination */
@@ -482,6 +487,8 @@ int my_pthread_join(my_pthread_t thread, void **value_ptr) {
 	//If its there, check value_ptr and set accordingly and return
 	//If not there, move to waiting queue,
 	
+	
+	
 	int foundIt = 0;
 	while(1){
 		if(done_queue->size != 0){
@@ -489,7 +496,12 @@ int my_pthread_join(my_pthread_t thread, void **value_ptr) {
 		
 			while(search!=NULL){
 				if(search->thread->tid == thread){
+					if(search->thread->return_val == NULL){
+						//*value_ptr = 0;
+				}
+					else{
 					*value_ptr = search->thread->return_val;
+					}
 					foundIt=1;
 					break;
 				}
