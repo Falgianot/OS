@@ -8,11 +8,20 @@
 #ifndef MY_PTHREAD_T_H
 #define MY_PTHREAD_T_H
 
+#define pthread_create(X,Y,Z,A) my_pthread_create(X,Y,Z,A)
+#define pthread_yield() my_pthread_yield()
+#define pthread_join(X,Y) my_pthread_join(X,Y)
+#define pthread_exit(X) my_pthread_exit(X)
+#define pthread_mutex_init(X,Y) my_pthread_mutex_init(X,Y)
+#define pthread_mutex_lock(X)   my_pthread_mutex_lock(X)
+#define pthread_mutex_unlock(X) my_pthread_mutex_unlock(X)
+#define pthread_mutex_destroy(X)   my_pthread_mutex_destroy(X)
+
 #define _GNU_SOURCE
 
 /* include lib header files that you need here: */
 #include <unistd.h>
-//#include <sys/syscall.h>
+#include <sys/syscall.h>
 #include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,28 +29,29 @@
 #include <sys/time.h>
 
 typedef uint my_pthread_t;
-
+#define pthread_t my_pthread_t
 typedef struct threadControlBlock {
-	/* add something here */
     int tid;
+    int waitid;
     enum states{ready, running, wait, terminate,embryo}state;
     void* return_val;
     ucontext_t * cxt;
-int isMain;
+    int isMain;
     void* stack;
     struct itimerval timesplice;
     int priority;
     struct threadControlBlock * next;
+	
 } tcb; 
 
 /* mutex struct definition */
 typedef struct my_pthread_mutex_t {
-	/* add something here */
     int locked;
     int isInit;
     struct threadControlBlock* wait;
 } my_pthread_mutex_t;
 
+#define pthread_t_mutex my_pthread_t_mutex_
 /* define your data structures here: */
 
 // Feel free to add your own auxiliary data structures
