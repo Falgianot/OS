@@ -17,13 +17,16 @@
 //4096
 #define STACK_SIZE 1024*10
 #define MAX_THREADS 64
-#define slice 3000
+#define slice 20000
 #define priorities 5
+#define mutexSize 5
  ucontext_t * uctx_main;
  ucontext_t * uctx_handler;
  ucontext_t * uctx_garbage;
 int tid = 1;
 int isInit = 0;
+int queueInit =0;
+int waitBool =0;
 tcb * running_thread;
 struct itimerval timer;
 struct timeval interval;
@@ -31,6 +34,7 @@ int mainDone = 0;
 int firstSwap = 0;
 int timeCounter =-1;
 int pick [5]= {16, 8 ,6 ,4 ,2};
+my_pthread_mutex_t* current_mutex;
 
 
 
@@ -55,7 +59,7 @@ struct Queue *createQueue()
 }
 
 queue * done_queue;
-queue * waiting_queue;
+my_pthread_mutex_t ** wait_queue;
 queue * running_queue;
 
 //priority array - scheduler
@@ -120,6 +124,42 @@ void enqueue(int p, tcb * cb){
 		}
 		q->size = q->size + 1;
 }
+void waiting_queue_init(my_pthread_mutex_t *mutex){
+	int i = 0;
+	mutex->locked = 0;    //unlocked at start
+	mutex->isInit = 1;    //Initiliazed the lock with boolean 1
+	if(queueInit == 0){
+		wait_queue = ( my_pthread_mutex_t **)malloc(sizeof( my_pthread_mutex_t *)*mutexSize); //malloc size of max amount of locks	
+		while(i<5){
+			wait_queue[i] = NULL;
+			i++;
+		}
+		i=0;
+		while(i<5){
+			if(wait_queue[i]==NULL){   //initializing lock 
+				wait_queue[i] = mutex; 
+				break;
+				
+			}
+			i++;
+		}	
+		
+		queueInit = 1;
+	}
+	else{
+		i=0;
+		while(i<5){             //initializing lock 
+			if(wait_queue[i] == NULL){
+				wait_queue[i] = mutex; 
+				break;
+				
+			}
+		i++;
+		}		
+	}
+}
+
+
 
 node * dequeue(int p){
 	queue * q = priority[p];
@@ -160,6 +200,24 @@ void my_handler(int signum){
 	//maintenance
 	//insert into running
 	
+	//printf("in scheduler\n");
+
+	
+	if(waitBool==1){
+		
+		return;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//If thread called pthread_exit. Insert into done queue
 	if(firstSwap!=0&&running_thread!=NULL&&running_thread->state == terminate){
@@ -170,6 +228,7 @@ void my_handler(int signum){
 		prev_thread = running_thread;
 		//free(running_thread->cxt->uc_stack.ss_sp);
 		running_thread = NULL;
+		timeCounter =-1;
 	}
 	
 	//If running thread is not null, that means the thread got interrupted
@@ -193,7 +252,11 @@ void my_handler(int signum){
 		else{
 			running_thread->priority = running_thread->priority +1;
 			prev_thread = running_thread;
+			if(running_thread->state == wait){
+				
+			}else{
 			enqueue(running_thread->priority,running_thread);
+			}
 			timeCounter =-1;
 		}
 		running_thread = NULL;
@@ -269,6 +332,7 @@ void my_handler(int signum){
 		
 	
 		//}
+	
 	}
 	printf("gone\n");
 
@@ -288,21 +352,20 @@ void garbage(){
 	prev_thread = running_thread;
 	running_thread =  NULL;
 	printf("garbage1\n");
-	raise(SIGALRM);
+	raise(SIGVTALRM);
 }
 
 void initialize(){
 	if(isInit == 0){
 		done_queue = createQueue();//for threads that are done, and might be waited on
 		running_queue = createQueue(); // queue for threads that are ready to run
-		waiting_queue = createQueue();// queue for threads waiting on a lock
 		running_thread = NULL;
 		//ready_queue = createQueue();
 		current_thread = (tcb *) malloc(sizeof(tcb)); //thread we are currently executing for a certain time slice
-		signal(SIGALRM, my_handler); //linking our handler to the OS
+		signal(SIGVTALRM, my_handler); //linking our handler to the OS
 		priority = ( queue **)malloc(sizeof( queue *)*5); //our scheduler data structure. an array of queues
 		int i = 0;
-		
+		current_mutex = NULL;
 		//initialize our array of queues(scheduler)
 		while(i<priorities){
 			priority[i] = createQueue();
@@ -355,7 +418,7 @@ void initialize(){
 		uctx_handler->uc_stack.ss_size = STACK_SIZE;
 		uctx_handler->uc_link = 0;
 		uctx_handler->uc_stack.ss_flags=0;	
-		makecontext(uctx_handler,(void *)&my_handler,1, SIGALRM);
+		makecontext(uctx_handler,(void *)&my_handler,1, SIGVTALRM);
 		
 		
 		//setting itimer
@@ -366,7 +429,7 @@ void initialize(){
 		timer.it_interval = interval;
 		timer.it_value = interval;
 		//?? this timer may or may not act within pthread create time
-		setitimer(ITIMER_REAL,&timer,NULL);
+		setitimer(ITIMER_VIRTUAL,&timer,NULL);
 		
 		
 		isInit = 1;
@@ -457,7 +520,7 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 /* give CPU pocession to other user level threads voluntarily */
 int my_pthread_yield() {
 	
-	raise(SIGALRM);
+	raise(SIGVTALRM);
 	
 	return 0;
 };
@@ -487,7 +550,7 @@ int my_pthread_join(my_pthread_t thread, void **value_ptr) {
 	//If its there, check value_ptr and set accordingly and return
 	//If not there, move to waiting queue,
 	
-	
+	//waitBool=1;
 	
 	int foundIt = 0;
 	while(1){
@@ -522,27 +585,159 @@ int my_pthread_join(my_pthread_t thread, void **value_ptr) {
 	}
 		//not there, so wait
 		//running_thread
-	
+	//waitBool=0;
 	return 0;
 };
 
 /* initial the mutex lock */
 int my_pthread_mutex_init(my_pthread_mutex_t *mutex, const pthread_mutexattr_t *mutexattr) {
+	//mutex = (my_pthread_mutex*)malloc(sizeof(my_pthread_mutex));
+	mutex-> locked =0;
+	mutex->isInit=1;
+	mutex->wait = NULL;
+	waiting_queue_init(mutex);
 	return 0;
 };
 
 /* aquire the mutex lock */
 int my_pthread_mutex_lock(my_pthread_mutex_t *mutex) {
+	waitBool = 1;
+	//current_mutex = mutex;
+//raise(SIGVTALRM);
+
+
+		if(mutex ==NULL){
+			return;
+		}
+		int i =0;
+		while(i < 5){
+			if(wait_queue[i]==mutex){
+				if(wait_queue[i]->locked==0){
+break;
+					//return;
+					// return back to computations
+				}
+				else{
+					tcb* search = wait_queue[i]->wait;
+					tcb* prev = search;
+					while(search!= NULL){
+						prev = search;
+						search = search->next;
+					}
+					if(prev == NULL){
+						wait_queue[i]->wait = running_thread;
+						running_thread->state = wait;
+					}
+					else{
+					prev->next = running_thread;
+					running_thread->state = wait;
+					}
+					break;
+				}
+				
+			
+			}
+		
+		
+		
+		}
+	if(mutex->isInit == 0){
+		return;
+	}
+	
+	waitBool=0;
+//	printf("lock\n");
+	while(__atomic_test_and_set((volatile void*)&mutex->locked,__ATOMIC_RELAXED)){
+		//break;
+		my_pthread_yield();
+		//printf("im in the loop, bitches\n");
+		
+	}
+	if(mutex->locked == 0){
+		return;
+	}
+	//mutex->wait = running_thread;
+	
+	
 	return 0;
 };
 
 /* release the mutex lock */
 int my_pthread_mutex_unlock(my_pthread_mutex_t *mutex) {
+	waitBool=1;
+	
+	if(mutex ==NULL){
+			return;
+		}
+		int i =0;
+		while(i < 5){
+			if(wait_queue[i]==mutex){
+				if(wait_queue[i]->wait!=NULL){
+					node * temp = (node*) malloc(sizeof(node));
+					temp->thread=wait_queue[i]->wait;
+					temp->thread->state = running;
+					enqueue_other(temp,running_queue);
+					if(temp->thread->next !=NULL){
+						wait_queue[i]->wait=temp->thread->next;
+						printf("dequeueing thread in if: %d\n", temp->thread->tid);
+						break;
+					}
+					else{
+						wait_queue[i]->wait = NULL;
+						printf("dequeueing thread in else: %d\n", temp->thread->tid);
+						break;
+					}
+					
+					
+				}
+				
+				
+				
+			}
+			i++;
+	
+		}
+	
+	mutex->locked = 0;
+	waitBool=0;
 	return 0;
 };
 
 /* destroy the mutex */
 int my_pthread_mutex_destroy(my_pthread_mutex_t *mutex) {
+	waitBool=1;
+	int i =0;
+		while(i < 5){
+			if(wait_queue[i]==mutex){
+				if(wait_queue[i]->wait!=NULL){
+					
+					
+					/*tcb *search = wait_queue[i]->wait;
+					while(search!=NULL){
+						node * temp = (node*) malloc(sizeof(node));
+						temp->thread=search;
+						printf("inserting back into running\n");
+						temp->thread->state = running;
+						enqueue_other(temp,running_queue);
+						tcb *prev = search;
+						search = search->next;
+						
+					}
+					*/
+					
+					
+				}
+				mutex->isInit = 0;
+				mutex->locked = 0;
+					wait_queue[i]=NULL;
+				
+				
+				
+			}
+			i++;
+	
+		}
+	waitBool=0;
 	return 0;
 };
 

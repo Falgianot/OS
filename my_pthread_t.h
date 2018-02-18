@@ -25,7 +25,7 @@ typedef struct threadControlBlock {
 	/* add something here */
     int tid;
 	int waitid;
-    enum states{ready, running, waitmutex, waitjoin, terminate,embryo}state;
+    enum states{ready, running, wait, terminate,embryo}state;
     void* return_val;
     ucontext_t * cxt;
 int isMain;
