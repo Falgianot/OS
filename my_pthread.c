@@ -185,12 +185,12 @@ node * dequeue(int p){
 
 
  void print_running(){
-	node * search = running_queue->front;
+	/*node * search = running_queue->front;
 	while(search!=NULL){
 		tcb * cb = search->thread;
 	//	printf("tid:%i\n",cb->tid);
 		search = search->next;
-	}
+	}*/
 }
 void maintenanceCycle(){
 	
@@ -284,9 +284,9 @@ void my_handler(int signum){
 
 		
 	if(running_queue->size==0){
-		/*if(totalSwap % 2 ==0){
+		if(totalSwap % 4 ==0){
 		//	maintenanceCycle();
-			printf("totalswap num is %d\n",totalSwap);
+			//printf("totalswap num is %d\n",totalSwap);
 			int t = 1;
 			while(t<priorities){
 			//printf("inserting into running\n");
@@ -296,7 +296,7 @@ void my_handler(int signum){
 			int k = 0;
 			while(priority[t]->size>0&&k<p){
 				node * node_leaving1 = dequeue(t);
-				printf("inserting thread %d in level 0 from level: %d\n",node_leaving1 ->thread ->tid, node_leaving1->thread->priority);
+				//printf("inserting thread %d in level 0 from level: %d\n",node_leaving1 ->thread ->tid, node_leaving1->thread->priority);
 				node_leaving1->thread->priority =0;
 		
 				enqueue_other(node_leaving1,priority[0]);
@@ -306,7 +306,7 @@ void my_handler(int signum){
 			}
 		
 		
-		}*/
+		}
 		//start inserting into running queue
 		int i = 0;
 		while(i<priorities){
@@ -314,7 +314,7 @@ void my_handler(int signum){
 		//Get number of threads we are picking at the priority level and enqueue into running queue
 		//If there aren't enough threads in that level just go to the next
 		int p = pick[i];
-		queue * q = priority[i];
+		//queue * q = priority[i];
 		int k = 0;
 		while(priority[i]->size>0&&k<p){
 			node * node_leaving = dequeue(i);
@@ -333,7 +333,7 @@ void my_handler(int signum){
 		//dequeue from running queue
 		node * temp = dequeue_other(running_queue);
 		running_thread = temp->thread;
-		int running_priority = running_thread->priority;
+		//int running_priority = running_thread->priority;
 	
 		
 		//Cases to account for when doing first swap.
@@ -348,7 +348,7 @@ void my_handler(int signum){
 			running_thread = temp->thread;
 			//might have to move around nodes instead of just freeing
 			//free(temp);
-			int running_priority = running_thread->priority;
+			//int running_priority = running_thread->priority;
 			timeCounter++;
 			totalSwap++;
 			swapcontext(prev_thread->cxt, running_thread->cxt);
@@ -489,7 +489,7 @@ void initialize(){
 
 
 void print_schedule(){
-	int i = 0;
+	/*int i = 0;
 	while(i<priorities){
 		queue * q = priority[i];
 		node * search = q->front;
@@ -500,7 +500,7 @@ void print_schedule(){
 		}
 		i++;
 	}
-
+*/
 }
 
 void wrapper(void *(*function)(void*), void* arg){
@@ -511,6 +511,7 @@ void wrapper(void *(*function)(void*), void* arg){
 
 /* create a new thread */
 int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*function)(void*), void * arg) {
+	waitBool =1;
 	initialize();
 	
 	//Start setting up the control block for the thread
@@ -555,7 +556,7 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 		
 	//Put thread into our scheduler
 	enqueue(0, control_block);	
-		
+		waitBool=0;
 	//Yield so scheduler can do stuff
 	my_pthread_yield();
 	return 0;
@@ -575,14 +576,17 @@ int my_pthread_yield() {
 //for join continue based on TID check, set value_ptr
 //add to complete just in case thread calls join
 void my_pthread_exit(void *value_ptr) {
+	waitBool = 1;
 	if(value_ptr == NULL){
 		running_thread->state = terminate;
 		running_thread->return_val =NULL;
+		waitBool=0;
 		my_pthread_yield();
 	}
 	else{
 		running_thread->state = terminate;
 		running_thread->return_val = (void *) value_ptr;
+		waitBool=0;
 		my_pthread_yield();
 	}
 };
@@ -651,7 +655,7 @@ int my_pthread_mutex_lock(my_pthread_mutex_t *mutex) {
 
 
 		if(mutex ==NULL){
-			return;
+			return -1;
 		}
 		waitBool = 1;
 		int i =0;
@@ -686,10 +690,10 @@ break;
 		
 		
 		}
-	if(mutex->isInit == 0){
+	/*if(mutex->isInit == 0){
 		return;
 	}
-	
+	*/
 	waitBool=0;
 //	printf("lock\n");
 	while(__atomic_test_and_set((volatile void*)&mutex->locked,__ATOMIC_RELAXED)){
@@ -698,9 +702,9 @@ break;
 		//printf("im in the loop, bitches\n");
 		
 	}
-	if(mutex->locked == 0){
+	/*if(mutex->locked == 0){
 		return;
-	}
+	}*/
 	//mutex->wait = running_thread;
 	
 	
@@ -712,7 +716,7 @@ int my_pthread_mutex_unlock(my_pthread_mutex_t *mutex) {
 	
 	
 	if(mutex ==NULL){
-			return;
+			return -1;
 		}
 		waitBool=1;
 		int i =0;

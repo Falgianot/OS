@@ -71,7 +71,7 @@ void * dummy3(){
 //}
     
     //sum=500;
-    // my_pthread_mutex_lock(&m);
+     //my_pthread_mutex_lock(&m);
     while(i <= 250000000){
         sum+=1;
        // printf("%d\n",sum);
