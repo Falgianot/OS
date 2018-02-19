@@ -15,7 +15,7 @@
 
 //defining global vars
 //4096
-#define STACK_SIZE 1024*10
+#define STACK_SIZE 1024*8
 #define MAX_THREADS 64
 #define slice 20000
 #define priorities 5
@@ -34,6 +34,8 @@ int mainDone = 0;
 int firstSwap = 0;
 int timeCounter =-1;
 int pick [5]= {16, 8 ,6 ,4 ,2};
+int maintenancePick[5] = {0, 1, 3, 7, 10};
+int totalSwap = 0;
 my_pthread_mutex_t* current_mutex;
 
 
@@ -71,7 +73,7 @@ queue * running_queue;
  
  
  
- //enqueue and dequeue for waiting, done, running
+ //enqueue and dequeue for waiting, done, running and individual prioirity level
  void enqueue_other(node * insert, queue * q){
 		
 		
@@ -92,15 +94,15 @@ node * dequeue_other(queue * q){
 		return NULL;
 	}
 	
-	node * delete = q->front;
+	node * delete1 = q->front;
 	q->front = q->front->next;
-	
+	delete1->next = NULL; 
 	if(q->front == NULL){
 		q->tail = NULL;
 	}
 	//what do we want to do with it
 	q->size = q->size - 1;
-	return delete;
+	return delete1;
 }
 
 
@@ -168,15 +170,16 @@ node * dequeue(int p){
 		return NULL;
 	}
 	
-	node * delete = q->front;
+	node * delete2 = q->front;
 	q->front = q->front->next;
+	delete2->next=NULL;
 	
 	if(q->front == NULL){
 		q->tail = NULL;
 	}
 	//what do we want to do with it
 	q->size = q->size - 1;
-	return delete;
+	return delete2;
 	
 }
 
@@ -188,6 +191,29 @@ node * dequeue(int p){
 	//	printf("tid:%i\n",cb->tid);
 		search = search->next;
 	}
+}
+void maintenanceCycle(){
+	
+	
+	/*int i = 1;
+	while(i<priorities){
+		//printf("inserting into running\n");
+		//Get number of threads we are picking at the priority level and enqueue into running queue
+		//If there aren't enough threads in that level just go to the next
+		int p = maintenancePick[i];
+		int k = 0;
+		while(priority[i]->size>0&&k<p){
+			node * node_leaving = dequeue(i);
+				printf("inserting thread %d in level 0 from level: %d\n",node_leaving ->thread ->tid, node_leaving->thread->priority);
+			node_leaving->thread->priority =0;
+		
+			enqueue_other(node_leaving,priority[0]);
+			k++;
+			}
+		i++;
+		}
+	
+	*/
 }
  
  
@@ -203,21 +229,13 @@ void my_handler(int signum){
 	//printf("in scheduler\n");
 
 	
+	if(isInit==0){
+		return;
+	}
 	if(waitBool==1){
 		
 		return;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	//If thread called pthread_exit. Insert into done queue
 	if(firstSwap!=0&&running_thread!=NULL&&running_thread->state == terminate){
@@ -264,10 +282,34 @@ void my_handler(int signum){
 		
 	}
 
-	//start inserting into running queue	
+		
 	if(running_queue->size==0){
-	int i = 0;
-	while(i<priorities){
+		/*if(totalSwap % 2 ==0){
+		//	maintenanceCycle();
+			printf("totalswap num is %d\n",totalSwap);
+			int t = 1;
+			while(t<priorities){
+			//printf("inserting into running\n");
+			//Get number of threads we are picking at the priority level and enqueue into running queue
+			//If there aren't enough threads in that level just go to the next
+			int p = maintenancePick[t];
+			int k = 0;
+			while(priority[t]->size>0&&k<p){
+				node * node_leaving1 = dequeue(t);
+				printf("inserting thread %d in level 0 from level: %d\n",node_leaving1 ->thread ->tid, node_leaving1->thread->priority);
+				node_leaving1->thread->priority =0;
+		
+				enqueue_other(node_leaving1,priority[0]);
+				k++;
+				}
+			t++;
+			}
+		
+		
+		}*/
+		//start inserting into running queue
+		int i = 0;
+		while(i<priorities){
 		//printf("inserting into running\n");
 		//Get number of threads we are picking at the priority level and enqueue into running queue
 		//If there aren't enough threads in that level just go to the next
@@ -308,6 +350,7 @@ void my_handler(int signum){
 			//free(temp);
 			int running_priority = running_thread->priority;
 			timeCounter++;
+			totalSwap++;
 			swapcontext(prev_thread->cxt, running_thread->cxt);
 		
 
@@ -315,15 +358,16 @@ void my_handler(int signum){
 			//GO THROUGH THE ENTIRE RUNNING QUEUE
 			//if we encounter the same context, let it run again
 			if(prev_thread->cxt == running_thread ->cxt){
-			printf("swap same context\n");
+			//printf("swap same context\n");
 				
 				timeCounter++;
 				return;
 			}
 			else{
 			//Swap from current context to a new one
-			printf("prev:%i   run:%i\n",prev_thread->tid,running_thread->tid);
+			//printf("prev:%i   run:%i\n",prev_thread->tid,running_thread->tid);
 			timeCounter++;
+			totalSwap++;
 			swapcontext(prev_thread->cxt, running_thread->cxt);
 			}
 			
@@ -507,7 +551,7 @@ int my_pthread_create(my_pthread_t * thread, pthread_attr_t * attr, void *(*func
 	//must add timesplice and priority later
 	//count for error if insufficient stack space etc.
 	
-	
+	//printf("SUP");
 		
 	//Put thread into our scheduler
 	enqueue(0, control_block);	
@@ -601,7 +645,7 @@ int my_pthread_mutex_init(my_pthread_mutex_t *mutex, const pthread_mutexattr_t *
 
 /* aquire the mutex lock */
 int my_pthread_mutex_lock(my_pthread_mutex_t *mutex) {
-	waitBool = 1;
+	
 	//current_mutex = mutex;
 //raise(SIGVTALRM);
 
@@ -609,6 +653,7 @@ int my_pthread_mutex_lock(my_pthread_mutex_t *mutex) {
 		if(mutex ==NULL){
 			return;
 		}
+		waitBool = 1;
 		int i =0;
 		while(i < 5){
 			if(wait_queue[i]==mutex){
@@ -664,11 +709,12 @@ break;
 
 /* release the mutex lock */
 int my_pthread_mutex_unlock(my_pthread_mutex_t *mutex) {
-	waitBool=1;
+	
 	
 	if(mutex ==NULL){
 			return;
 		}
+		waitBool=1;
 		int i =0;
 		while(i < 5){
 			if(wait_queue[i]==mutex){
@@ -676,14 +722,18 @@ int my_pthread_mutex_unlock(my_pthread_mutex_t *mutex) {
 					node * temp = (node*) malloc(sizeof(node));
 					temp->thread=wait_queue[i]->wait;
 					temp->thread->state = running;
-					enqueue_other(temp,running_queue);
+					
 					if(temp->thread->next !=NULL){
 						wait_queue[i]->wait=temp->thread->next;
+						temp->thread->next = NULL;
+						enqueue_other(temp,running_queue);
 						//printf("dequeueing thread in if: %d\n", temp->thread->tid);
 						break;
 					}
 					else{
 						wait_queue[i]->wait = NULL;
+						temp->thread->next = NULL;
+						enqueue_other(temp,running_queue);
 						//printf("dequeueing thread in else: %d\n", temp->thread->tid);
 						break;
 					}
