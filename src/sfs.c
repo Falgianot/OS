@@ -29,6 +29,13 @@
 
 #include "log.h"
 
+#define NUM_FILES 128
+#define NUM_BLOCKS 32768
+#define NUM_DIRECT 8
+#define FS_SIZE (32768*512)
+#define MAX_FILE_SIZE 8388608 //8MB
+#define NUM_INODES 128
+
 
 ///////////////////////////////////////////////////////////
 //
@@ -58,10 +65,34 @@
  //that dir inode will point to a block that has all its inodes. 
  typedef struct inode{
 	 char * file_name;
-	 struct block_node * head;
+	 int type; //1 = file, 0 = dir, -1 = not in use
 	 
+	 int file_size;
+	 int num_blocks;
+	 int mode;
+	 
+	 uid_t uid;
+	 gid_t gid;
+	 time_t    st_atime;   /* time of last access */
+	 time_t    st_mtime;   /* time of last modification */
+	 time_t    st_ctime;   /* time of last status change */
+	 
+	 
+	 int d_block[NUM_DIRECT];
+	 int indirect_block;
+	 int double_indirect_block;
 	 
  }inode;
+ 
+ 
+ //info about the filesystem
+ typedef struct super_block{
+	int init;
+	int size_fs;
+	int num_files;
+	int max_file_size;
+	int num_inodes;
+ }super_block;
  
 void *sfs_init(struct fuse_conn_info *conn)
 {
@@ -71,9 +102,58 @@ void *sfs_init(struct fuse_conn_info *conn)
     log_fuse_context(fuse_get_context());
 	
 	//Open our disk. Initialize filesystem structure
-	disk_open("/.freespace/tjf112/testfsfile");
-	
-	int j = block_write(0,"hello\n");
+	disk_open("/.freespace/dv262/testfsfile");
+	log_msg("OPENING DISK\n");
+    
+    //first block is superblock
+    char buff1[BLOCK_SIZE];
+    int s = block_read(0,&buff1);
+    super_block * sb = (super_block *)buff1;
+    sb->init = 1;
+    sb->size_fs = FS_SIZE;
+    sb->num_files = NUM_FILES;
+    sb->max_file_size = MAX_FILE_SIZE;
+    sb->num_inodes = NUM_INODES;
+    log_msg("WRITING SUPER BLOCK\n");
+    block_write(0,sb);
+    
+    
+    
+    
+	//loop to create inodes
+	int i = 0;
+	while(i<NUM_FILES){
+        char buff2[BLOCK_SIZE];
+        //log_msg("before INODE\n");
+        int r = block_read(i+1,&buff2);
+        //log_msg("after INODE\n");
+        inode * in = (inode *)buff2;
+		in->file_name = NULL;
+        in->type = -1;
+        in->file_size = 0;
+        in->num_blocks = 0;
+        in->mode = 0;
+        in->uid = 0;
+        in->gid = 0;
+        in->st_atime = time(NULL);
+        in->st_mtime = in->st_atime;
+		in->st_ctime = in->st_atime;
+        
+        int j = 0;
+        while(j<NUM_DIRECT){
+            in->d_block[j] = -1;
+            j++;
+        }
+        in->indirect_block = -1;
+        in->double_indirect_block = -1;
+        
+        //write this new inode to the disk
+       
+        //log_msg("WRITING INODE\n");
+        block_write(i+1,in);
+        
+		i++;
+	}
 	
     return SFS_DATA;
 }
