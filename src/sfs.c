@@ -32,9 +32,24 @@
 #define NUM_FILES 128
 #define NUM_BLOCKS 32768
 #define NUM_DIRECT 8
+#define NUM_INDIRECT 4
 #define FS_SIZE (32768*512)
 #define MAX_FILE_SIZE 8388608 //8MB
 #define NUM_INODES 128
+#define BMAP_INDEX 130 //130-138 Are for Bitmap
+#define FREE_BLOCK_START 138
+
+/*
+	char buf[512];
+	block_read(130,buf);
+	
+	char temp = buf[55];
+	char t = temp|64;
+	log_msg("t:%c\n",t);
+	buf[55]=t;
+	
+	block_write(130,buf);
+	*/
 
 
 ///////////////////////////////////////////////////////////
@@ -79,8 +94,8 @@
 	 
 	 
 	 int d_block[NUM_DIRECT];
-	 int indirect_block;
-	 int double_indirect_block;
+	 int indirect_block[NUM_INDIRECT];
+	 int double_indirect_block[2];
 	 
  }inode;
  
@@ -92,7 +107,14 @@
 	int num_files;
 	int max_file_size;
 	int num_inodes;
+	//bitmap for free inodes and blocks
+	
  }super_block;
+ 
+ 
+ //MAKE A ARRAY FOR INDIRECT AND DINDIRECT BLOCKS AND WRITE THAT INTO THE BLOCK
+ 
+ 
  
 void *sfs_init(struct fuse_conn_info *conn)
 {
@@ -105,6 +127,18 @@ void *sfs_init(struct fuse_conn_info *conn)
 	disk_open("/.freespace/dv262/testfsfile");
 	log_msg("OPENING DISK\n");
     
+	
+	int i = 0;
+	char zero[512];
+	memset(zero,0,512);
+	while(i<32768){
+		block_write(i,&zero);
+		i++;
+	}
+	
+	
+	
+	
     //first block is superblock
     char buff1[BLOCK_SIZE];
     int s = block_read(0,&buff1);
@@ -117,15 +151,32 @@ void *sfs_init(struct fuse_conn_info *conn)
     log_msg("WRITING SUPER BLOCK\n");
     block_write(0,sb);
     
-    
+	
+	
+	//Make the second block root inode, third block a single indirect to point to inodes.
+	char buf[BLOCK_SIZE];
+	int q = block_read(1,&buf);
+	inode * a = (inode *)buf;
+	a->file_name = "/";
+	a->type = 0;
+	a->file_size = 0;
+	a->num_blocks = 0;
+	a->mode = S_IFDIR;
+	a->uid = S_IRWXU;
+	a->gid = S_IRWXG;
+	a->st_atime = time(NULL);
+	a->st_mtime = a->st_atime;
+	a->st_ctime = a->st_atime;
+	
+	a->indirect_block[0] = 2;
     
     
 	//loop to create inodes
-	int i = 0;
+	i = 0;
 	while(i<NUM_FILES){
         char buff2[BLOCK_SIZE];
         //log_msg("before INODE\n");
-        int r = block_read(i+1,&buff2);
+        int r = block_read(i+3,&buff2);
         //log_msg("after INODE\n");
         inode * in = (inode *)buff2;
 		in->file_name = NULL;
@@ -144,17 +195,31 @@ void *sfs_init(struct fuse_conn_info *conn)
             in->d_block[j] = -1;
             j++;
         }
-        in->indirect_block = -1;
-        in->double_indirect_block = -1;
-        
-        //write this new inode to the disk
-       
-        //log_msg("WRITING INODE\n");
-        block_write(i+1,in);
+		
+		j = 0;
+		while(j<NUM_INDIRECT){
+        in->indirect_block[j] = -1;
+		j++;
+		}
+		j = 0;
+		while(j<2){
+        in->double_indirect_block[j] = -1;
+		j++;
+		}
+		
+        block_write(i+3,in);
         
 		i++;
 	}
 	
+	//Init bitmap
+	i = BMAP_INDEX;
+	while(i<BMAP_INDEX+8){
+		block_write(i,&zero);
+		i++;
+	}
+	
+	log_msg("FINISHING\n");
     return SFS_DATA;
 }
 
@@ -183,6 +248,9 @@ int sfs_getattr(const char *path, struct stat *statbuf)
     
     log_msg("\nsfs_getattr(path=\"%s\", statbuf=0x%08x)\n",
 	  path, statbuf);
+	
+	log_msg("hiiiiii\n");
+	
     
     return retstat;
 }
