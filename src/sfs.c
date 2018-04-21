@@ -100,6 +100,30 @@
  }inode;
  
  
+ //function to find inode with given path
+ 
+ inode * find_inode(const char * path){
+	//check root inode at location block 2
+	char buf[BLOCK_SIZE];
+	int a = block_read(1,&buf);
+	inode * in = (inode *)buf;
+	
+	log_msg("FINDING INODE for :%s     %s\n",path, in->file_name);
+	if(strcmp(path,in->file_name)==0){
+		log_msg("FOUND INODE\n");
+		return in;
+	}
+	
+	return NULL;
+	
+	
+	
+	
+	
+	//then check regular inodes starting at block 4
+ }
+ 
+ 
  //info about the filesystem
  typedef struct super_block{
 	int init;
@@ -157,7 +181,7 @@ void *sfs_init(struct fuse_conn_info *conn)
 	char buf[BLOCK_SIZE];
 	int q = block_read(1,&buf);
 	inode * a = (inode *)buf;
-	a->file_name = "/";
+	a->file_name = "/\0";
 	a->type = 0;
 	a->file_size = 0;
 	a->num_blocks = 0;
@@ -169,7 +193,7 @@ void *sfs_init(struct fuse_conn_info *conn)
 	a->st_ctime = a->st_atime;
 	
 	a->indirect_block[0] = 2;
-    
+    block_write(1,a);
     
 	//loop to create inodes
 	i = 0;
@@ -219,7 +243,7 @@ void *sfs_init(struct fuse_conn_info *conn)
 		i++;
 	}
 	
-	log_msg("FINISHING\n");
+	log_msg("FINISHING INIT\n");
     return SFS_DATA;
 }
 
@@ -249,7 +273,32 @@ int sfs_getattr(const char *path, struct stat *statbuf)
     log_msg("\nsfs_getattr(path=\"%s\", statbuf=0x%08x)\n",
 	  path, statbuf);
 	
-	log_msg("hiiiiii\n");
+	//find inode with path
+	log_msg("BOUT TO FIND INODE\n");
+	inode * in = find_inode(path);
+	
+	if(in!=NULL){
+	log_msg("NAME:%s\n",in->file_name);
+	
+	
+	statbuf->st_ino = 0;
+	statbuf->st_mode = in->mode;
+	statbuf->st_nlink = 0;
+	statbuf->st_uid = in->uid;
+	statbuf->st_gid = in->gid;
+	statbuf->st_rdev = 0;
+	statbuf->st_size = in->file_size;
+	statbuf->st_blocks = in->num_blocks;
+	statbuf->st_atime = in->st_atime;
+	statbuf->st_mtime = in->st_mtime;
+	statbuf->st_ctime = in->st_ctime;
+	
+	
+	}
+	
+	
+	
+	//set statbuf with fields from inode
 	
     
     return retstat;

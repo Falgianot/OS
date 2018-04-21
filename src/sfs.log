@@ -9,23 +9,28 @@ sfs_init()
     capable = 00000ffb
     want = 00000010
     context:
-    fuse = 026004b0
+    fuse = 00af94b0
     uid = 0
     gid = 0
     pid = 0
-    private_data = 02600010
-    logfile = 02600030
+    private_data = 00af9010
+    logfile = 00af9030
     diskfile = /.freespace/dv262/testfsfile
     umask = 00000
 OPENING DISK
 WRITING SUPER BLOCK
-FINISHING
+FINISHING INIT
 
-sfs_getattr(path="/.Trash", statbuf=0x3c28ac40)
-hiiiiii
+sfs_getattr(path="/.Trash", statbuf=0x8bd91c40)
+BOUT TO FIND INODE
+FINDING INODE for :/.Trash     /
 
-sfs_getattr(path="/.Trash-84600", statbuf=0x3ba89c40)
-hiiiiii
+sfs_getattr(path="/.Trash-84600", statbuf=0x8b590c40)
+BOUT TO FIND INODE
+FINDING INODE for :/.Trash-84600     /
 
-sfs_getattr(path="/", statbuf=0x3c28ac10)
-hiiiiii
+sfs_getattr(path="/", statbuf=0x8bd91c10)
+BOUT TO FIND INODE
+FINDING INODE for :/     /
+FOUND INODE
+NAME:/
