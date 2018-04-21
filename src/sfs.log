@@ -34,3 +34,17 @@ BOUT TO FIND INODE
 FINDING INODE for :/     /
 FOUND INODE
 NAME:/
+
+sfs_getattr(path="/", statbuf=0x8b590c10)
+BOUT TO FIND INODE
+FINDING INODE for :/     /
+FOUND INODE
+NAME:/
+
+sfs_opendir(path="/", fi=0x8bd91c30)
+
+sfs_getattr(path="/", statbuf=0x8bd91c10)
+BOUT TO FIND INODE
+FINDING INODE for :/     /
+FOUND INODE
+NAME:/

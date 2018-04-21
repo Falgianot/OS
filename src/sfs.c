@@ -100,9 +100,22 @@
  }inode;
  
  
- //function to find inode with given path
  
+  
+ inode * search_dir(const char * path){
+	
+	
+	
+	
+ }
+ 
+ 
+ //function to find inode with given path
  inode * find_inode(const char * path){
+	
+	
+	//REMEMBER TO ADJUST THIS WHEN WE INCORPORATE DIRECTORIES
+	
 	//check root inode at location block 2
 	char buf[BLOCK_SIZE];
 	int a = block_read(1,&buf);
@@ -114,13 +127,32 @@
 		return in;
 	}
 	
+	//then check regular inodes starting at block 4
+	
+	/* So find filename/dirname by going to end or upto next /
+	 * Then indirect pointers for filename/dirname
+	 * If filename/dirname = path, get that inode.
+	 * If it is file, do stuff later like read/write/open/close.
+	 * If it is dir, then search indirect again or return if no more in pathname.
+	 * If no match, do nothing
+	
+	*/
+	
+	int i = 0;
+	while(i<NUM_FILES){
+		//check indirect of root dir
+		
+		i++;
+		//if root indirect points to dir, need to check that so it we might need a new function that checks dirs.
+		
+		
+		
+	}
+	
+	
 	return NULL;
 	
-	
-	
-	
-	
-	//then check regular inodes starting at block 4
+
  }
  
  
