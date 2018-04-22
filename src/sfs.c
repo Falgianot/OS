@@ -76,6 +76,12 @@
 	 struct block_node * next;
  }block_node;
  
+ typedef struct indir_array{
+	int offsets[128];
+	
+ }indir_array;
+ 
+ 
  //Reserve the first x blocks to store the root inodes. If a dir is created
  //that dir inode will point to a block that has all its inodes. 
  typedef struct inode{
@@ -84,7 +90,7 @@
 	 
 	 int file_size;
 	 int num_blocks;
-	 int mode;
+	 mode_t mode;
 	 
 	 uid_t uid;
 	 gid_t gid;
@@ -101,11 +107,68 @@
  
  
  
-  
- inode * search_dir(const char * path){
+ inode * search_dir(const char * path, inode * in){
+	/* So find filename/dirname by going to end or upto next /
+	 * Then indirect pointers for filename/dirname
+	 * If filename/dirname = path, get that inode.
+	 * If it is file, do stuff later like read/write/open/close.
+	 * If it is dir, then search indirect again or return if no more in pathname.
+	 * If no match, do nothing
+	
+	*/
+	
+	//Get indirect block for dir
+	int indir_offset = in->indirect_block[0];
+	char buff[BLOCK_SIZE];
+	int a = block_read(indir_offset,&buff);
+	
+	//Cast it 
+	indir_array * b = (indir_array *)buff;
+	int i = 0;
 	
 	
+	char n_path[strlen(path)];//removes the slash
+	strcpy(n_path,path);
+	char * new_path = n_path + 1;
+	log_msg("New path:%s\n",new_path);
+	while(i<128){
+		//log_msg("offset:%i\n",b[i]);
+		//Now check inodes in this block. //If offset is 0 then its empty.
+		int inode_offset = b->offsets[i];
+		log_msg("OFFFFFSET:%i\n",inode_offset);
+		//if offset is 0 then there is not an inode
+		if(inode_offset==0){
+			i++;
+			continue;
+		}
+		block_read(inode_offset, &buff);
+		inode * temp_inode = (inode *)buff;
+		
+		log_msg("FOUND INODE NAME:%s\n",temp_inode->file_name);
+		//Now compare file name to path
+		if(strcmp(temp_inode->file_name,new_path)==0){
+			log_msg("FOUND INODE IN SEARCH DIR\n");
+			return temp_inode;
+		}
+		
+		
+		//If current inode is a dir, search it 
+		if(temp_inode->type==0){
+			int end = 0;
+			while(new_path[end]!='/'){
+				end++;
+			}
+			char* to_send = new_path+end;
+			log_msg("Send to:%s\n",to_send);
+			inode * ii = search_dir(to_send,temp_inode);
+			if(ii!=NULL){
+				return ii;
+			}
+		}
+		i++;
+	}
 	
+	return NULL;
 	
  }
  
@@ -127,30 +190,9 @@
 		return in;
 	}
 	
-	//then check regular inodes starting at block 4
 	
-	/* So find filename/dirname by going to end or upto next /
-	 * Then indirect pointers for filename/dirname
-	 * If filename/dirname = path, get that inode.
-	 * If it is file, do stuff later like read/write/open/close.
-	 * If it is dir, then search indirect again or return if no more in pathname.
-	 * If no match, do nothing
-	
-	*/
-	
-	int i = 0;
-	while(i<NUM_FILES){
-		//check indirect of root dir
-		
-		i++;
-		//if root indirect points to dir, need to check that so it we might need a new function that checks dirs.
-		
-		
-		
-	}
-	
-	
-	return NULL;
+	//Start searching through the directory. Starting root.
+	return search_dir(path,in);
 	
 
  }
@@ -217,14 +259,16 @@ void *sfs_init(struct fuse_conn_info *conn)
 	a->type = 0;
 	a->file_size = 0;
 	a->num_blocks = 0;
-	a->mode = S_IFDIR;
-	a->uid = S_IRWXU;
-	a->gid = S_IRWXG;
+	a->mode = S_IFDIR|S_IRWXU|S_IRWXG|S_IRWXO;
+	a->uid = getuid();
+	a->gid = getgid();
 	a->st_atime = time(NULL);
 	a->st_mtime = a->st_atime;
 	a->st_ctime = a->st_atime;
 	
 	a->indirect_block[0] = 2;
+	indir_array * o;
+	block_write(2,o);
     block_write(1,a);
     
 	//loop to create inodes
@@ -326,13 +370,16 @@ int sfs_getattr(const char *path, struct stat *statbuf)
 	statbuf->st_ctime = in->st_ctime;
 	
 	
+	}else{
+		log_msg("TRAAAAAAAAAAAAASH\n");
+		retstat = -ENOENT;
 	}
 	
 	
 	
 	//set statbuf with fields from inode
 	
-    
+    log_msg("Returning from attr\n");
     return retstat;
 }
 
@@ -353,7 +400,75 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
     int retstat = 0;
     log_msg("\nsfs_create(path=\"%s\", mode=0%03o, fi=0x%08x)\n",
 	    path, mode, fi);
-    
+	//check path. mountdir/hello.txt,   /hello/gbye.txt
+	
+	char n_path[strlen(path)];//removes the slash
+	strcpy(n_path,path);
+	char * new_path = n_path + 1;
+	log_msg("New path from create:%s\n",new_path);
+	
+	char buf[BLOCK_SIZE];
+	block_read(1,&buf);
+	inode * in = (inode *)buf;
+	int indir_offset = in->indirect_block[0];
+	log_msg("CREATE offset:%i\n",indir_offset);
+	
+	
+	char buf3[BLOCK_SIZE];
+	block_read(indir_offset,&buf3);
+	
+	indir_array * c = (indir_array *)buf3;
+    //find free inode
+	int i = 0;
+	while(i<NUM_FILES){
+		char buf2[BLOCK_SIZE];
+		block_read(i+3,&buf2);
+		inode * in2 = (inode *)buf2;
+		
+		
+		
+		log_msg("MODE:0%03o\n",S_IFREG|S_IRUSR|S_IWUSR);
+		if(in2->file_name==NULL){
+			
+			if((mode&(S_IFDIR|S_IRUSR|S_IWUSR))==mode){
+				log_msg("Create dir:0%03o\n",S_IFDIR);
+				in2->type = 0;
+			}else if((mode&(S_IFREG|S_IRUSR|S_IWUSR))==mode){
+				log_msg("Create file:0%03o\n",S_IFREG);
+				in2->type = 1;
+			}
+			in2->file_name = new_path;
+			log_msg("CHECKING WHATEVER:%s\n",in2->file_name);
+			in2->file_size = 0;
+			in2->num_blocks = 0;
+			in2->mode = mode;
+			in2->uid = fuse_get_context()->uid;
+			in2->gid = fuse_get_context()->gid;
+			in2->st_atime = time(NULL);
+			in2->st_mtime = in->st_atime;
+			in2->st_ctime = in->st_atime;
+			block_write(i+3,in2);
+			break;
+		}
+		
+		i++;
+	}
+	// i is the offset we put in indirect block;
+	int j = 0;
+	while(j<128){
+		if(c->offsets[j]==0){
+			//found free spot
+			c->offsets[j]=i+3;
+			break;
+		}
+		j++;
+	}
+	log_msg("PUTTING INODE:%i\n",c->offsets[j]);
+	block_write(indir_offset,c);
+	
+	
+	
+	//put that offset into the indirect block of the current dir
     
     return retstat;
 }
@@ -519,7 +634,37 @@ int sfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offse
 	       struct fuse_file_info *fi)
 {
     int retstat = 0;
-    
+	log_msg("IN READDIR\n");
+    //find inode with given path
+	inode * in = find_inode(path);
+	//get indirect block
+	int indir_offset = in->indirect_block[0];
+	
+	//now fill the names in this dir into buffer
+	char buff[BLOCK_SIZE];
+	int a = block_read(indir_offset,&buff);
+	
+	//Cast it 
+	int * b = (int *)buff;
+	int i = 0;
+	
+	while(i<128){
+		int inode_offset = b[i];
+		
+		//if offset is 0 then there is not an inode
+		if(inode_offset==0){
+			i++;
+			continue;
+		}
+		block_read(inode_offset, &buff);
+		inode * temp_inode = (inode *)buff;
+		int status = filler(buf,temp_inode->file_name,NULL,0);
+		
+		
+		i++;
+	}
+	
+	
     
     return retstat;
 }
