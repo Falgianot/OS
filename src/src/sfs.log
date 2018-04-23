@@ -1,0 +1,22 @@
+
+sfs_init()
+    conn:
+    proto_major = 7
+    proto_minor = 22
+    async_read = 1
+    max_write = 131072
+    max_readahead = 131072
+    capable = 00000ffb
+    want = 00000010
+    context:
+    fuse = 0245b4b0
+    uid = 0
+    gid = 0
+    pid = 0
+    private_data = 0245b010
+    logfile = 0245b030
+    diskfile = /.freespace/dv262/testfsfile
+    umask = 00000
+OPENING DISK
+WRITING SUPER BLOCK
+FINISHING INIT
