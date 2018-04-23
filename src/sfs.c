@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 
+
 #ifdef HAVE_SYS_XATTR_H
 #include <sys/xattr.h>
 #endif
@@ -82,10 +83,71 @@
  }indir_array;
  
  
+char * my_strcpy(char * dest, char * src){
+	//log_msg("SRC:%s\n",src);
+	char * start = dest;
+
+	while(*src !='\0'){
+		
+		*dest = *src;
+		//log_msg("MIDDLE\n");
+		dest++;
+		src++;
+	}
+	//log_msg("FINAL\n");
+	*dest = '\0';
+	return start;
+
+
+
+}
+
+
+//subtract block_num-138, mod that by 4096(make sure its int), that is bit map block number
+//add 138 to the mod answer
+
+//given a block number, flip the it in the bit map
+void flip_bit(int block_num){
+	int bit_num = block_num-138;
+	int bit_block = (int)((bit_num/4096))+138;
+
+	char buf[BLOCK_SIZE];
+	block_read(bit_block,&buf);
+	
+	int byte = (bit_num/8);
+
+
+	char temp = buf[byte];//byte to flip
+	int bit_index = bit_num%8;
+	temp = temp >> (7-bit_index);
+	temp = temp &1;
+	char temp2 = temp;
+	temp2 = temp2<<(7-bit_index);
+	char flipped = buf[byte];
+
+	//log_msg("BITNUM:%i      BITBLOCK:%i    BYTE:%i     BITiNDEX:%i     TEMP:%c",bit_num,bit_block,byte,bit_index,temp);
+
+
+
+	if(temp == 1){
+		log_msg("FLIPPING 1 TO 0\n");
+		//XOR
+		flipped = flipped^temp2;
+	}else if(temp == 0){
+		log_msg("FLIPPING 0 TO 1\n");
+		//OR
+		flipped = flipped|temp2;
+	}
+
+	buf[byte] = flipped;
+	block_write(bit_block,&buf);
+}
+
+
  //Reserve the first x blocks to store the root inodes. If a dir is created
  //that dir inode will point to a block that has all its inodes. 
  typedef struct inode{
-	 char * file_name;
+	 char file_name[100];
 	 int type; //1 = file, 0 = dir, -1 = not in use
 	 
 	 int file_size;
@@ -135,16 +197,17 @@
 		//log_msg("offset:%i\n",b[i]);
 		//Now check inodes in this block. //If offset is 0 then its empty.
 		int inode_offset = b->offsets[i];
-		log_msg("OFFFFFSET:%i\n",inode_offset);
+		//log_msg("OFFFFFSET:%i\n",inode_offset);
 		//if offset is 0 then there is not an inode
 		if(inode_offset==0){
 			i++;
 			continue;
 		}
-		block_read(inode_offset, &buff);
-		inode * temp_inode = (inode *)buff;
+		char buffer[BLOCK_SIZE];
+		block_read(inode_offset, &buffer);
+		inode * temp_inode = (inode *)buffer;
 		
-		log_msg("FOUND INODE NAME:%s\n",temp_inode->file_name);
+		log_msg("FOUND INODE NAME:%s    Size:%i\n",temp_inode->file_name,temp_inode->file_size);
 		//Now compare file name to path
 		if(strcmp(temp_inode->file_name,new_path)==0){
 			log_msg("FOUND INODE IN SEARCH DIR\n");
@@ -255,7 +318,7 @@ void *sfs_init(struct fuse_conn_info *conn)
 	char buf[BLOCK_SIZE];
 	int q = block_read(1,&buf);
 	inode * a = (inode *)buf;
-	a->file_name = "/\0";
+	a->file_name[0] = '/';
 	a->type = 0;
 	a->file_size = 0;
 	a->num_blocks = 0;
@@ -267,7 +330,14 @@ void *sfs_init(struct fuse_conn_info *conn)
 	a->st_ctime = a->st_atime;
 	
 	a->indirect_block[0] = 2;
-	indir_array * o;
+	char bb[BLOCK_SIZE];
+	block_read(100,&bb);
+	indir_array * o = (indir_array *)bb;
+	int z = 0;
+	while(z<128){
+		o->offsets[z] = 0;
+		z++;
+		}
 	block_write(2,o);
     block_write(1,a);
     
@@ -279,7 +349,7 @@ void *sfs_init(struct fuse_conn_info *conn)
         int r = block_read(i+3,&buff2);
         //log_msg("after INODE\n");
         inode * in = (inode *)buff2;
-		in->file_name = NULL;
+	in->file_name[0] = 0;
         in->type = -1;
         in->file_size = 0;
         in->num_blocks = 0;
@@ -292,18 +362,18 @@ void *sfs_init(struct fuse_conn_info *conn)
         
         int j = 0;
         while(j<NUM_DIRECT){
-            in->d_block[j] = -1;
+            in->d_block[j] = 0;
             j++;
         }
 		
 		j = 0;
 		while(j<NUM_INDIRECT){
-        in->indirect_block[j] = -1;
+        in->indirect_block[j] = 0;
 		j++;
 		}
 		j = 0;
 		while(j<2){
-        in->double_indirect_block[j] = -1;
+        in->double_indirect_block[j] = 0;
 		j++;
 		}
 		
@@ -350,11 +420,11 @@ int sfs_getattr(const char *path, struct stat *statbuf)
 	  path, statbuf);
 	
 	//find inode with path
-	log_msg("BOUT TO FIND INODE\n");
+	//log_msg("BOUT TO FIND INODE\n");
 	inode * in = find_inode(path);
 	
 	if(in!=NULL){
-	log_msg("NAME:%s\n",in->file_name);
+	//log_msg("NAME:%s\n",in->file_name);
 	
 	
 	statbuf->st_ino = 0;
@@ -427,8 +497,8 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 		
 		
 		
-		log_msg("MODE:0%03o\n",S_IFREG|S_IRUSR|S_IWUSR);
-		if(in2->file_name==NULL){
+		//log_msg("MODE:0%03o\n",S_IFREG|S_IRUSR|S_IWUSR);
+		if(in2->file_name[0]==0){
 			
 			if((mode&(S_IFDIR|S_IRUSR|S_IWUSR))==mode){
 				log_msg("Create dir:0%03o\n",S_IFDIR);
@@ -437,17 +507,24 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 				log_msg("Create file:0%03o\n",S_IFREG);
 				in2->type = 1;
 			}
-			in2->file_name = new_path;
-			log_msg("CHECKING WHATEVER:%s\n",in2->file_name);
+			strcpy(in2->file_name,new_path);
+			//log_msg("CHECKING WHATEVER:%s\n",in2->file_name);
 			in2->file_size = 0;
 			in2->num_blocks = 0;
 			in2->mode = mode;
 			in2->uid = fuse_get_context()->uid;
 			in2->gid = fuse_get_context()->gid;
-			in2->st_atime = time(NULL);
-			in2->st_mtime = in->st_atime;
-			in2->st_ctime = in->st_atime;
+			struct timespec requestStart;
+			clock_gettime(CLOCK_REALTIME, &requestStart);
+			in2->st_atime = requestStart.tv_sec;
+			in2->st_mtime = requestStart.tv_sec;
+			in2->st_ctime = requestStart.tv_sec;
+			//log_msg("WRITING INODE:%i\n",i+3);
 			block_write(i+3,in2);
+			//log_msg("SIZEOF:%i\n",sizeof(*in2));
+			//char bu[512];
+			//block_read(i+3,&bu);
+			//log_msg("Reading back:%s\n",((inode *)bu)->file_name);
 			break;
 		}
 		
@@ -463,9 +540,10 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 		}
 		j++;
 	}
-	log_msg("PUTTING INODE:%i\n",c->offsets[j]);
+	log_msg("PUTTING INODE:%i\n",c->offsets[0]);
+	log_msg("PUTTING INODE:%i\n",c->offsets[1]);
 	block_write(indir_offset,c);
-	
+	//log_msg("PUTTING INODE:%i\n",indir_o);
 	
 	
 	//put that offset into the indirect block of the current dir
@@ -473,11 +551,138 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
     return retstat;
 }
 
+
+
+int slash_count(const char * path){
+	int i =0;
+	int slash_counter=0;
+	while (i<strlen(path)){
+		if(path[i]=='/'){
+			slash_counter++;
+		}
+		i++;
+	}
+	log_msg("the number of slashes is equal %d\n", slash_counter);
+	return slash_counter;
+	
+	
+	
+	}
+
 /** Remove a file */
 int sfs_unlink(const char *path)
 {
     int retstat = 0;
     log_msg("sfs_unlink(path=\"%s\")\n", path);
+	//find the inode
+	inode * in = find_inode(path);
+	
+	//free blocks and set the bitmap
+	int j = 0;
+	int offset = 0;
+   	char empty_buf[BLOCK_SIZE];
+   	char buf[BLOCK_SIZE];
+   	memset(empty_buf,0,BLOCK_SIZE);
+
+	
+	while(j<NUM_DIRECT){
+		offset = in->d_block[j];
+		log_msg("offfffff:%i\n");
+		if(offset!=0){
+			
+			
+			block_write(offset,&empty_buf);
+			flip_bit(offset);
+			in->d_block[j] = 0;
+		}
+		j++;
+	}
+	
+	j = 0;
+	while(j<NUM_INDIRECT){
+		offset = in->indirect_block[j];
+		if(offset!=0){
+			flip_bit(offset);
+			int k = 0;
+			block_read(offset,&buf);
+			indir_array * arr =(indir_array *)buf;
+			
+			while(k<128){
+				if(arr->offsets[k]!=0){
+					block_write(arr->offsets[k],&empty_buf);
+					flip_bit(arr->offsets[k]);
+				
+				}
+				k++;
+			}
+			
+		}
+		
+		
+		block_write(offset,empty_buf);
+		in->indirect_block[j] = 0;
+		j++;
+
+	}
+	
+	//do later
+	j = 0;
+	while(j<2){
+		in->double_indirect_block[j] = 0;
+		j++;
+	}
+	
+	
+	//update parent dir indirect.
+	//check root first
+	int slashes =0;
+	log_msg("slashes is equal %d\n",slashes);
+	slashes = slash_count(path);
+	log_msg("slashes is equal %d\n",slashes);
+	
+	if(slashes==1){
+		log_msg("Removing file from indir of root\n");
+		char b[BLOCK_SIZE];
+		block_read(2,b);
+		indir_array * a =(indir_array *)b;
+		int l = 0;
+		while(l<128){
+			if(a->offsets[l]!=0){
+				log_msg("Removing file from indir of root fo sho\n");
+				char bu[BLOCK_SIZE];
+				block_read(a->offsets[l],bu);
+				inode * i_n = (inode *)bu;
+				if(strcmp(i_n->file_name,in->file_name)==0){
+					log_msg("%s, %s\n",i_n->file_name,in->file_name);
+					in->file_name[0] = 0;
+					in->type = -1;
+					in->file_size = 0;
+					in->num_blocks = 0;
+					in->mode = 0;
+					in->uid = 0;
+					in->gid = 0;
+					in->st_atime = time(NULL);
+					in->st_mtime = in->st_atime;
+					in->st_ctime = in->st_atime;
+					block_write(a->offsets[l],in);
+					a->offsets[l]=0;
+					block_write(2,a);
+					break;
+					}
+				
+				}
+			
+			l++;
+			}
+		
+	
+}else{
+	//other dirs
+	
+	
+}
+	
+
 
     
     return retstat;
@@ -639,18 +844,24 @@ int sfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offse
 	inode * in = find_inode(path);
 	//get indirect block
 	int indir_offset = in->indirect_block[0];
-	
+	log_msg("indir off:%d\n",indir_offset);
 	//now fill the names in this dir into buffer
 	char buff[BLOCK_SIZE];
 	int a = block_read(indir_offset,&buff);
 	
 	//Cast it 
-	int * b = (int *)buff;
+	indir_array * b = (indir_array *)buff;
 	int i = 0;
-	
+	//log_msg("b[0]:%i     b[1]:%i\n",b->offsets[0],b->offsets[1]);
 	while(i<128){
-		int inode_offset = b[i];
+		int a = block_read(indir_offset,&buff);
+	
+		//Cast it 
+		indir_array * b = (indir_array *)buff;
 		
+		int inode_offset = b->offsets[i];
+		
+		log_msg("%reaadier offset: %d\n",inode_offset);
 		//if offset is 0 then there is not an inode
 		if(inode_offset==0){
 			i++;
@@ -658,14 +869,18 @@ int sfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offse
 		}
 		block_read(inode_offset, &buff);
 		inode * temp_inode = (inode *)buff;
+		log_msg("readdir filename: %s\n",temp_inode->file_name);
 		int status = filler(buf,temp_inode->file_name,NULL,0);
-		
+		if(status ==1)
+			log_msg("hi");
+		else
+			log_msg("bye");
+		log_msg("second time b[0]:%i     b[1]:%i\n",b->offsets[0],b->offsets[1]);
 		
 		i++;
 	}
 	
-	
-    
+
     return retstat;
 }
 
