@@ -106,8 +106,8 @@ char * my_strcpy(char * dest, char * src){
 //subtract block_num-138, mod that by 4096(make sure its int), that is bit map block number
 //add 138 to the mod answer
 
-//given a block number, flip the it in the bit map
-void flip_bit(int block_num){
+//given a block number, flip the bit in the bit map
+int flip_bit(int block_num){
 	int bit_num = block_num-138;
 	int bit_block = (int)((bit_num/4096))+138;
 
@@ -128,19 +128,48 @@ void flip_bit(int block_num){
 	//log_msg("BITNUM:%i      BITBLOCK:%i    BYTE:%i     BITiNDEX:%i     TEMP:%c",bit_num,bit_block,byte,bit_index,temp);
 
 
-
+	int to_return = -1;
 	if(temp == 1){
-		log_msg("FLIPPING 1 TO 0\n");
+		log_msg("FLIPPING 1 TO 0\n");//use to free
 		//XOR
 		flipped = flipped^temp2;
+		to_return = 0;
 	}else if(temp == 0){
-		log_msg("FLIPPING 0 TO 1\n");
+		log_msg("FLIPPING 0 TO 1\n");//free to use
 		//OR
 		flipped = flipped|temp2;
+		to_return = 1;
 	}
 
 	buf[byte] = flipped;
 	block_write(bit_block,&buf);
+	return to_return;
+}
+
+int find_free_block(){
+	
+	char buf[BLOCK_SIZE];
+	int i = FREE_BLOCK_START;
+	int free = 0;
+	
+	//flip the bit at block location starting at 138. If flip_bit returns 1 it is free. If flip_bit returns 0 it is in use
+	//i is the location of the free block
+	while(i<NUM_BLOCKS){
+		free = flip_bit(i);
+		//found free bit
+		if(free==1){
+			return i;
+		}
+		//not free
+		else if(free==0){
+			flip_bit(i);
+		}
+		
+		i++;
+	}
+	
+	return -1;
+	
 }
 
 
@@ -266,8 +295,8 @@ void flip_bit(int block_num){
  typedef struct super_block{
 	int init;
 	int size_fs;
-	int num_files;//update on create and release
-	int max_file_size;//update on write and release
+	int num_files;//update on create and unlink
+	int max_file_size;//update on write and unlink. max amount file can write.
 	int num_inodes;
 	//bitmap for free inodes and blocks
 	
@@ -480,6 +509,10 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 	char * new_path = n_path + 1;
 	log_msg("New path from create:%s\n",new_path);
 	
+	
+	
+	
+	//we will have to change this when we do directories
 	char buf[BLOCK_SIZE];
 	block_read(1,&buf);
 	inode * in = (inode *)buf;
@@ -491,6 +524,16 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 	block_read(indir_offset,&buf3);
 	
 	indir_array * c = (indir_array *)buf3;
+	
+	
+	
+	//get super block
+	char buf_super[BLOCK_SIZE];
+	block_read(0,&buf_super);
+	super_block * sb = (super_block *)buf_super;
+	
+	
+	
     //find free inode
 	int i = 0;
 	while(i<NUM_FILES){
@@ -525,6 +568,9 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 			//log_msg("WRITING INODE:%i\n",i+3);
 			block_write(i+3,in2);
 			
+			//update number of files in fs
+			sb->num_files = sb->num_files + 1;
+			block_write(0,sb);
 			
 			
 			
@@ -581,6 +627,16 @@ int sfs_unlink(const char *path)
 {
     int retstat = 0;
     log_msg("sfs_unlink(path=\"%s\")\n", path);
+	
+	
+	
+	//get the superblock
+	char buf_super[BLOCK_SIZE];
+	block_read(0,&buf_super);
+	super_block * sb = (super_block *)buf_super;
+	
+	
+	
 	//find the inode
 	inode * in = find_inode(path);
 	
@@ -689,8 +745,9 @@ int sfs_unlink(const char *path)
 	
 	
 }
-	
-
+	//update num files in fs
+	sb->num_files = sb->num_files + 1;
+	block_write(0,sb);
 
     
     return retstat;
@@ -786,6 +843,61 @@ int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse
     return retstat;
 }
 
+
+//This function fills in the passed buffer with the files data
+void fill_buffer(char * buffer, inode * in){
+	
+	log_msg("FILLING BUFFER\n");	
+	int offset = 0;
+	
+	int j = 0;
+	char empty_buf[BLOCK_SIZE];
+	//direct
+	while(j<NUM_DIRECT){
+		offset = in->d_block[j];
+		//log_msg("offfffff:%i\n");
+		if(offset!=0){
+			block_read(offset,&empty_buf);
+			strcat(buffer,empty_buf);
+		}
+		j++;
+	}
+	
+	j = 0;
+	//indirect
+	char buf[BLOCK_SIZE];
+	while(j<NUM_INDIRECT){
+		offset = in->indirect_block[j];
+		if(offset!=0){
+			int k = 0;
+			block_read(offset,&buf);
+			indir_array * arr =(indir_array *)buf;
+			
+			while(k<128){
+				if(arr->offsets[k]!=0){
+					block_read(arr->offsets[k],&empty_buf);
+					strcat(buffer,empty_buf);
+				}
+				k++;
+			}
+			
+		}
+		
+		j++;
+
+	}
+	//double indirect
+	//do later
+	j = 0;
+	while(j<2){
+		in->double_indirect_block[j] = 0;
+		j++;
+	}
+	
+	
+	
+}
+
 /** Write data to an open file
  *
  * Write should return exactly the number of bytes requested
@@ -800,6 +912,41 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
     int retstat = 0;
     log_msg("\nsfs_write(path=\"%s\", buf=0x%08x, size=%d, offset=%lld, fi=0x%08x)\n",
 	    path, buf, size, offset, fi);
+	
+	
+	//find inode for path
+	inode * in = find_inode(path);
+	
+	//construct buffer with all data from that nodes data blocks. // max they can write is 4096
+	char buffer_data[(in->num_blocks)*512];//load files data into this
+	memset(buffer_data,'\0',strlen(buffer_data));
+	fill_buffer(buffer_data,in);
+	//figure out how many blocks we will need. ((num_blocks*512)-(file_size))-size = rest needed to fill
+	//(rest/512)+1=#of blocks needed
+	
+	int num_blks_needed = 0;
+	if(in->file_size==0){
+		log_msg("INIT WRITE\n");
+		num_blks_needed = (size/512)+1;
+		char write_data[strlen(buf)];
+		strcpy(write_data,buf);
+		
+		//search for free blocks and write to it
+		
+		
+		
+	}else{
+		log_msg("EXTRA WRITE\n");
+		
+		
+	}
+	
+	
+	
+	
+	//write to that buffer at offset with buf passed in. this may overwrite data.
+	
+	//if they need a new block, check bitmap.
     
     
     return retstat;
