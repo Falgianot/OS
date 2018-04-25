@@ -380,7 +380,7 @@ void *sfs_init(struct fuse_conn_info *conn)
         int r = block_read(i+3,&buff2);
         //log_msg("after INODE\n");
         inode * in = (inode *)buff2;
-	in->file_name[0] = 0;
+		  in->file_name[0] = 0;
         in->type = -1;
         in->file_size = 0;
         in->num_blocks = 0;
@@ -921,6 +921,9 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 	char buffer_data[(in->num_blocks)*512];//load files data into this
 	memset(buffer_data,'\0',strlen(buffer_data));
 	fill_buffer(buffer_data,in);
+	
+	
+	
 	//figure out how many blocks we will need. ((num_blocks*512)-(file_size))-size = rest needed to fill
 	//(rest/512)+1=#of blocks needed
 	
@@ -928,11 +931,27 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 	if(in->file_size==0){
 		log_msg("INIT WRITE\n");
 		num_blks_needed = (size/512)+1;
-		char write_data[strlen(buf)];
+		char write_data[num_blks_needed*512];//data to be written into fs
 		strcpy(write_data,buf);
 		
 		//search for free blocks and write to it
+		int i = 0;
+		while(i<num_blks_needed){
+			int free = find_free_block();
+			if(free!=-1){
+				//found free block
+				block_write(free,write_data+(512*i));
+				
+			}
+			else{
+				//error
+				return 0;
+					
+			}
 		
+		
+			i++;		
+			}
 		
 		
 	}else{
@@ -941,8 +960,10 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 		
 	}
 	
-	
-	
+	in->file_size += size;
+	in->num_blocks += num_blks_needed;
+	block_write(in->offset,in);
+	//update sb
 	
 	//write to that buffer at offset with buf passed in. this may overwrite data.
 	

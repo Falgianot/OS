@@ -9,98 +9,310 @@ sfs_init()
     capable = 00000ffb
     want = 00000010
     context:
-    fuse = 00a164b0
+    fuse = 023824b0
     uid = 0
     gid = 0
     pid = 0
-    private_data = 00a16010
-    logfile = 00a16030
+    private_data = 02382010
+    logfile = 02382030
     diskfile = /.freespace/dv262/testfsfile
     umask = 00000
 OPENING DISK
 WRITING SUPER BLOCK
 FINISHING INIT
 
-sfs_getattr(path="/.Trash", statbuf=0x61670c40)
+sfs_getattr(path="/.Trash", statbuf=0xedfebc40)
 FINDING INODE for :/.Trash     /
 New path:.Trash
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_getattr(path="/.Trash-84600", statbuf=0x60e6fc40)
+sfs_getattr(path="/.Trash-84600", statbuf=0xed7eac40)
 FINDING INODE for :/.Trash-84600     /
 New path:.Trash-84600
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_getattr(path="/", statbuf=0x61670c10)
+sfs_getattr(path="/", statbuf=0xedfebc10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
 
-sfs_getattr(path="/hello.txt", statbuf=0x60e6fc40)
+sfs_getattr(path="/", statbuf=0xed7eac10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_opendir(path="/", fi=0xedfebc30)
+IN READDIR
+FINDING INODE for :/     /
+FOUND INODE
+indir off:2
+
+sfs_getattr(path="/", statbuf=0xed7eac10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0xedfebc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0xed7eac40)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_create(path="/hello.txt", mode=0100600, fi=0x61670cf0)
+sfs_create(path="/hello.txt", mode=0100600, fi=0xedfebcf0)
 New path from create:hello.txt
 CREATE offset:2
 Create file:0100000
 
-sfs_getattr(path="/hello.txt", statbuf=0x61670c00)
+sfs_getattr(path="/hello.txt", statbuf=0xedfebc00)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_release(path="/hello.txt", fi=0x61670cf0)
+sfs_release(path="/hello.txt", fi=0xedfebcf0)
 
-sfs_getattr(path="/", statbuf=0x60e6fc10)
+sfs_getattr(path="/", statbuf=0xed7eac10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
 
-sfs_opendir(path="/", fi=0x61670c30)
+sfs_opendir(path="/", fi=0xedfebc30)
 IN READDIR
 FINDING INODE for :/     /
 FOUND INODE
 indir off:2
 buffer not full
 
-sfs_getattr(path="/hello.txt", statbuf=0x61670c40)
+sfs_getattr(path="/hello.txt", statbuf=0xedfebc40)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_getattr(path="/", statbuf=0x61670c10)
+sfs_getattr(path="/", statbuf=0xedfebc10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
 
-sfs_getattr(path="/hello.txt", statbuf=0x60e6fc40)
+sfs_getattr(path="/hello.txt", statbuf=0xed7eac40)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_open(path"/hello.txt", fi=0x61670cf0)
+sfs_open(path"/hello.txt", fi=0xedfebcf0)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 OPENING FILE
 
-sfs_read(path="/hello.txt", buf=0x54000af0, size=4096, offset=0, fi=0x60e6fcf0)
+sfs_write(path="/hello.txt", buf=0xeebda060, size=6, offset=0, fi=0xed7ead70)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+FILLING BUFFER
+INIT WRITE
+FLIPPING 0 TO 1
 
-sfs_release(path="/hello.txt", fi=0x61670cf0)
+sfs_release(path="/hello.txt", fi=0xedfebcf0)
 
-sfs_getattr(path="/", statbuf=0x60e6fc10)
+sfs_getattr(path="/", statbuf=0xed7eac10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0xecfe9c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0xedfebc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_opendir(path="/", fi=0xed7eac30)
+IN READDIR
+FINDING INODE for :/     /
+FOUND INODE
+indir off:2
+buffer not full
+
+sfs_getattr(path="/hello.txt", statbuf=0xed7eac40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/.hidden", statbuf=0xecfe9c40)
+FINDING INODE for :/.hidden     /
+New path:.hidden
+FOUND INODE NAME:hello.txt    Size:0
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0xedfebc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0xed7eac10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_opendir(path="/", fi=0xecfe9c30)
+
+sfs_getattr(path="/.Trash", statbuf=0xedfebc40)
+FINDING INODE for :/.Trash     /
+New path:.Trash
+FOUND INODE NAME:hello.txt    Size:0
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/.Trash-84600", statbuf=0xed7eac40)
+FINDING INODE for :/.Trash-84600     /
+New path:.Trash-84600
+FOUND INODE NAME:hello.txt    Size:0
+TRAAAAAAAAAAAAASH
+Returning from attr
+IN READDIR
+FINDING INODE for :/     /
+FOUND INODE
+indir off:2
+buffer not full
+
+sfs_getattr(path="/hello.txt", statbuf=0xed7eac40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0xecfe9c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0xecfe9c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0xedfebc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_open(path"/hello.txt", fi=0xed7eacf0)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_read(path="/hello.txt", buf=0xe4000af0, size=4096, offset=0, fi=0xecfe9cf0)
+
+sfs_release(path="/hello.txt", fi=0xedfebcf0)
+
+sfs_getattr(path="/hello.txt", statbuf=0xed7eac10)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0xecfe9c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0xedfebc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0xed7eac40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0xecfe9c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_open(path"/hello.txt", fi=0xedfebcf0)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_read(path="/hello.txt", buf=0xe0000d70, size=4096, offset=0, fi=0xed7eacf0)
+
+sfs_release(path="/hello.txt", fi=0xecfe9cf0)
+
+sfs_getattr(path="/hello.txt", statbuf=0xedfebc10)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0xed7eac40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0xecfe9c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0xedfebc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0xed7eac10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0xecfe9c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0xedfebc10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
