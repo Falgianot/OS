@@ -152,6 +152,7 @@ void flip_bit(int block_num){
 	 
 	 int file_size;
 	 int num_blocks;
+	 int offset;
 	 mode_t mode;
 	 
 	 uid_t uid;
@@ -265,8 +266,8 @@ void flip_bit(int block_num){
  typedef struct super_block{
 	int init;
 	int size_fs;
-	int num_files;
-	int max_file_size;
+	int num_files;//update on create and release
+	int max_file_size;//update on write and release
 	int num_inodes;
 	//bitmap for free inodes and blocks
 	
@@ -328,6 +329,7 @@ void *sfs_init(struct fuse_conn_info *conn)
 	a->st_atime = time(NULL);
 	a->st_mtime = a->st_atime;
 	a->st_ctime = a->st_atime;
+	a->offset = 0;
 	
 	a->indirect_block[0] = 2;
 	char bb[BLOCK_SIZE];
@@ -359,6 +361,7 @@ void *sfs_init(struct fuse_conn_info *conn)
         in->st_atime = time(NULL);
         in->st_mtime = in->st_atime;
 		in->st_ctime = in->st_atime;
+		in->offset = i+3;
         
         int j = 0;
         while(j<NUM_DIRECT){
@@ -521,6 +524,10 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 			in2->st_ctime = requestStart.tv_sec;
 			//log_msg("WRITING INODE:%i\n",i+3);
 			block_write(i+3,in2);
+			
+			
+			
+			
 			//log_msg("SIZEOF:%i\n",sizeof(*in2));
 			//char bu[512];
 			//block_read(i+3,&bu);
@@ -540,8 +547,8 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 		}
 		j++;
 	}
-	log_msg("PUTTING INODE:%i\n",c->offsets[0]);
-	log_msg("PUTTING INODE:%i\n",c->offsets[1]);
+	//log_msg("PUTTING INODE:%i\n",c->offsets[0]);
+	//log_msg("PUTTING INODE:%i\n",c->offsets[1]);
 	block_write(indir_offset,c);
 	//log_msg("PUTTING INODE:%i\n",indir_o);
 	
@@ -664,6 +671,7 @@ int sfs_unlink(const char *path)
 					in->st_atime = time(NULL);
 					in->st_mtime = in->st_atime;
 					in->st_ctime = in->st_atime;
+					//WILL THE OFFSET BE RESET?
 					block_write(a->offsets[l],in);
 					a->offsets[l]=0;
 					block_write(2,a);
@@ -703,7 +711,32 @@ int sfs_open(const char *path, struct fuse_file_info *fi)
     int retstat = 0;
     log_msg("\nsfs_open(path\"%s\", fi=0x%08x)\n",
 	    path, fi);
-
+	
+	//check if file exists
+	inode * in = find_inode(path);
+	if(in==NULL||in->mode!=(S_IFREG|S_IRUSR|S_IWUSR)){
+		log_msg("ERROR ON OPEN\n");
+		return -EACCES;
+	}
+	
+	
+	//if file exists, check permissions. Return
+	if(in->mode==S_IFREG|S_IRUSR|S_IWUSR){
+		//Update access time
+		log_msg("OPENING FILE\n");
+		struct timespec requestStart;
+		clock_gettime(CLOCK_REALTIME, &requestStart);
+		in->st_atime = requestStart.tv_sec;
+		block_write(in->offset,in);
+		
+		
+		return retstat;
+	}else{
+		return -EACCES;
+	}
+	
+	
+	
     
     return retstat;
 }
@@ -861,7 +894,7 @@ int sfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offse
 		
 		int inode_offset = b->offsets[i];
 		
-		log_msg("%reaadier offset: %d\n",inode_offset);
+		//log_msg("%reaadier offset: %d\n",inode_offset);
 		//if offset is 0 then there is not an inode
 		if(inode_offset==0){
 			i++;
@@ -869,13 +902,13 @@ int sfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offse
 		}
 		block_read(inode_offset, &buff);
 		inode * temp_inode = (inode *)buff;
-		log_msg("readdir filename: %s\n",temp_inode->file_name);
+		//log_msg("readdir filename: %s\n",temp_inode->file_name);
 		int status = filler(buf,temp_inode->file_name,NULL,0);
 		if(status ==1)
-			log_msg("hi");
+			log_msg("buffer full\n");
 		else
-			log_msg("bye");
-		log_msg("second time b[0]:%i     b[1]:%i\n",b->offsets[0],b->offsets[1]);
+			log_msg("buffer not full\n");
+		//log_msg("second time b[0]:%i     b[1]:%i\n",b->offsets[0],b->offsets[1]);
 		
 		i++;
 	}

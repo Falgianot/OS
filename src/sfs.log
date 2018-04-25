@@ -9,919 +9,98 @@ sfs_init()
     capable = 00000ffb
     want = 00000010
     context:
-    fuse = 021564b0
+    fuse = 00a164b0
     uid = 0
     gid = 0
     pid = 0
-    private_data = 02156010
-    logfile = 02156030
+    private_data = 00a16010
+    logfile = 00a16030
     diskfile = /.freespace/dv262/testfsfile
     umask = 00000
 OPENING DISK
 WRITING SUPER BLOCK
 FINISHING INIT
 
-sfs_getattr(path="/.Trash", statbuf=0xd49d4c40)
+sfs_getattr(path="/.Trash", statbuf=0x61670c40)
 FINDING INODE for :/.Trash     /
 New path:.Trash
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_getattr(path="/.Trash-84600", statbuf=0xcfffec40)
+sfs_getattr(path="/.Trash-84600", statbuf=0x60e6fc40)
 FINDING INODE for :/.Trash-84600     /
 New path:.Trash-84600
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_getattr(path="/hello.txt", statbuf=0xd49d4c40)
+sfs_getattr(path="/", statbuf=0x61670c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x60e6fc40)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_create(path="/hello.txt", mode=0100600, fi=0xcfffecf0)
+sfs_create(path="/hello.txt", mode=0100600, fi=0x61670cf0)
 New path from create:hello.txt
 CREATE offset:2
 Create file:0100000
-PUTTING INODE:3
-PUTTING INODE:0
 
-sfs_getattr(path="/hello.txt", statbuf=0xcfffec00)
+sfs_getattr(path="/hello.txt", statbuf=0x61670c00)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_release(path="/hello.txt", fi=0xcfffecf0)
+sfs_release(path="/hello.txt", fi=0x61670cf0)
 
-sfs_getattr(path="/", statbuf=0xd49d4c10)
+sfs_getattr(path="/", statbuf=0x60e6fc10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
 
-sfs_opendir(path="/", fi=0xcfffec30)
+sfs_opendir(path="/", fi=0x61670c30)
 IN READDIR
 FINDING INODE for :/     /
 FOUND INODE
 indir off:2
-%reaadier offset: 3
-readdir filename: hello.txt
-byesecond time b[0]:1819043176     b[1]:2020879983
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
+buffer not full
 
-sfs_getattr(path="/hello.txt", statbuf=0xcfffec40)
+sfs_getattr(path="/hello.txt", statbuf=0x61670c40)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_getattr(path="/", statbuf=0xcfffec10)
+sfs_getattr(path="/", statbuf=0x61670c10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
 
-sfs_getattr(path="/", statbuf=0xd49d4c10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
-
-sfs_getattr(path="/bye.txt", statbuf=0xcfffec40)
-FINDING INODE for :/bye.txt     /
-New path:bye.txt
-FOUND INODE NAME:hello.txt    Size:0
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_create(path="/bye.txt", mode=0100600, fi=0xd49d4cf0)
-New path from create:bye.txt
-CREATE offset:2
-Create file:0100000
-PUTTING INODE:3
-PUTTING INODE:4
-
-sfs_getattr(path="/bye.txt", statbuf=0xd49d4c00)
-FINDING INODE for :/bye.txt     /
-New path:bye.txt
-FOUND INODE NAME:hello.txt    Size:0
-FOUND INODE NAME:bye.txt    Size:0
-FOUND INODE IN SEARCH DIR
-Returning from attr
-
-sfs_release(path="/bye.txt", fi=0xcfffecf0)
-
-sfs_getattr(path="/", statbuf=0xd49d4c10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
-
-sfs_opendir(path="/", fi=0xcfffec30)
-IN READDIR
-FINDING INODE for :/     /
-FOUND INODE
-indir off:2
-%reaadier offset: 3
-readdir filename: hello.txt
-byesecond time b[0]:1819043176     b[1]:2020879983
-%reaadier offset: 4
-readdir filename: bye.txt
-byesecond time b[0]:778402146     b[1]:7633012
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-
-sfs_getattr(path="/hello.txt", statbuf=0xcfffec40)
+sfs_getattr(path="/hello.txt", statbuf=0x60e6fc40)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_getattr(path="/bye.txt", statbuf=0xd49d4c40)
-FINDING INODE for :/bye.txt     /
-New path:bye.txt
-FOUND INODE NAME:hello.txt    Size:0
-FOUND INODE NAME:bye.txt    Size:0
-FOUND INODE IN SEARCH DIR
-Returning from attr
-
-sfs_getattr(path="/", statbuf=0xcfffec10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
-
-sfs_getattr(path="/", statbuf=0xd49d4c10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
-
-sfs_getattr(path="/byte.txt", statbuf=0xcfffec40)
-FINDING INODE for :/byte.txt     /
-New path:byte.txt
-FOUND INODE NAME:hello.txt    Size:0
-FOUND INODE NAME:bye.txt    Size:0
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/byte.txt", statbuf=0xd49d4c40)
-FINDING INODE for :/byte.txt     /
-New path:byte.txt
-FOUND INODE NAME:hello.txt    Size:0
-FOUND INODE NAME:bye.txt    Size:0
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bye.txt", statbuf=0xcfffec40)
-FINDING INODE for :/bye.txt     /
-New path:bye.txt
-FOUND INODE NAME:hello.txt    Size:0
-FOUND INODE NAME:bye.txt    Size:0
-FOUND INODE IN SEARCH DIR
-Returning from attr
-sfs_unlink(path="/bye.txt")
-FINDING INODE for :/bye.txt     /
-New path:bye.txt
-FOUND INODE NAME:hello.txt    Size:0
-FOUND INODE NAME:bye.txt    Size:0
-FOUND INODE IN SEARCH DIR
-offfffff:0
-offfffff:0
-offfffff:0
-offfffff:0
-offfffff:0
-offfffff:0
-offfffff:0
-offfffff:0
-slashes is equal 0
-the number of slashes is equal 1
-slashes is equal 1
-Removing file from indir of root
-Removing file from indir of root fo sho
-Removing file from indir of root fo sho
-bye.txt, bye.txt
-
-sfs_getattr(path="/", statbuf=0xd49d4c10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
-
-sfs_opendir(path="/", fi=0xcfffec30)
-IN READDIR
-FINDING INODE for :/     /
-FOUND INODE
-indir off:2
-%reaadier offset: 3
-readdir filename: hello.txt
-byesecond time b[0]:1819043176     b[1]:2020879983
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-
-sfs_getattr(path="/hello.txt", statbuf=0xcfffec40)
+sfs_open(path"/hello.txt", fi=0x61670cf0)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
-Returning from attr
+OPENING FILE
 
-sfs_getattr(path="/", statbuf=0xd49d4c10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
+sfs_read(path="/hello.txt", buf=0x54000af0, size=4096, offset=0, fi=0x60e6fcf0)
 
-sfs_getattr(path="/", statbuf=0xcfffec10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
+sfs_release(path="/hello.txt", fi=0x61670cf0)
 
-sfs_opendir(path="/", fi=0xd49d4c30)
-IN READDIR
-FINDING INODE for :/     /
-FOUND INODE
-indir off:2
-%reaadier offset: 3
-readdir filename: hello.txt
-byesecond time b[0]:1819043176     b[1]:2020879983
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-
-sfs_getattr(path="/hello.txt", statbuf=0xd49d4c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:0
-FOUND INODE IN SEARCH DIR
-Returning from attr
-
-sfs_getattr(path="/", statbuf=0xcfffec10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
-
-sfs_getattr(path="/hello.txt", statbuf=0xd49d4c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:0
-FOUND INODE IN SEARCH DIR
-Returning from attr
-sfs_unlink(path="/hello.txt")
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:0
-FOUND INODE IN SEARCH DIR
-offfffff:0
-offfffff:0
-offfffff:0
-offfffff:0
-offfffff:0
-offfffff:0
-offfffff:0
-offfffff:0
-slashes is equal 0
-the number of slashes is equal 1
-slashes is equal 1
-Removing file from indir of root
-Removing file from indir of root fo sho
-hello.txt, hello.txt
-
-sfs_getattr(path="/", statbuf=0xcfffec10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
-
-sfs_opendir(path="/", fi=0xd49d4c30)
-IN READDIR
-FINDING INODE for :/     /
-FOUND INODE
-indir off:2
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-%reaadier offset: 0
-
-sfs_getattr(path="/", statbuf=0xcfffec10)
+sfs_getattr(path="/", statbuf=0x60e6fc10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
