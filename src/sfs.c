@@ -109,7 +109,7 @@ char * my_strcpy(char * dest, char * src){
 //given a block number, flip the bit in the bit map
 int flip_bit(int block_num){
 	int bit_num = block_num-138;
-	int bit_block = (int)((bit_num/4096))+138;
+	int bit_block = (int)((bit_num/4096))+130;
 
 	char buf[BLOCK_SIZE];
 	block_read(bit_block,&buf);
@@ -117,32 +117,45 @@ int flip_bit(int block_num){
 	int byte = (bit_num/8);
 
 
-	char temp = buf[byte];//byte to flip
+	unsigned char temp ='0';
+	memcpy(&temp,&buf[byte],1);//byte to flip
+	log_msg("TEMPPPPP:%x\n",temp);
 	int bit_index = bit_num%8;
 	temp = temp >> (7-bit_index);
+	
 	temp = temp &1;
-	char temp2 = temp;
+	unsigned char temp2='0';
+	memcpy(&temp2,&temp,1);
+	temp2 = temp2|1;
 	temp2 = temp2<<(7-bit_index);
-	char flipped = buf[byte];
+	unsigned char flipped;
+	memcpy(&flipped,&buf[byte],1);
 
-	//log_msg("BITNUM:%i      BITBLOCK:%i    BYTE:%i     BITiNDEX:%i     TEMP:%c",bit_num,bit_block,byte,bit_index,temp);
-
+	log_msg("BITNUM:%i      BITBLOCK:%i    BYTE:%i     BITiNDEX:%i\n",bit_num,bit_block,byte,bit_index);
+	
+	log_msg("BEFORE  temp:%x 	temp2:%x 	flipped:%x  buf:%x\n",temp,temp2,flipped,buf[byte]);
 
 	int to_return = -1;
 	if(temp == 1){
 		log_msg("FLIPPING 1 TO 0\n");//use to free
 		//XOR
 		flipped = flipped^temp2;
+		log_msg("flipped from 1 to 0:%x\n",flipped);
 		to_return = 0;
 	}else if(temp == 0){
 		log_msg("FLIPPING 0 TO 1\n");//free to use
 		//OR
 		flipped = flipped|temp2;
+		log_msg("flipped from 0 to 1:%x\n",flipped);
 		to_return = 1;
 	}
 
-	buf[byte] = flipped;
+	log_msg("AFTER :temp:%x 	temp2:%x 	flipped:%x  buf:%x\n",temp,temp2,flipped,buf[byte]);
+
+	memcpy(&buf[byte],&flipped,1);
 	block_write(bit_block,&buf);
+	block_read(bit_block,&buf);
+	log_msg("AFTER2 :temp:%x 	temp2:%x 	flipped:%x  buf:%x\n",temp,temp2,flipped,(unsigned char)buf[byte]);
 	return to_return;
 }
 
@@ -150,13 +163,14 @@ int find_free_block(){
 	
 	char buf[BLOCK_SIZE];
 	int i = FREE_BLOCK_START;
-	int free = 0;
+	int free = -1;
 	
 	//flip the bit at block location starting at 138. If flip_bit returns 1 it is free. If flip_bit returns 0 it is in use
 	//i is the location of the free block
 	while(i<NUM_BLOCKS){
 		free = flip_bit(i);
 		//found free bit
+		log_msg("free:%i   blocknum:%i\n",free,i);
 		if(free==1){
 			return i;
 		}
@@ -888,7 +902,8 @@ void fill_buffer(char * buffer, inode * in){
 	}
 	//double indirect
 	//do later
-	j = 0;
+	j = 0;file:///ilab/users/dv262/Desktop/OS/assignment3/src/block.c
+
 	while(j<2){
 		in->double_indirect_block[j] = 0;
 		j++;
@@ -931,16 +946,22 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 	if(in->file_size==0){
 		log_msg("INIT WRITE\n");
 		num_blks_needed = (size/512)+1;
+		if(size%512==0){
+			num_blks_needed-=1;		
+		}
 		char write_data[num_blks_needed*512];//data to be written into fs
 		strcpy(write_data,buf);
-		
+		//log_msg("Data:%s   numblocks:%i\n",write_data,num_blks_needed);
 		//search for free blocks and write to it
 		int i = 0;
 		while(i<num_blks_needed){
 			int free = find_free_block();
 			if(free!=-1){
 				//found free block
-				block_write(free,write_data+(512*i));
+				log_msg("FREE:%i     Data written:%s\n",free,write_data+(512*i));
+				char bbb[BLOCK_SIZE];
+				strncpy(bbb,(write_data+(512*i)),512);
+				block_write(free,&bbb);
 				
 			}
 			else{
@@ -959,7 +980,9 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 		
 		
 	}
+	in->d_block[0]=138;
 	
+	in->d_block[1]=139;
 	in->file_size += size;
 	in->num_blocks += num_blks_needed;
 	block_write(in->offset,in);
@@ -970,7 +993,7 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 	//if they need a new block, check bitmap.
     
     
-    return retstat;
+    return 521;
 }
 
 
