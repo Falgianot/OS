@@ -9,259 +9,134 @@ sfs_init()
     capable = 00000ffb
     want = 00000010
     context:
-    fuse = 00fe54b0
+    fuse = 01f264b0
     uid = 0
     gid = 0
     pid = 0
-    private_data = 00fe5010
-    logfile = 00fe5030
+    private_data = 01f26010
+    logfile = 01f26030
     diskfile = /.freespace/dv262/testfsfile
     umask = 00000
 OPENING DISK
 WRITING SUPER BLOCK
 FINISHING INIT
 
-sfs_getattr(path="/.Trash", statbuf=0x119b8c40)
+sfs_getattr(path="/.Trash", statbuf=0xee6f1c40)
 FINDING INODE for :/.Trash     /
 New path:.Trash
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_getattr(path="/.Trash", statbuf=0x109b6c40)
-FINDING INODE for :/.Trash     /
-New path:.Trash
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/.Trash-84600", statbuf=0x111b7c40)
+sfs_getattr(path="/.Trash-84600", statbuf=0xeeef2c40)
 FINDING INODE for :/.Trash-84600     /
 New path:.Trash-84600
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_getattr(path="/.Trash-84600", statbuf=0x119b8c40)
-FINDING INODE for :/.Trash-84600     /
-New path:.Trash-84600
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/", statbuf=0x109b6c10)
+sfs_getattr(path="/", statbuf=0xee6f1c10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
 
-sfs_getattr(path="/hello.txt", statbuf=0x111b7c40)
+sfs_getattr(path="/hello.txt", statbuf=0xeeef2c40)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_create(path="/hello.txt", mode=0100600, fi=0x119b8cf0)
+sfs_create(path="/hello.txt", mode=0100600, fi=0xee6f1cf0)
 New path from create:hello.txt
 
-sfs_open(path"/hello.txt", fi=0x119b8cf0)
+sfs_open(path"/hello.txt", fi=0xee6f1cf0)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
-ERROR ON OPEN
+ERROR ON OPEN   perm:0000
 CREATE offset:2
 Create file:0100000
 
-sfs_getattr(path="/hello.txt", statbuf=0x119b8c00)
+sfs_getattr(path="/hello.txt", statbuf=0xee6f1c00)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_release(path="/hello.txt", fi=0x119b8cf0)
+sfs_release(path="/hello.txt", fi=0xee6f1cf0)
 
-sfs_getattr(path="/", statbuf=0x109b6c10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
-
-sfs_getattr(path="/hello.txt", statbuf=0x111b7c40)
+sfs_getattr(path="/hello.txt", statbuf=0xeeef2c40)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_open(path"/hello.txt", fi=0x119b8cf0)
+sfs_open(path"/hello.txt", fi=0xee6f1cf0)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 OPENING FILE
 
-sfs_write(path="/hello.txt", buf=0x125a7060, size=4, offset=0, fi=0x111b7d70)
+sfs_write(path="/hello.txt", buf=0xefae1060, size=4081, offset=0, fi=0xee6f1d70)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
-MOTHERFUCKER-1:hello.txt
+File name to write:hello.txt
 FILLING BUFFER from file hello.txt
-MOTHERFUCKER0:hello.txt
 INIT WRITE
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-TEMPPPPP:0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-BITNUM:0      BITBLOCK:130    BYTE:0     BITiNDEX:0
-BEFORE  temp:0 	temp2:80 	flipped:0  buf:0
-FLIPPING 0 TO 1
-flipped from 0 to 1:80
-AFTER :temp:0 	temp2:80 	flipped:80  buf:0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-AFTER2 :temp:0 	temp2:80 	flipped:80  buf:80
 free:1   blocknum:138
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:0
-FOUND INODE IN SEARCH DIR
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-MOTHERFUCKER1:hello.txt
 FIND FREE DIRECT
-FOUND FREE DIRECT
-OFFSET OF 138 INODE= 138
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-MOTHERFUCKER2:hello.txt
-OFFSET OF 138 INODE= 138
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-MOTHERFUCKER3:hello.txt
-BEFORE:hello.txt
-NEW FILE SIZE:4   offset:3   num_blks1
-AFTER:hello.txt
+FOUND FREE DIRECT index:0   offset:138
+free:0   blocknum:138
+free:1   blocknum:139
+FIND FREE DIRECT
+FOUND FREE DIRECT index:0   offset:139
+free:0   blocknum:138
+free:0   blocknum:139
+free:1   blocknum:140
+FIND FREE DIRECT
+FOUND FREE DIRECT index:0   offset:140
+free:0   blocknum:138
+free:0   blocknum:139
+free:0   blocknum:140
+free:1   blocknum:141
+FIND FREE DIRECT
+FOUND FREE DIRECT index:0   offset:141
+free:0   blocknum:138
+free:0   blocknum:139
+free:0   blocknum:140
+free:0   blocknum:141
+free:1   blocknum:142
+FIND FREE DIRECT
+FOUND FREE DIRECT index:0   offset:142
+free:0   blocknum:138
+free:0   blocknum:139
+free:0   blocknum:140
+free:0   blocknum:141
+free:0   blocknum:142
+free:1   blocknum:143
+FIND FREE DIRECT
+FOUND FREE DIRECT index:0   offset:143
+free:0   blocknum:138
+free:0   blocknum:139
+free:0   blocknum:140
+free:0   blocknum:141
+free:0   blocknum:142
+free:0   blocknum:143
+free:1   blocknum:144
+FIND FREE DIRECT
+FOUND FREE DIRECT index:0   offset:144
+free:0   blocknum:138
+free:0   blocknum:139
+free:0   blocknum:140
+free:0   blocknum:141
+free:0   blocknum:142
+free:0   blocknum:143
+free:0   blocknum:144
+free:1   blocknum:145
+FIND FREE DIRECT
+FOUND FREE DIRECT index:0   offset:145
+NEW FILE SIZE:4081   offset:3   num_blks8
 
-sfs_release(path="/hello.txt", fi=0x119b8cf0)
-
-sfs_getattr(path="/", statbuf=0x109b6c10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
-
-sfs_getattr(path="/hello.txt", statbuf=0x111b7c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:4
-FOUND INODE IN SEARCH DIR
-Returning from attr
-
-sfs_open(path"/hello.txt", fi=0x119b8cf0)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:4
-FOUND INODE IN SEARCH DIR
-OPENING FILE
-
-sfs_write(path="/hello.txt", buf=0x12585060, size=4, offset=4, fi=0x109b6d70)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:4
-FOUND INODE IN SEARCH DIR
-MOTHERFUCKER-1:hello.txt
-FILLING BUFFER from file hello.txt
-FILLING BUFFER from file hello.txt      o:138
-buffer_data = hey
-
-MOTHERFUCKER0:hello.txt
-EXTRA WRITE fillbuffer:hey
-  bks:1         filesize:4
-Remainder:508      rem-size:-504
-insert::4      srlen(buf);:4
-buffer_data[insert]: b and buf[z]:b
-buffer_data[insert]: y and buf[z]:y
-buffer_data[insert]: e and buf[z]:e
-buffer_data[insert]: 
- and buf[z]:
-
-EXTRA BUFFER:hey
-bye
-
-FILLING DATA
-
-sfs_release(path="/hello.txt", fi=0x111b7cf0)
-
-sfs_getattr(path="/", statbuf=0x119b8c10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
+sfs_release(path="/hello.txt", fi=0xeeef2cf0)
