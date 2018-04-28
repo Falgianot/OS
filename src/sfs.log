@@ -9,89 +9,271 @@ sfs_init()
     capable = 00000ffb
     want = 00000010
     context:
-    fuse = 00c8b4b0
+    fuse = 012924b0
     uid = 0
     gid = 0
     pid = 0
-    private_data = 00c8b010
-    logfile = 00c8b030
+    private_data = 01292010
+    logfile = 01292030
     diskfile = /.freespace/dv262/testfsfile
     umask = 00000
 OPENING DISK
 WRITING SUPER BLOCK
 FINISHING INIT
 
-sfs_getattr(path="/.Trash", statbuf=0x6d5b1c40)
+sfs_getattr(path="/.Trash", statbuf=0x17ffec40)
 FINDING INODE for :/.Trash     /
 New path:.Trash
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_getattr(path="/.Trash-84600", statbuf=0x6cdb0c40)
+sfs_getattr(path="/.Trash-84600", statbuf=0x1cdbcc40)
 FINDING INODE for :/.Trash-84600     /
 New path:.Trash-84600
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_getattr(path="/", statbuf=0x6d5b1c10)
+sfs_getattr(path="/", statbuf=0x17ffec10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
 
-sfs_getattr(path="/hello.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
+sfs_getattr(path="/pussy.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_create(path="/hello.txt", mode=0100600, fi=0x6d5b1cf0)
-New path from create:hello.txt
+sfs_create(path="/pussy.txt", mode=0100600, fi=0x17ffecf0)
+New path from create:pussy.txt
 
-sfs_open(path"/hello.txt", fi=0x6d5b1cf0)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
+sfs_open(path"/pussy.txt", fi=0x17ffecf0)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
 ERROR ON OPEN   perm:0000
 CREATE offset:2
 Create file:0100000
 
-sfs_getattr(path="/hello.txt", statbuf=0x6d5b1c00)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:0
+sfs_getattr(path="/pussy.txt", statbuf=0x17ffec00)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:0
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_release(path="/hello.txt", fi=0x6d5b1cf0)
+sfs_release(path="/pussy.txt", fi=0x17ffecf0)
 
-sfs_getattr(path="/", statbuf=0x6cdb0c10)
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
 
-sfs_getattr(path="/hello.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:0
+sfs_getattr(path="/pussy1.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy1.txt     /
+New path:pussy1.txt
+FOUND INODE NAME:pussy.txt    Size:0
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_create(path="/pussy1.txt", mode=0100600, fi=0x1cdbccf0)
+New path from create:pussy1.txt
+
+sfs_open(path"/pussy1.txt", fi=0x1cdbccf0)
+FINDING INODE for :/pussy1.txt     /
+New path:pussy1.txt
+FOUND INODE NAME:pussy.txt    Size:0
+ERROR ON OPEN   perm:0000
+CREATE offset:2
+Create file:0100000
+
+sfs_getattr(path="/pussy1.txt", statbuf=0x1cdbcc00)
+FINDING INODE for :/pussy1.txt     /
+New path:pussy1.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE NAME:pussy1.txt    Size:0
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_open(path"/hello.txt", fi=0x6cdb0cf0)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:0
+sfs_release(path="/pussy1.txt", fi=0x17ffecf0)
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/puss21.txt", statbuf=0x17ffec40)
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE NAME:pussy1.txt    Size:0
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_create(path="/puss21.txt", mode=0100600, fi=0x1cdbccf0)
+New path from create:puss21.txt
+
+sfs_open(path"/puss21.txt", fi=0x1cdbccf0)
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE NAME:pussy1.txt    Size:0
+ERROR ON OPEN   perm:0000
+CREATE offset:2
+Create file:0100000
+
+sfs_getattr(path="/puss21.txt", statbuf=0x1cdbcc00)
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE NAME:pussy1.txt    Size:0
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_release(path="/puss21.txt", fi=0x17ffecf0)
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/puss23.txt", statbuf=0x17ffec40)
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE NAME:pussy1.txt    Size:0
+FOUND INODE NAME:puss21.txt    Size:0
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_create(path="/puss23.txt", mode=0100600, fi=0x1cdbccf0)
+New path from create:puss23.txt
+
+sfs_open(path"/puss23.txt", fi=0x1cdbccf0)
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE NAME:pussy1.txt    Size:0
+FOUND INODE NAME:puss21.txt    Size:0
+ERROR ON OPEN   perm:0000
+CREATE offset:2
+Create file:0100000
+
+sfs_getattr(path="/puss23.txt", statbuf=0x1cdbcc00)
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE NAME:pussy1.txt    Size:0
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_release(path="/puss23.txt", fi=0x17ffecf0)
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/puss23.txt", statbuf=0x17ffec40)
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE NAME:pussy1.txt    Size:0
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_open(path"/puss23.txt", fi=0x1cdbccf0)
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE NAME:pussy1.txt    Size:0
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
 FOUND INODE IN SEARCH DIR
 OPENING FILE
 
-sfs_write(path="/hello.txt", buf=0x6e1a0060, size=3, offset=0, fi=0x6cdb0d70)
-strlen:4
-this is the fucking buf:hi
-Z
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:0
+sfs_release(path="/puss23.txt", fi=0x17ffecf0)
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/puss24.txt", statbuf=0x17ffec40)
+FINDING INODE for :/puss24.txt     /
+New path:puss24.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE NAME:pussy1.txt    Size:0
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_create(path="/puss24.txt", mode=0100600, fi=0x1cdbccf0)
+New path from create:puss24.txt
+
+sfs_open(path"/puss24.txt", fi=0x1cdbccf0)
+FINDING INODE for :/puss24.txt     /
+New path:puss24.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE NAME:pussy1.txt    Size:0
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+ERROR ON OPEN   perm:0000
+CREATE offset:2
+Create file:0100000
+
+sfs_getattr(path="/puss24.txt", statbuf=0x1cdbcc00)
+FINDING INODE for :/puss24.txt     /
+New path:puss24.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE NAME:pussy1.txt    Size:0
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
 FOUND INODE IN SEARCH DIR
-File name to write:hello.txt
-FILLING BUFFER from file hello.txt
+Returning from attr
+
+sfs_release(path="/puss24.txt", fi=0x17ffecf0)
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x17ffec10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/pussy.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_open(path"/pussy.txt", fi=0x17ffecf0)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_write(path="/pussy.txt", buf=0x1d9ab060, size=6, offset=0, fi=0x17ffed70)
+strlen:6
+this is the fucking buf:assss
+
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:0
+FOUND INODE IN SEARCH DIR
+File name to write:pussy.txt
+FILLING BUFFER from file pussy.txt
 OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
@@ -165,11 +347,14 @@ OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
 offfffff:0
 INIT WRITE
-strlen:4
-this is the fucking buf:hi
-Z
-buffer_data[insert]: h and buf[z]:h
-buffer_data[insert]: i and buf[z]:i
+strlen:6
+this is the fucking buf:assss
+
+buffer_data[insert]: a and buf[z]:a
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
 buffer_data[insert]: 
  and buf[z]:
 
@@ -184,134 +369,46 @@ OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
 FOUND FREE DIRECT index:0   offset:138
-writing to block:hi
+writing to block:assss
 
-this is in asshole:hi
+this is in asshole:assss
 
-NEW FILE SIZE:3   offset:3   num_blks1
+NEW FILE SIZE:6   offset:3   num_blks1
 
-sfs_release(path="/hello.txt", fi=0x6d5b1cf0)
+sfs_release(path="/pussy.txt", fi=0x1cdbccf0)
 
-sfs_getattr(path="/", statbuf=0x6cdb0c10)
+sfs_getattr(path="/", statbuf=0x17ffec10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
 
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:3
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:3
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:3
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:3
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:3
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:3
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:3
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/hello.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:3
+sfs_getattr(path="/pussy1.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy1.txt     /
+New path:pussy1.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:0
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
-", statbuf=0x6d5b1c40)
-FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
-     /
-New path:fffffffffffffffffffffffffffdddddddd
-
-FOUND INODE NAME:hello.txt    Size:3
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:3
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:3
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/hello.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:3
-FOUND INODE IN SEARCH DIR
-Returning from attr
-
-sfs_open(path"/hello.txt", fi=0x6d5b1cf0)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:3
+sfs_open(path"/pussy1.txt", fi=0x17ffecf0)
+FINDING INODE for :/pussy1.txt     /
+New path:pussy1.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:0
 FOUND INODE IN SEARCH DIR
 OPENING FILE
 
-sfs_write(path="/hello.txt", buf=0x6e1a0060, size=3, offset=3, fi=0x6cdb0d70)
-strlen:4
-this is the fucking buf:hi
-Z
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:3
+sfs_write(path="/pussy1.txt", buf=0x1d9dc060, size=6, offset=0, fi=0x1cdbcd70)
+strlen:6
+this is the fucking buf:assss
+
+FINDING INODE for :/pussy1.txt     /
+New path:pussy1.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:0
 FOUND INODE IN SEARCH DIR
-File name to write:hello.txt
-FILLING BUFFER from file hello.txt
-OFFSET OF 138 INODE= 138
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-offfffff:138
-Reading hi
- from fill_buffer
+File name to write:pussy1.txt
+FILLING BUFFER from file pussy1.txt
 OFFSET OF 138 INODE= 138
 OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
@@ -375,132 +472,6 @@ OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
 offfffff:0
-EXTRA WRITE fillbuffer:hi
-  blocks in inode:1         filesize:3
-Remainder:509      size-rem:-506
-buffer_data[insert]: h and buf[z]:h
-buffer_data[insert]: i and buf[z]:i
-buffer_data[insert]: 
- and buf[z]:
-
-EXTRA BUFFER:hi
-hi
-
-FILLING DATA
-DIR PUTTING BACK IN:hi
-hi
-
-NEW FILE SIZE:6   offset:3   num_blks0
-
-sfs_release(path="/hello.txt", fi=0x6d5b1cf0)
-
-sfs_getattr(path="/", statbuf=0x6cdb0c10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:6
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:6
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:6
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:6
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:6
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:6
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/hello.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:6
-FOUND INODE IN SEARCH DIR
-Returning from attr
-
-sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
-", statbuf=0x6cdb0c40)
-FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
-     /
-New path:fffffffffffffffffffffffffffdddddddd
-
-FOUND INODE NAME:hello.txt    Size:6
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:6
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/hello.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:6
-FOUND INODE IN SEARCH DIR
-Returning from attr
-
-sfs_open(path"/hello.txt", fi=0x6d5b1cf0)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:6
-FOUND INODE IN SEARCH DIR
-OPENING FILE
-
-sfs_write(path="/hello.txt", buf=0x6e1a0060, size=3, offset=6, fi=0x6cdb0d70)
-strlen:4
-this is the fucking buf:as
-Z
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:6
-FOUND INODE IN SEARCH DIR
-File name to write:hello.txt
-FILLING BUFFER from file hello.txt
-OFFSET OF 138 INODE= 138
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-offfffff:138
-Reading hi
-hi
- from fill_buffer
 OFFSET OF 138 INODE= 138
 OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
@@ -510,184 +481,21 @@ OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
 offfffff:0
-OFFSET OF 138 INODE= 138
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-offfffff:0
-OFFSET OF 138 INODE= 138
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-offfffff:0
-OFFSET OF 138 INODE= 138
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-offfffff:0
-OFFSET OF 138 INODE= 138
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-offfffff:0
-OFFSET OF 138 INODE= 138
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-offfffff:0
-OFFSET OF 138 INODE= 138
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-OFFSET OF 138 INODE= 0
-offfffff:0
-EXTRA WRITE fillbuffer:hi
-hi
-  blocks in inode:1         filesize:6
-Remainder:506      size-rem:-503
+INIT WRITE
+strlen:6
+this is the fucking buf:assss
+
 buffer_data[insert]: a and buf[z]:a
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
 buffer_data[insert]: s and buf[z]:s
 buffer_data[insert]: 
  and buf[z]:
 
-EXTRA BUFFER:hi
-hi
-as
-
-FILLING DATA
-DIR PUTTING BACK IN:hi
-hi
-as
-
-NEW FILE SIZE:9   offset:3   num_blks0
-
-sfs_release(path="/hello.txt", fi=0x6d5b1cf0)
-
-sfs_getattr(path="/", statbuf=0x6cdb0c10)
-FINDING INODE for :/     /
-FOUND INODE
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:9
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:9
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:9
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:9
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:9
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:9
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:9
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/hello.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:9
-FOUND INODE IN SEARCH DIR
-Returning from attr
-
-sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
-", statbuf=0x6d5b1c40)
-FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
-     /
-New path:fffffffffffffffffffffffffffdddddddd
-
-FOUND INODE NAME:hello.txt    Size:9
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:9
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/hello.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:9
-FOUND INODE IN SEARCH DIR
-Returning from attr
-
-sfs_open(path"/hello.txt", fi=0x6cdb0cf0)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:9
-FOUND INODE IN SEARCH DIR
-OPENING FILE
-
-sfs_write(path="/hello.txt", buf=0x6e1d1060, size=2, offset=9, fi=0x6d5b1d70)
-strlen:4
-this is the fucking buf:i
-äZ
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:9
-FOUND INODE IN SEARCH DIR
-File name to write:hello.txt
-FILLING BUFFER from file hello.txt
+free:0   blocknum:138
+free:1   blocknum:139
+FIND FREE DIRECT
 OFFSET OF 138 INODE= 138
 OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
@@ -696,10 +504,927 @@ OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
-offfffff:138
-Reading hi
-hi
-as
+FOUND FREE DIRECT index:0   offset:139
+writing to block:assss
+
+this is in asshole:assss
+
+NEW FILE SIZE:6   offset:4   num_blks1
+
+sfs_release(path="/pussy1.txt", fi=0x17ffecf0)
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/pussy21.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_create(path="/pussy21.txt", mode=0100600, fi=0x1cdbccf0)
+New path from create:pussy21.txt
+
+sfs_open(path"/pussy21.txt", fi=0x1cdbccf0)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+ERROR ON OPEN   perm:0000
+CREATE offset:2
+Create file:0100000
+
+sfs_getattr(path="/pussy21.txt", statbuf=0x1cdbcc00)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_write(path="/pussy21.txt", buf=0x1d9ab060, size=6, offset=0, fi=0x17ffed70)
+strlen:6
+this is the fucking buf:assss
+
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+File name to write:pussy21.txt
+FILLING BUFFER from file pussy21.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+INIT WRITE
+strlen:6
+this is the fucking buf:assss
+
+buffer_data[insert]: a and buf[z]:a
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: 
+ and buf[z]:
+
+free:0   blocknum:138
+free:0   blocknum:139
+free:1   blocknum:140
+FIND FREE DIRECT
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FOUND FREE DIRECT index:0   offset:140
+writing to block:assss
+
+this is in asshole:assss
+
+NEW FILE SIZE:6   offset:8   num_blks1
+
+sfs_release(path="/pussy21.txt", fi=0x1cdbccf0)
+
+sfs_getattr(path="/", statbuf=0x17ffec10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/pussy23.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy23.txt     /
+New path:pussy23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_create(path="/pussy23.txt", mode=0100600, fi=0x17ffecf0)
+New path from create:pussy23.txt
+
+sfs_open(path"/pussy23.txt", fi=0x17ffecf0)
+FINDING INODE for :/pussy23.txt     /
+New path:pussy23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+ERROR ON OPEN   perm:0000
+CREATE offset:2
+Create file:0100000
+
+sfs_getattr(path="/pussy23.txt", statbuf=0x17ffec00)
+FINDING INODE for :/pussy23.txt     /
+New path:pussy23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_write(path="/pussy23.txt", buf=0x1d9dc060, size=6, offset=0, fi=0x1cdbcd70)
+strlen:6
+this is the fucking buf:assss
+
+FINDING INODE for :/pussy23.txt     /
+New path:pussy23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:0
+FOUND INODE IN SEARCH DIR
+File name to write:pussy23.txt
+FILLING BUFFER from file pussy23.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+INIT WRITE
+strlen:6
+this is the fucking buf:assss
+
+buffer_data[insert]: a and buf[z]:a
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: 
+ and buf[z]:
+
+free:0   blocknum:138
+free:0   blocknum:139
+free:0   blocknum:140
+free:1   blocknum:141
+FIND FREE DIRECT
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FOUND FREE DIRECT index:0   offset:141
+writing to block:assss
+
+this is in asshole:assss
+
+NEW FILE SIZE:6   offset:9   num_blks1
+
+sfs_release(path="/pussy23.txt", fi=0x17ffecf0)
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/pussy24.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy24.txt     /
+New path:pussy24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_create(path="/pussy24.txt", mode=0100600, fi=0x1cdbccf0)
+New path from create:pussy24.txt
+
+sfs_open(path"/pussy24.txt", fi=0x1cdbccf0)
+FINDING INODE for :/pussy24.txt     /
+New path:pussy24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+ERROR ON OPEN   perm:0000
+CREATE offset:2
+Create file:0100000
+
+sfs_getattr(path="/pussy24.txt", statbuf=0x1cdbcc00)
+FINDING INODE for :/pussy24.txt     /
+New path:pussy24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_write(path="/pussy24.txt", buf=0x1d9ab060, size=6, offset=0, fi=0x17ffed70)
+strlen:6
+this is the fucking buf:assss
+
+FINDING INODE for :/pussy24.txt     /
+New path:pussy24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:0
+FOUND INODE IN SEARCH DIR
+File name to write:pussy24.txt
+FILLING BUFFER from file pussy24.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+INIT WRITE
+strlen:6
+this is the fucking buf:assss
+
+buffer_data[insert]: a and buf[z]:a
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: 
+ and buf[z]:
+
+free:0   blocknum:138
+free:0   blocknum:139
+free:0   blocknum:140
+free:0   blocknum:141
+free:1   blocknum:142
+FIND FREE DIRECT
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FOUND FREE DIRECT index:0   offset:142
+writing to block:assss
+
+this is in asshole:assss
+
+NEW FILE SIZE:6   offset:10   num_blks1
+
+sfs_release(path="/pussy24.txt", fi=0x1cdbccf0)
+
+sfs_getattr(path="/", statbuf=0x17ffec10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_opendir(path="/", fi=0x17ffec30)
+
+sfs_getattr(path="/.Trash", statbuf=0x1cdbcc40)
+FINDING INODE for :/.Trash     /
+New path:.Trash
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/.Trash-84600", statbuf=0x17ffec40)
+FINDING INODE for :/.Trash-84600     /
+New path:.Trash-84600
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+IN READDIR
+FINDING INODE for :/     /
+FOUND INODE
+indir off:2
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+
+sfs_getattr(path="/pussy.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/.hidden", statbuf=0x17ffec40)
+FINDING INODE for :/.hidden     /
+New path:.hidden
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/pussy1.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy1.txt     /
+New path:pussy1.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/puss21.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/puss23.txt", statbuf=0x17ffec40)
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/puss24.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/puss24.txt     /
+New path:puss24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy21.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy23.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy23.txt     /
+New path:pussy23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy24.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy24.txt     /
+New path:pussy24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_open(path"/puss21.txt", fi=0x17ffecf0)
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_read(path="/puss21.txt", buf=0x18000d70, size=4096, offset=0, fi=0x1cdbccf0)
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+FILLING BUFFER from file puss21.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+buffer_data includes : /
+strlen of buffer_data:1
+final_buffer in read[insert]: / and buffer_data[z]:/
+strlen in read is: : 4
+
+sfs_release(path="/puss21.txt", fi=0x17ffecf0)
+
+sfs_getattr(path="/puss21.txt", statbuf=0x1cdbcc10)
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/puss21.txt", statbuf=0x17ffec40)
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/bitchas.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/bitchas.txt     /
+New path:bitchas.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x17ffec40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x1cdbcc40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x17ffec40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/puss21.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x17ffec10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/pussy21.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_open(path"/pussy21.txt", fi=0x17ffecf0)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_read(path="/pussy21.txt", buf=0x18000d70, size=4096, offset=0, fi=0x1cdbccf0)
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+FILLING BUFFER from file pussy21.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:140
+Reading assss
  from fill_buffer
 OFFSET OF 138 INODE= 138
 OFFSET OF 138 INODE= 0
@@ -764,293 +1489,1828 @@ OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
 OFFSET OF 138 INODE= 0
 offfffff:0
-EXTRA WRITE fillbuffer:hi
-hi
-as
-  blocks in inode:1         filesize:9
-Remainder:503      size-rem:-501
-buffer_data[insert]: i and buf[z]:i
-buffer_data[insert]: 
- and buf[z]:
+buffer_data includes : assss
 
-buffer_data[insert]: ä and buf[z]:ä
-EXTRA BUFFER:hi
-hi
-as
-i
-ä
-FILLING DATA
-DIR PUTTING BACK IN:hi
-hi
-as
-i
-ä
-NEW FILE SIZE:12   offset:3   num_blks0
+strlen of buffer_data:6
+final_buffer in read[insert]: a and buffer_data[z]:a
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: 
+ and buffer_data[z]:
 
-sfs_release(path="/hello.txt", fi=0x6cdb0cf0)
+strlen in read is: : 6
 
-sfs_getattr(path="/", statbuf=0x6d5b1c10)
+sfs_getattr(path="/pussy21.txt", statbuf=0x17ffec10)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_release(path="/pussy21.txt", fi=0x1cdbccf0)
+
+sfs_getattr(path="/", statbuf=0x17ffec10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
 
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/hello.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:12
+sfs_getattr(path="/pussy21.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
-", statbuf=0x6cdb0c40)
-FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
-     /
-New path:fffffffffffffffffffffffffffdddddddd
-
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/hello.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:12
-FOUND INODE IN SEARCH DIR
-Returning from attr
-
-sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
-", statbuf=0x6cdb0c40)
-FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
-     /
-New path:fffffffffffffffffffffffffffdddddddd
-
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/hello.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
-FOUND INODE NAME:hello.txt    Size:12
-FOUND INODE IN SEARCH DIR
-Returning from attr
-
-sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
-", statbuf=0x6d5b1c40)
-FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
-     /
-New path:fffffffffffffffffffffffffffdddddddd
-
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
-FINDING INODE for :/bitchass.txt     /
-New path:bitchass.txt
-FOUND INODE NAME:hello.txt    Size:12
-TRAAAAAAAAAAAAASH
-Returning from attr
-
-sfs_getattr(path="/", statbuf=0x6d5b1c10)
+sfs_getattr(path="/", statbuf=0x17ffec10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
 
-sfs_destroy(userdata=0x00c8b010)
+sfs_open(path"/pussy21.txt", fi=0x1cdbccf0)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_read(path="/pussy21.txt", buf=0x10000af0, size=4096, offset=0, fi=0x17ffecf0)
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+FILLING BUFFER from file pussy21.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:140
+Reading assss
+ from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+buffer_data includes : assss
+
+strlen of buffer_data:6
+final_buffer in read[insert]: a and buffer_data[z]:a
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: 
+ and buffer_data[z]:
+
+strlen in read is: : 6
+
+sfs_getattr(path="/pussy21.txt", statbuf=0x1cdbcc10)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_release(path="/pussy21.txt", fi=0x17ffecf0)
+
+sfs_getattr(path="/puss21.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/bitchas.txt", statbuf=0x17ffec40)
+FINDING INODE for :/bitchas.txt     /
+New path:bitchas.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x17ffec40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/pussy21.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/pussy.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_open(path"/pussy.txt", fi=0x17ffecf0)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_read(path="/pussy.txt", buf=0x18000d70, size=4096, offset=0, fi=0x1cdbccf0)
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE IN SEARCH DIR
+FILLING BUFFER from file pussy.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:138
+Reading assss
+ from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+buffer_data includes : assss
+
+strlen of buffer_data:6
+final_buffer in read[insert]: a and buffer_data[z]:a
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: 
+ and buffer_data[z]:
+
+strlen in read is: : 6
+
+sfs_getattr(path="/pussy.txt", statbuf=0x17ffec10)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_release(path="/pussy.txt", fi=0x1cdbccf0)
+
+sfs_getattr(path="/pussy21.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/puss21.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/bitchas.txt", statbuf=0x17ffec40)
+FINDING INODE for :/bitchas.txt     /
+New path:bitchas.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x17ffec40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/pussy.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/puss23.txt", statbuf=0x17ffec40)
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_open(path"/puss23.txt", fi=0x17ffecf0)
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_opendir(path="/", fi=0x1cdbcc30)
+IN READDIR
+FINDING INODE for :/     /
+FOUND INODE
+indir off:2
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+
+sfs_read(path="/puss23.txt", buf=0x18001070, size=4096, offset=0, fi=0x1cdbccf0)
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE IN SEARCH DIR
+FILLING BUFFER from file puss23.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+
+sfs_getattr(path="/pussy.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+buffer_data includes : á5$ã;€ÿÿ
+strlen of buffer_data:9
+final_buffer in read[insert]: á and buffer_data[z]:á
+final_buffer in read[insert]: 5 and buffer_data[z]:5
+final_buffer in read[insert]: $ and buffer_data[z]:$
+final_buffer in read[insert]: ã and buffer_data[z]:ã
+final_buffer in read[insert]: ; and buffer_data[z]:;
+final_buffer in read[insert]: € and buffer_data[z]:€
+final_buffer in read[insert]: ÿ and buffer_data[z]:ÿ
+final_buffer in read[insert]: ÿ and buffer_data[z]:ÿ
+strlen in read is: : 8
+
+sfs_release(path="/puss23.txt", fi=0x177fdcf0)
+
+sfs_getattr(path="/.hidden", statbuf=0x17ffec40)
+FINDING INODE for :/.hidden     /
+New path:.hidden
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/pussy1.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy1.txt     /
+New path:pussy1.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/puss21.txt", statbuf=0x177fdc40)
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/puss23.txt", statbuf=0x17ffec10)
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/puss24.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/puss24.txt     /
+New path:puss24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy21.txt", statbuf=0x177fdc40)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy23.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy23.txt     /
+New path:pussy23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy24.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy24.txt     /
+New path:pussy24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/bitchas.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/bitchas.txt     /
+New path:bitchas.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x177fdc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x17ffec40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/puss23.txt", statbuf=0x177fdc40)
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x17ffec10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/pussy23.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy23.txt     /
+New path:pussy23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_open(path"/pussy23.txt", fi=0x177fdcf0)
+FINDING INODE for :/pussy23.txt     /
+New path:pussy23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_opendir(path="/", fi=0x17ffec30)
+IN READDIR
+FINDING INODE for :/     /
+FOUND INODE
+indir off:2
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+
+sfs_read(path="/pussy23.txt", buf=0x18001480, size=4096, offset=0, fi=0x1cdbccf0)
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FINDING INODE for :/pussy23.txt     /
+New path:pussy23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE IN SEARCH DIR
+FILLING BUFFER from file pussy23.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:141
+Reading assss
+ from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+buffer_data includes : assss
+
+strlen of buffer_data:6
+final_buffer in read[insert]: a and buffer_data[z]:a
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: 
+ and buffer_data[z]:
+
+strlen in read is: : 6
+
+sfs_getattr(path="/pussy.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy1.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy1.txt     /
+New path:pussy1.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/puss21.txt", statbuf=0x177fdc40)
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/puss24.txt", statbuf=0x17ffec40)
+FINDING INODE for :/puss24.txt     /
+New path:puss24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy21.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+
+sfs_getattr(path="/pussy23.txt", statbuf=0x177fdc10)
+FINDING INODE for :/pussy23.txt     /
+New path:pussy23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+Returning from attr
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy24.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy24.txt     /
+New path:pussy24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+Returning from attr
+
+sfs_release(path="/pussy23.txt", fi=0x17ffecf0)
+
+sfs_getattr(path="/", statbuf=0x177fdc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/puss23.txt", statbuf=0x17ffec40)
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/bitchas.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/bitchas.txt     /
+New path:bitchas.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x177fdc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x17ffec40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/pussy23.txt", statbuf=0x177fdc40)
+FINDING INODE for :/pussy23.txt     /
+New path:pussy23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x17ffec10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/pussy24.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy24.txt     /
+New path:pussy24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x177fdc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_open(path"/pussy24.txt", fi=0x17ffecf0)
+FINDING INODE for :/pussy24.txt     /
+New path:pussy24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_opendir(path="/", fi=0x1cdbcc30)
+IN READDIR
+FINDING INODE for :/     /
+FOUND INODE
+indir off:2
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+buffer not full
+
+sfs_read(path="/pussy24.txt", buf=0x08000f00, size=4096, offset=0, fi=0x177fdcf0)
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FINDING INODE for :/pussy24.txt     /
+New path:pussy24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+FOUND INODE IN SEARCH DIR
+FILLING BUFFER from file pussy24.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:142
+Reading assss
+ from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+buffer_data includes : assss
+
+strlen of buffer_data:6
+final_buffer in read[insert]: a and buffer_data[z]:a
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: 
+ and buffer_data[z]:
+
+strlen in read is: : 6
+
+sfs_getattr(path="/pussy.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy1.txt", statbuf=0x177fdc40)
+FINDING INODE for :/pussy1.txt     /
+New path:pussy1.txt
+
+sfs_getattr(path="/pussy24.txt", statbuf=0x17ffec10)
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/puss21.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy24.txt     /
+FINDING INODE for :/puss21.txt     /
+New path:pussy24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+FOUND INODE IN SEARCH DIR
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+Returning from attr
+
+sfs_getattr(path="/puss23.txt", statbuf=0x177fdc40)
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/puss24.txt", statbuf=0x17ffec40)
+FINDING INODE for :/puss24.txt     /
+New path:puss24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy21.txt", statbuf=0x177fdc40)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy23.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/pussy23.txt     /
+New path:pussy23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_release(path="/pussy24.txt", fi=0x177fdcf0)
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/bitchas.txt", statbuf=0x17ffec40)
+FINDING INODE for :/bitchas.txt     /
+New path:bitchas.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x177fdc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x1cdbcc40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x17ffec40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/pussy24.txt", statbuf=0x177fdc40)
+FINDING INODE for :/pussy24.txt     /
+New path:pussy24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x1cdbcc10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x17ffec40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x177fdc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x17ffec40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x177fdc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x17ffec40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x177fdc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x17ffec40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x177fdc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x17ffec40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x177fdc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x17ffec40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x177fdc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/pussy24.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy24.txt     /
+New path:pussy24.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy23.txt", statbuf=0x177fdc40)
+FINDING INODE for :/pussy23.txt     /
+New path:pussy23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/puss23.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/puss23.txt     /
+New path:puss23.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy.txt", statbuf=0x17ffec40)
+FINDING INODE for :/pussy.txt     /
+New path:pussy.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/pussy21.txt", statbuf=0x177fdc40)
+FINDING INODE for :/pussy21.txt     /
+New path:pussy21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/puss21.txt", statbuf=0x1cdbcc40)
+FINDING INODE for :/puss21.txt     /
+New path:puss21.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/bitchas.txt", statbuf=0x17ffec40)
+FINDING INODE for :/bitchas.txt     /
+New path:bitchas.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x177fdc40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x1cdbcc40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x17ffec40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:pussy.txt    Size:6
+FOUND INODE NAME:pussy1.txt    Size:6
+FOUND INODE NAME:puss21.txt    Size:0
+FOUND INODE NAME:puss23.txt    Size:0
+FOUND INODE NAME:puss24.txt    Size:0
+FOUND INODE NAME:pussy21.txt    Size:6
+FOUND INODE NAME:pussy23.txt    Size:6
+FOUND INODE NAME:pussy24.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr

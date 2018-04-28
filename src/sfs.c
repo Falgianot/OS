@@ -988,7 +988,7 @@ int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse
 	    int o = find_inode(path);
 	    block_read(o,&b);
 	    inode* in = (inode*) b;
-	    
+	    int bytes_to_return = 0;
 	    char buffer_data[in->num_blocks*512];
 		fill_buffer(buffer_data,in);
 		log_msg("buffer_data includes : %s\n",buffer_data);
@@ -1003,16 +1003,16 @@ int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse
 			log_msg("final_buffer in read[insert]: %c and buffer_data[z]:%c\n",buf[i],buffer_data[z]);
 			z++;
 			i++;
-			
+			bytes_to_return= bytes_to_return + 1;
 		}
-
-		if(strlen(buf) > in->file_size){
+log_msg("strlen in read is: : %d\n",strlen(buf));
+		/*if(strlen(buf) > in->file_size){
 			log_msg("GGGF");
 			return 0;
-		}
+		}*/
 	
 
-    return strlen(buf);
+    return bytes_to_return;
    
 }
 
@@ -1224,7 +1224,7 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 		log_msg("strlen:%d\n",strlen(buf));
 		
 		log_msg("this is the fucking buf:%s\n",buf);
-		while(f<(strlen(buf)-1)){
+		while(f<(int)size){
 			(write_data[g]) = (buf[f]);
 			log_msg("buffer_data[insert]: %c and buf[z]:%c\n",write_data[g],buf[f]);
 			g++;
@@ -1286,7 +1286,7 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 			//log_msg("insert::%i      srlen(buf);:%i\n",insert,strlen(buf));
 			
 			//copy byte by byte into buffer_data
-			while(z<(strlen(buf)-1)){
+			while(z<(int)size){
 				(buffer_data[insert]) = (buf[z]);
 				log_msg("buffer_data[insert]: %c and buf[z]:%c\n",buffer_data[insert],buf[z]);
 				insert++;
