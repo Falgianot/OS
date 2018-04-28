@@ -1,0 +1,1056 @@
+
+sfs_init()
+    conn:
+    proto_major = 7
+    proto_minor = 22
+    async_read = 1
+    max_write = 131072
+    max_readahead = 131072
+    capable = 00000ffb
+    want = 00000010
+    context:
+    fuse = 00c8b4b0
+    uid = 0
+    gid = 0
+    pid = 0
+    private_data = 00c8b010
+    logfile = 00c8b030
+    diskfile = /.freespace/dv262/testfsfile
+    umask = 00000
+OPENING DISK
+WRITING SUPER BLOCK
+FINISHING INIT
+
+sfs_getattr(path="/.Trash", statbuf=0x6d5b1c40)
+FINDING INODE for :/.Trash     /
+New path:.Trash
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/.Trash-84600", statbuf=0x6cdb0c40)
+FINDING INODE for :/.Trash-84600     /
+New path:.Trash-84600
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x6d5b1c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_create(path="/hello.txt", mode=0100600, fi=0x6d5b1cf0)
+New path from create:hello.txt
+
+sfs_open(path"/hello.txt", fi=0x6d5b1cf0)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+ERROR ON OPEN   perm:0000
+CREATE offset:2
+Create file:0100000
+
+sfs_getattr(path="/hello.txt", statbuf=0x6d5b1c00)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_release(path="/hello.txt", fi=0x6d5b1cf0)
+
+sfs_getattr(path="/", statbuf=0x6cdb0c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_open(path"/hello.txt", fi=0x6cdb0cf0)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_write(path="/hello.txt", buf=0x6e1a0060, size=3, offset=0, fi=0x6cdb0d70)
+strlen:4
+this is the fucking buf:hi
+Z
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:0
+FOUND INODE IN SEARCH DIR
+File name to write:hello.txt
+FILLING BUFFER from file hello.txt
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+INIT WRITE
+strlen:4
+this is the fucking buf:hi
+Z
+buffer_data[insert]: h and buf[z]:h
+buffer_data[insert]: i and buf[z]:i
+buffer_data[insert]: 
+ and buf[z]:
+
+free:1   blocknum:138
+FIND FREE DIRECT
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FOUND FREE DIRECT index:0   offset:138
+writing to block:hi
+
+this is in asshole:hi
+
+NEW FILE SIZE:3   offset:3   num_blks1
+
+sfs_release(path="/hello.txt", fi=0x6d5b1cf0)
+
+sfs_getattr(path="/", statbuf=0x6cdb0c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:3
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:3
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:3
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:3
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:3
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:3
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:3
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:3
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x6d5b1c40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:hello.txt    Size:3
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:3
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:3
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:3
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_open(path"/hello.txt", fi=0x6d5b1cf0)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:3
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_write(path="/hello.txt", buf=0x6e1a0060, size=3, offset=3, fi=0x6cdb0d70)
+strlen:4
+this is the fucking buf:hi
+Z
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:3
+FOUND INODE IN SEARCH DIR
+File name to write:hello.txt
+FILLING BUFFER from file hello.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:138
+Reading hi
+ from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+EXTRA WRITE fillbuffer:hi
+  blocks in inode:1         filesize:3
+Remainder:509      size-rem:-506
+buffer_data[insert]: h and buf[z]:h
+buffer_data[insert]: i and buf[z]:i
+buffer_data[insert]: 
+ and buf[z]:
+
+EXTRA BUFFER:hi
+hi
+
+FILLING DATA
+DIR PUTTING BACK IN:hi
+hi
+
+NEW FILE SIZE:6   offset:3   num_blks0
+
+sfs_release(path="/hello.txt", fi=0x6d5b1cf0)
+
+sfs_getattr(path="/", statbuf=0x6cdb0c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x6cdb0c40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:hello.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:6
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:6
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_open(path"/hello.txt", fi=0x6d5b1cf0)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:6
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_write(path="/hello.txt", buf=0x6e1a0060, size=3, offset=6, fi=0x6cdb0d70)
+strlen:4
+this is the fucking buf:as
+Z
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:6
+FOUND INODE IN SEARCH DIR
+File name to write:hello.txt
+FILLING BUFFER from file hello.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:138
+Reading hi
+hi
+ from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+EXTRA WRITE fillbuffer:hi
+hi
+  blocks in inode:1         filesize:6
+Remainder:506      size-rem:-503
+buffer_data[insert]: a and buf[z]:a
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: 
+ and buf[z]:
+
+EXTRA BUFFER:hi
+hi
+as
+
+FILLING DATA
+DIR PUTTING BACK IN:hi
+hi
+as
+
+NEW FILE SIZE:9   offset:3   num_blks0
+
+sfs_release(path="/hello.txt", fi=0x6d5b1cf0)
+
+sfs_getattr(path="/", statbuf=0x6cdb0c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:9
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:9
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:9
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:9
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:9
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:9
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:9
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:9
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x6d5b1c40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:hello.txt    Size:9
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:9
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:9
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_open(path"/hello.txt", fi=0x6cdb0cf0)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:9
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_write(path="/hello.txt", buf=0x6e1d1060, size=2, offset=9, fi=0x6d5b1d70)
+strlen:4
+this is the fucking buf:i
+‰Z
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:9
+FOUND INODE IN SEARCH DIR
+File name to write:hello.txt
+FILLING BUFFER from file hello.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:138
+Reading hi
+hi
+as
+ from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+offfffff:0
+EXTRA WRITE fillbuffer:hi
+hi
+as
+  blocks in inode:1         filesize:9
+Remainder:503      size-rem:-501
+buffer_data[insert]: i and buf[z]:i
+buffer_data[insert]: 
+ and buf[z]:
+
+buffer_data[insert]: ‰ and buf[z]:‰
+EXTRA BUFFER:hi
+hi
+as
+i
+‰
+FILLING DATA
+DIR PUTTING BACK IN:hi
+hi
+as
+i
+‰
+NEW FILE SIZE:12   offset:3   num_blks0
+
+sfs_release(path="/hello.txt", fi=0x6cdb0cf0)
+
+sfs_getattr(path="/", statbuf=0x6d5b1c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:12
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x6cdb0c40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:12
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x6cdb0c40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6d5b1c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:hello.txt    Size:12
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x6d5b1c40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x6cdb0c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x6d5b1c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_destroy(userdata=0x00c8b010)
