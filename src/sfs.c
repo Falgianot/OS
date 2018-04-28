@@ -998,7 +998,7 @@ int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse
 		int i =0;
 		int z = offset;
 		log_msg("strlen of buffer_data:%d\n",strlen(buffer_data));
-		while(i< strlen(buffer_data) -(int)offset){
+		while(i< in->file_size -(int)offset){
 			(buf[i]) = (buffer_data[z]);
 			log_msg("final_buffer in read[insert]: %c and buffer_data[z]:%c\n",buf[i],buffer_data[z]);
 			z++;
