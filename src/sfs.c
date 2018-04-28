@@ -398,7 +398,7 @@ void *sfs_init(struct fuse_conn_info *conn)
 	
 	a->indirect_block[0] = 2;
 	char bb[BLOCK_SIZE];
-	block_read(100,&bb);
+	block_read(2,&bb);
 	indir_array * o = (indir_array *)bb;
 	int z = 0;
 	while(z<128){
@@ -881,27 +881,6 @@ int sfs_release(const char *path, struct fuse_file_info *fi)
     return retstat;
 }
 
-/** Read data from an open file
- *
- * Read should return exactly the number of bytes requested except
- * on EOF or error, otherwise the rest of the data will be
- * substituted with zeroes.  An exception to this is when the
- * 'direct_io' mount option is specified, in which case the return
- * value of the read system call will reflect the return value of
- * this operation.
- *
- * Changed in version 2.2
- */
-int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
-{
-    int retstat = 0;
-    log_msg("\nsfs_read(path=\"%s\", buf=0x%08x, size=%d, offset=%lld, fi=0x%08x)\n",
-	    path, buf, size, offset, fi);
-
-   
-    return retstat;
-}
-
 
 //This function fills in the passed buffer with the files data
 void fill_buffer(char * buffer, inode * in){
@@ -916,9 +895,11 @@ void fill_buffer(char * buffer, inode * in){
 	//direct
 	while(j<NUM_DIRECT){
 		offset = in->d_block[j];
+		print_offset();
 		//log_msg("offfffff:%i\n");
 		if(offset!=0){
 			block_read(offset,&empty_buf);
+			log_msg("Reading %s from fill_buffer\n",empty_buf);
 			strcat(buffer,empty_buf);
 		}
 		j++;
@@ -958,6 +939,55 @@ void fill_buffer(char * buffer, inode * in){
 	
 	
 	
+}
+
+
+
+
+/** Read data from an open file
+ *
+ * Read should return exactly the number of bytes requested except
+ * on EOF or error, otherwise the rest of the data will be
+ * substituted with zeroes.  An exception to this is when the
+ * 'direct_io' mount option is specified, in which case the return
+ * value of the read system call will reflect the return value of
+ * this operation.
+ *
+ * Changed in version 2.2
+ */
+int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
+{
+    int retstat = 0;
+    log_msg("\nsfs_read(path=\"%s\", buf=0x%08x, size=%d, offset=%lld, fi=0x%08x)\n",
+	    path, buf, size, offset, fi);
+	    print_offset();
+	    char b[BLOCK_SIZE];
+	    int o = find_inode(path);
+	    block_read(o,&b);
+	    inode* in = (inode*) b;
+	    
+	    char buffer_data[in->num_blocks*512];
+		fill_buffer(buffer_data,in);
+		log_msg("buffer_data includes : %s\n",buffer_data);
+		
+		//char final_buffer[(in->num_blocks*512)-offset];
+		
+		int i =0;
+		int z = offset;
+		log_msg("strlen of buffer_data:%d\n",strlen(buffer_data));
+		while(i< strlen(buffer_data) -(int)offset){
+			(buf[i]) = (buffer_data[z]);
+			log_msg("final_buffer in read[insert]: %c and buffer_data[z]:%c\n",buf[i],buffer_data[z]);
+			z++;
+			i++;
+			
+		}
+
+		
+	    
+
+   
+    return strlen(buf);
 }
 
 
@@ -1028,7 +1058,8 @@ int find_free_direct(inode * in,int off){
 	char empty_buf[BLOCK_SIZE];
 	//direct
 	while(j<NUM_DIRECT){
-		if(offset==0){
+		if(in->d_block[j]==0){
+			print_offset();
 			in->d_block[j] = off;
 			block_write(in->offset,in);
 			log_msg("FOUND FREE DIRECT index:%i   offset:%i\n",j,off);
@@ -1193,10 +1224,10 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 		
 		//Start at offset.
 		int remainder = ((in->num_blocks * 512) - (in->file_size));//how much we can put in current block
-		log_msg("Remainder:%i      rem-size:%i\n",remainder,size-remainder);
+		log_msg("Remainder:%i      size-rem:%i\n",remainder,size-remainder);
 		
-		//This means we can fit the write in the last block
-		if((int)(size - remainder) < 0){
+		//This means we can fit the write in the last block possibly
+		if((int)(size - remainder) <= 0){
 			int z = 0;
 			int insert = offset;//starting point to insert
 			//log_msg("insert::%i      srlen(buf);:%i\n",insert,strlen(buf));
@@ -1218,9 +1249,125 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 			
 		}else{
 		//This means we need fill last block, and then need new blocks.
-			num_blks_needed = (size/512)+1;
-			if(size%512==0){
-				num_blks_needed-=1;		
+		
+		
+			log_msg("filling oriignal block and need more\n");
+			
+			//fill in last block if possible.Take remainder bytes from buf, put it in buffer_data then get new blocks.
+			if(remainder !=0){
+				int z = 0;
+				int insert = offset;//starting point to insert
+				//log_msg("insert::%i      srlen(buf);:%i\n",insert,strlen(buf));
+				
+				//copy byte by byte into buffer_data
+				while(z<remainder){
+					(buffer_data[insert]) = (buf[z]);
+					log_msg("buffer_data[insert]: %c and buf[z]:%c\n",buffer_data[insert],buf[z]);
+					insert++;
+					z++;
+				}
+				
+				num_blks_needed =((strlen(buf)-z)/512)+1;
+				if((strlen(buf)-z)%512==0){
+					num_blks_needed-=1;		
+				}
+				
+				
+				//write it back in
+				log_msg("EXTRA BUFFER:%s\n",buffer_data);
+				fill_data(buffer_data,in);
+				in->file_size = strlen(buffer_data);
+				log_msg("NEW FILE SIZE:%i   offset:%i   num_blks%i\n",in->file_size,in->offset,num_blks_needed);
+				
+				int i = 0;
+				while(i<num_blks_needed){
+					int free =find_free_block();
+					log_msg("FOUND NEW FREE BLOCK IN WRITE:%i\n",free);
+					if(free!=-1){
+						//found free block
+						//log_msg("FREE:%i     Data written:%s    writedata:%i\n",free,write_data+(512*i),strlen(write_data));
+						//update blocks
+						int free_index=0;
+						char free_block[BLOCK_SIZE];
+						
+						block_read(free,&free_block);
+						while(z<(int)size){
+							(free_block[free_index]) = (buf[z]);
+							log_msg("free_block[free_index]: %c and buf[z]:%c\n",free_block[free_index],buf[z]);
+							free_index++;
+							z++;	
+						}
+						int success = 0;
+						success = find_free_direct(in,free);
+						if(success == -1){
+							success = find_free_indirect(in,free);
+						}
+						in->file_size += strlen(free_block);
+						in->num_blocks = in->num_blocks + 1;
+						
+						log_msg("NEW FILE SIZE WITH EXTRA BLOCKS:%i   offset:%i   num_blks%i\n",in->file_size,in->offset,num_blks_needed);
+						block_write(in->offset,in);
+						block_write(free,free_block);
+					}
+					else{
+						//error
+						return 0;
+							
+					}
+				
+				
+					i++;		
+				}
+				
+				
+				
+			}else{
+				//Need new blocks right away.
+				int z =0;
+				int i = 0;
+				while(i<num_blks_needed){
+					int free =find_free_block();
+					if(free!=-1){
+						//found free block
+						//log_msg("FREE:%i     Data written:%s    writedata:%i\n",free,write_data+(512*i),strlen(write_data));
+						//update blocks
+						int free_index=0;
+						char free_block[BLOCK_SIZE];
+						int abc = 0;
+						while (abc < BLOCK_SIZE){
+							free_block[abc] = 0;
+							abc++;
+						}
+						log_msg("str len %d\n",strlen(buf));
+						log_msg("string buf %s\n",buf);
+						block_read(free,&free_block);
+						while(z<(int)size){
+							(free_block[free_index]) = (buf[z]);
+							log_msg("free_block that needs a block right away[free_index]: %c and buf[z]:%c\n",free_block[free_index],buf[z]);
+							free_index++;
+							z++;	
+						}
+						int success = 0;
+						success = find_free_direct(in,free);
+						if(success == -1){
+							success = find_free_indirect(in,free);
+						}
+						in->file_size += (int)size;
+						in->num_blocks = in->num_blocks + 1;
+						
+						log_msg("NEW FILE SIZE WITH EXTRA BLOCKS only!!!!!!!!!!!!!!!!!!:%i   offset:%i   num_blks%i\n",in->file_size,in->offset,num_blks_needed);
+						block_write(in->offset,in);
+						block_write(free,free_block);
+					}
+					else{
+						//error
+						return 0;
+							
+					}
+				
+				
+					i++;		
+				}
 			}
 		}
 		

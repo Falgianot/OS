@@ -9,134 +9,2847 @@ sfs_init()
     capable = 00000ffb
     want = 00000010
     context:
-    fuse = 01f264b0
+    fuse = 025ed4b0
     uid = 0
     gid = 0
     pid = 0
-    private_data = 01f26010
-    logfile = 01f26030
+    private_data = 025ed010
+    logfile = 025ed030
     diskfile = /.freespace/dv262/testfsfile
     umask = 00000
 OPENING DISK
 WRITING SUPER BLOCK
 FINISHING INIT
 
-sfs_getattr(path="/.Trash", statbuf=0xee6f1c40)
+sfs_getattr(path="/.Trash", statbuf=0x19f72c40)
 FINDING INODE for :/.Trash     /
 New path:.Trash
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_getattr(path="/.Trash-84600", statbuf=0xeeef2c40)
+sfs_getattr(path="/.Trash-84600", statbuf=0x1a773c40)
 FINDING INODE for :/.Trash-84600     /
 New path:.Trash-84600
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_getattr(path="/", statbuf=0xee6f1c10)
+sfs_getattr(path="/", statbuf=0x19771c10)
 FINDING INODE for :/     /
 FOUND INODE
 Returning from attr
 
-sfs_getattr(path="/hello.txt", statbuf=0xeeef2c40)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
+sfs_getattr(path="/bitchass.txt", statbuf=0x19f72c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
 TRAAAAAAAAAAAAASH
 Returning from attr
 
-sfs_create(path="/hello.txt", mode=0100600, fi=0xee6f1cf0)
-New path from create:hello.txt
+sfs_create(path="/bitchass.txt", mode=0100600, fi=0x1a773cf0)
+New path from create:bitchass.txt
 
-sfs_open(path"/hello.txt", fi=0xee6f1cf0)
-FINDING INODE for :/hello.txt     /
-New path:hello.txt
+sfs_open(path"/bitchass.txt", fi=0x1a773cf0)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
 ERROR ON OPEN   perm:0000
 CREATE offset:2
 Create file:0100000
 
-sfs_getattr(path="/hello.txt", statbuf=0xee6f1c00)
+sfs_getattr(path="/bitchass.txt", statbuf=0x1a773c00)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_release(path="/bitchass.txt", fi=0x1a773cf0)
+
+sfs_getattr(path="/", statbuf=0x19771c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x19f72c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:0
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_open(path"/bitchass.txt", fi=0x1a773cf0)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:0
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_write(path="/bitchass.txt", buf=0x1b362060, size=6, offset=0, fi=0x19f72d70)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:0
+FOUND INODE IN SEARCH DIR
+File name to write:bitchass.txt
+FILLING BUFFER from file bitchass.txt
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+INIT WRITE
+free:1   blocknum:138
+FIND FREE DIRECT
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FOUND FREE DIRECT index:0   offset:138
+NEW FILE SIZE:6   offset:3   num_blks1
+
+sfs_release(path="/bitchass.txt", fi=0x1a773cf0)
+
+sfs_getattr(path="/", statbuf=0x19771c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_open(path"/bitchass.txt", fi=0x19f72cf0)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:6
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_write(path="/bitchass.txt", buf=0x1b393060, size=6, offset=6, fi=0x1a773d70)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:6
+FOUND INODE IN SEARCH DIR
+File name to write:bitchass.txt
+FILLING BUFFER from file bitchass.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+Reading heyss
+ from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+EXTRA WRITE fillbuffer:heyss
+  blocks in inode:1         filesize:6
+Remainder:506      size-rem:-500
+buffer_data[insert]: h and buf[z]:h
+buffer_data[insert]: e and buf[z]:e
+buffer_data[insert]: y and buf[z]:y
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: 
+ and buf[z]:
+
+EXTRA BUFFER:heyss
+heyss
+
+FILLING DATA
+DIR PUTTING BACK IN:heyss
+heyss
+
+NEW FILE SIZE:12   offset:3   num_blks0
+
+sfs_release(path="/bitchass.txt", fi=0x19771cf0)
+
+sfs_open(path"/bitchass.txt", fi=0x19f72cf0)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:12
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_write(path="/bitchass.txt", buf=0x1b393060, size=6, offset=12, fi=0x1a773d70)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:12
+FOUND INODE IN SEARCH DIR
+File name to write:bitchass.txt
+FILLING BUFFER from file bitchass.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+Reading heyss
+heyss
+ from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+EXTRA WRITE fillbuffer:heyss
+heyss
+  blocks in inode:1         filesize:12
+Remainder:500      size-rem:-494
+buffer_data[insert]: h and buf[z]:h
+buffer_data[insert]: e and buf[z]:e
+buffer_data[insert]: y and buf[z]:y
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: s and buf[z]:s
+buffer_data[insert]: 
+ and buf[z]:
+
+EXTRA BUFFER:heyss
+heyss
+heyss
+
+FILLING DATA
+DIR PUTTING BACK IN:heyss
+heyss
+heyss
+
+NEW FILE SIZE:18   offset:3   num_blks0
+
+sfs_release(path="/bitchass.txt", fi=0x19771cf0)
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x19f72c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:18
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_open(path"/bitchass.txt", fi=0x1a773cf0)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:18
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_write(path="/bitchass.txt", buf=0x1b340060, size=512, offset=18, fi=0x19771d70)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:18
+FOUND INODE IN SEARCH DIR
+File name to write:bitchass.txt
+FILLING BUFFER from file bitchass.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+Reading heyss
+heyss
+heyss
+ from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+EXTRA WRITE fillbuffer:heyss
+heyss
+heyss
+  blocks in inode:1         filesize:18
+Remainder:494      size-rem:18
+filling oriignal block and need more
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+buffer_data[insert]: d and buf[z]:d
+EXTRA BUFFER:heyss
+heyss
+heyss
+dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+FILLING DATA
+DIR PUTTING BACK IN:heyss
+heyss
+heyss
+dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+NEW FILE SIZE:513   offset:3   num_blks1
+free:0   blocknum:138
+free:1   blocknum:139
+FOUND NEW FREE BLOCK IN WRITE:139
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: d and buf[z]:d
+free_block[free_index]: 
+ and buf[z]:
+
+FIND FREE DIRECT
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FOUND FREE DIRECT index:1   offset:139
+NEW FILE SIZE WITH EXTRA BLOCKS:531   offset:3   num_blks1
+
+sfs_release(path="/bitchass.txt", fi=0x19f72cf0)
+
+sfs_getattr(path="/", statbuf=0x1a773c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x19771c40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:bitchass.txt    Size:531
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x19f72c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x1a773c40)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x19771c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_open(path"/bitchass.txt", fi=0x19f72cf0)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_read(path="/bitchass.txt", buf=0x14000d70, size=4096, offset=0, fi=0x1a773cf0)
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE IN SEARCH DIR
+FILLING BUFFER from file bitchass.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+Reading heyss
+heyss
+heyss
+dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+Reading ddddddddddddddddd
+ from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+buffer_data includes : heyss
+heyss
+heyss
+ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+
+strlen of buffer_data:530
+final_buffer in read[insert]: h and buffer_data[z]:h
+final_buffer in read[insert]: e and buffer_data[z]:e
+final_buffer in read[insert]: y and buffer_data[z]:y
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: 
+ and buffer_data[z]:
+
+final_buffer in read[insert]: h and buffer_data[z]:h
+final_buffer in read[insert]: e and buffer_data[z]:e
+final_buffer in read[insert]: y and buffer_data[z]:y
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: 
+ and buffer_data[z]:
+
+final_buffer in read[insert]: h and buffer_data[z]:h
+final_buffer in read[insert]: e and buffer_data[z]:e
+final_buffer in read[insert]: y and buffer_data[z]:y
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: 
+ and buffer_data[z]:
+
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: 
+ and buffer_data[z]:
+
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x19771c10)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_read(path="/bitchass.txt", buf=0x0c000d70, size=4096, offset=0, fi=0x19f72cf0)
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE IN SEARCH DIR
+FILLING BUFFER from file bitchass.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+Reading heyss
+heyss
+heyss
+dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+Reading ddddddddddddddddd
+ from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+buffer_data includes : heyss
+heyss
+heyss
+ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+
+strlen of buffer_data:530
+final_buffer in read[insert]: h and buffer_data[z]:h
+final_buffer in read[insert]: e and buffer_data[z]:e
+final_buffer in read[insert]: y and buffer_data[z]:y
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: 
+ and buffer_data[z]:
+
+final_buffer in read[insert]: h and buffer_data[z]:h
+final_buffer in read[insert]: e and buffer_data[z]:e
+final_buffer in read[insert]: y and buffer_data[z]:y
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: 
+ and buffer_data[z]:
+
+final_buffer in read[insert]: h and buffer_data[z]:h
+final_buffer in read[insert]: e and buffer_data[z]:e
+final_buffer in read[insert]: y and buffer_data[z]:y
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: s and buffer_data[z]:s
+final_buffer in read[insert]: 
+ and buffer_data[z]:
+
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: d and buffer_data[z]:d
+final_buffer in read[insert]: 
+ and buffer_data[z]:
+
+
+sfs_release(path="/bitchass.txt", fi=0x1a773cf0)
+
+sfs_getattr(path="/", statbuf=0x19771c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x19f72c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x1a773c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_opendir(path="/", fi=0x19771c30)
+
+sfs_getattr(path="/.Trash", statbuf=0x19f72c40)
+FINDING INODE for :/.Trash     /
+New path:.Trash
+FOUND INODE NAME:bitchass.txt    Size:531
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/.Trash-84600", statbuf=0x1a773c40)
+FINDING INODE for :/.Trash-84600     /
+New path:.Trash-84600
+FOUND INODE NAME:bitchass.txt    Size:531
+TRAAAAAAAAAAAAASH
+Returning from attr
+IN READDIR
+FINDING INODE for :/     /
+FOUND INODE
+indir off:2
+buffer not full
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x1a773c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/.hidden", statbuf=0x19771c40)
+FINDING INODE for :/.hidden     /
+New path:.hidden
+FOUND INODE NAME:bitchass.txt    Size:531
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x19f72c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/fffffffffffffffffffffffffffdddddddd
+", statbuf=0x19f72c40)
+FINDING INODE for :/fffffffffffffffffffffffffffdddddddd
+     /
+New path:fffffffffffffffffffffffffffdddddddd
+
+FOUND INODE NAME:bitchass.txt    Size:531
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x1a773c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x19771c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x19f72c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_create(path="/hello.txt", mode=0100600, fi=0x1a773cf0)
+New path from create:hello.txt
+
+sfs_open(path"/hello.txt", fi=0x1a773cf0)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+ERROR ON OPEN   perm:0000
+CREATE offset:2
+Create file:0100000
+
+sfs_getattr(path="/hello.txt", statbuf=0x1a773c00)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_release(path="/hello.txt", fi=0xee6f1cf0)
+sfs_release(path="/hello.txt", fi=0x19f72cf0)
 
-sfs_getattr(path="/hello.txt", statbuf=0xeeef2c40)
+sfs_getattr(path="/", statbuf=0x1a773c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/.Trash", statbuf=0x19771c40)
+FINDING INODE for :/.Trash     /
+New path:.Trash
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:0
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/.Trash-84600", statbuf=0x19f72c40)
+FINDING INODE for :/.Trash-84600     /
+New path:.Trash-84600
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:0
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/.hidden", statbuf=0x1a773c40)
+FINDING INODE for :/.hidden     /
+New path:.hidden
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:0
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x19771c40)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 Returning from attr
 
-sfs_open(path"/hello.txt", fi=0xee6f1cf0)
+sfs_open(path"/hello.txt", fi=0x19f72cf0)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 OPENING FILE
 
-sfs_write(path="/hello.txt", buf=0xefae1060, size=4081, offset=0, fi=0xee6f1d70)
+sfs_write(path="/hello.txt", buf=0x1b393060, size=12, offset=0, fi=0x1a773d70)
 FINDING INODE for :/hello.txt     /
 New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
 FOUND INODE NAME:hello.txt    Size:0
 FOUND INODE IN SEARCH DIR
 File name to write:hello.txt
 FILLING BUFFER from file hello.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
 INIT WRITE
-free:1   blocknum:138
-FIND FREE DIRECT
-FOUND FREE DIRECT index:0   offset:138
-free:0   blocknum:138
-free:1   blocknum:139
-FIND FREE DIRECT
-FOUND FREE DIRECT index:0   offset:139
 free:0   blocknum:138
 free:0   blocknum:139
 free:1   blocknum:140
 FIND FREE DIRECT
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
 FOUND FREE DIRECT index:0   offset:140
-free:0   blocknum:138
-free:0   blocknum:139
-free:0   blocknum:140
-free:1   blocknum:141
-FIND FREE DIRECT
-FOUND FREE DIRECT index:0   offset:141
-free:0   blocknum:138
-free:0   blocknum:139
-free:0   blocknum:140
-free:0   blocknum:141
-free:1   blocknum:142
-FIND FREE DIRECT
-FOUND FREE DIRECT index:0   offset:142
-free:0   blocknum:138
-free:0   blocknum:139
-free:0   blocknum:140
-free:0   blocknum:141
-free:0   blocknum:142
-free:1   blocknum:143
-FIND FREE DIRECT
-FOUND FREE DIRECT index:0   offset:143
-free:0   blocknum:138
-free:0   blocknum:139
-free:0   blocknum:140
-free:0   blocknum:141
-free:0   blocknum:142
-free:0   blocknum:143
-free:1   blocknum:144
-FIND FREE DIRECT
-FOUND FREE DIRECT index:0   offset:144
-free:0   blocknum:138
-free:0   blocknum:139
-free:0   blocknum:140
-free:0   blocknum:141
-free:0   blocknum:142
-free:0   blocknum:143
-free:0   blocknum:144
-free:1   blocknum:145
-FIND FREE DIRECT
-FOUND FREE DIRECT index:0   offset:145
-NEW FILE SIZE:4081   offset:3   num_blks8
+NEW FILE SIZE:12   offset:4   num_blks1
 
-sfs_release(path="/hello.txt", fi=0xeeef2cf0)
+sfs_release(path="/hello.txt", fi=0x19771cf0)
+
+sfs_getattr(path="/", statbuf=0x19f72c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/.Trash", statbuf=0x1a773c40)
+FINDING INODE for :/.Trash     /
+New path:.Trash
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/.Trash-84600", statbuf=0x19771c40)
+FINDING INODE for :/.Trash-84600     /
+New path:.Trash-84600
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x19f72c10)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:12
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/.hidden", statbuf=0x1a773c40)
+FINDING INODE for :/.hidden     /
+New path:.hidden
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:12
+TRAAAAAAAAAAAAASH
+Returning from attr
+
+sfs_opendir(path="/", fi=0x19771c30)
+IN READDIR
+FINDING INODE for :/     /
+FOUND INODE
+indir off:2
+buffer not full
+buffer not full
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x1a773c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x19771c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:12
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x19771c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x19f72c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:12
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_open(path"/hello.txt", fi=0x1a773cf0)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:12
+FOUND INODE IN SEARCH DIR
+OPENING FILE
+
+sfs_read(path="/hello.txt", buf=0x10000af0, size=4096, offset=0, fi=0x19771cf0)
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:12
+FOUND INODE IN SEARCH DIR
+FILLING BUFFER from file hello.txt
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+Reading how are you
+ from fill_buffer
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 138
+OFFSET OF 138 INODE= 139
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+OFFSET OF 138 INODE= 0
+buffer_data includes : how are you
+
+strlen of buffer_data:12
+final_buffer in read[insert]: h and buffer_data[z]:h
+final_buffer in read[insert]: o and buffer_data[z]:o
+final_buffer in read[insert]: w and buffer_data[z]:w
+final_buffer in read[insert]:   and buffer_data[z]: 
+final_buffer in read[insert]: a and buffer_data[z]:a
+final_buffer in read[insert]: r and buffer_data[z]:r
+final_buffer in read[insert]: e and buffer_data[z]:e
+final_buffer in read[insert]:   and buffer_data[z]: 
+final_buffer in read[insert]: y and buffer_data[z]:y
+final_buffer in read[insert]: o and buffer_data[z]:o
+final_buffer in read[insert]: u and buffer_data[z]:u
+final_buffer in read[insert]: 
+ and buffer_data[z]:
+
+
+sfs_getattr(path="/hello.txt", statbuf=0x19f72c10)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:12
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_release(path="/hello.txt", fi=0x1a773cf0)
+
+sfs_getattr(path="/", statbuf=0x19771c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_opendir(path="/", fi=0x19f72c30)
+IN READDIR
+FINDING INODE for :/     /
+FOUND INODE
+indir off:2
+buffer not full
+buffer not full
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x19771c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x19f72c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:12
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x19f72c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_opendir(path="/", fi=0x1a773c30)
+IN READDIR
+FINDING INODE for :/     /
+FOUND INODE
+indir off:2
+buffer not full
+buffer not full
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x19f72c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x1a773c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:12
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x1a773c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_opendir(path="/", fi=0x19771c30)
+IN READDIR
+FINDING INODE for :/     /
+FOUND INODE
+indir off:2
+buffer not full
+buffer not full
+
+sfs_getattr(path="/bitchass.txt", statbuf=0x1a773c40)
+FINDING INODE for :/bitchass.txt     /
+New path:bitchass.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/hello.txt", statbuf=0x19771c40)
+FINDING INODE for :/hello.txt     /
+New path:hello.txt
+FOUND INODE NAME:bitchass.txt    Size:531
+FOUND INODE NAME:hello.txt    Size:12
+FOUND INODE IN SEARCH DIR
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x19771c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
+
+sfs_getattr(path="/", statbuf=0x19f72c10)
+FINDING INODE for :/     /
+FOUND INODE
+Returning from attr
