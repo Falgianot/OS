@@ -970,9 +970,66 @@ void fill_buffer(char * buffer, inode * in){
 	//double indirect
 	//do later
 	j = 0;
-
+	
+	
+	char d_indir[BLOCK_SIZE];
+	char indir[BLOCK_SIZE];
+	char dir[BLOCK_SIZE];
 	while(j<2){
-		in->double_indirect_block[j] = 0;
+		offset = in->double_indirect_block[j];//tells you where the indirect block is
+		if(offset!=0){
+			block_read(offset,&d_indir);//list of offsets for indirect blocks
+			indir_array * ar = (indir_array *)d_indir;
+			
+			int t = 0;
+			while(t<128){
+				
+				//This means we found an indirect block so follow above loop.
+				if(ar->offsets[t]!=0){
+					z= 0;
+					while(z<BLOCK_SIZE){
+						indir[z]=0;
+						z++;
+						
+					}
+					block_read(ar->offsets[t],&indir);
+					indir_array * a = (indir_array *)indir;//list of direct block offsets
+					int w = 0;
+					while(w<128){
+						z= 0;
+						while(z<BLOCK_SIZE){
+							dir[z]=0;
+							z++;
+							
+						}
+						//found dir
+						if(a->offsets[w]!=0){
+							block_read(a->offsets[w],&dir);
+							
+							int d = 0;
+							while(d<512&&global_offset<in->file_size){
+								
+								buffer[global_offset] = dir[d];
+								d++;
+								global_offset++;
+							}
+							
+						}
+						
+						w++;
+					}
+						
+					
+				}
+				t++;
+			}
+			
+			
+		}
+		
+		
+		
+		
 		j++;
 	}
 	
