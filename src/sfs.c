@@ -925,6 +925,9 @@ void fill_buffer(char * buffer, inode * in){
 		j++;
 	}
 	
+	
+	
+	
 	j = 0;
 	//indirect
 	char buf[BLOCK_SIZE];
@@ -936,8 +939,24 @@ void fill_buffer(char * buffer, inode * in){
 			indir_array * arr =(indir_array *)buf;
 			
 			while(k<128){
+				z= 0;
+				while(z<BLOCK_SIZE){
+					empty_buf[z]=0;
+					z++;
+					
+				}
 				if(arr->offsets[k]!=0){
 					block_read(arr->offsets[k],&empty_buf);
+					
+					int d = 0;
+					while(d<512&&global_offset<in->file_size){
+						
+						buffer[global_offset] = empty_buf[d];
+						d++;
+						global_offset++;
+					}
+					
+					
 					//strcat(buffer,empty_buf);
 				}
 				k++;
@@ -1005,7 +1024,7 @@ int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse
 			i++;
 			bytes_to_return= bytes_to_return + 1;
 		}
-log_msg("strlen in read is: : %d\n",strlen(buf));
+		log_msg("strlen in read is: : %d\n",strlen(buf));
 		/*if(strlen(buf) > in->file_size){
 			log_msg("GGGF");
 			return 0;
@@ -1320,7 +1339,7 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 					z++;
 				}
 				
-				num_blks_needed =((strlen(buf)-z)/512)+1;
+				num_blks_needed =((strlen(buf)-z)/512)+1;//MAYBE
 				if((strlen(buf)-z)%512==0){
 					num_blks_needed-=1;		
 				}
@@ -1354,8 +1373,17 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 						success = find_free_direct(in,free);
 						if(success == -1){
 							success = find_free_indirect(in,free);
+							
+							if(success==-1){
+								//double do later	
+								
+								
+							}
+							
+							
+							
 						}
-						in->file_size += strlen(free_block);
+						in->file_size += strlen(free_block);//MABYE NEED TO CHANGE TO 512
 						in->num_blocks = in->num_blocks + 1;
 						
 						log_msg("NEW FILE SIZE WITH EXTRA BLOCKS:%i   offset:%i   num_blks%i\n",in->file_size,in->offset,num_blks_needed);
@@ -1378,6 +1406,10 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 				//Need new blocks right away.
 				int z =0;
 				int i = 0;
+				num_blks_needed =((int)(size)/512)+1;//MAYBE
+				if(((int)(size))%512==0){
+					num_blks_needed-=1;		
+				}
 				while(i<num_blks_needed){
 					int free =find_free_block();
 					if(free!=-1){
