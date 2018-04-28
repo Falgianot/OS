@@ -1339,8 +1339,8 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 					z++;
 				}
 				
-				num_blks_needed =((strlen(buf)-z)/512)+1;//MAYBE
-				if((strlen(buf)-z)%512==0){
+				num_blks_needed =(((int)(size)-z)/512)+1;//MAYBE
+				if(((int)(size)-z)%512==0){
 					num_blks_needed-=1;		
 				}
 				
@@ -1362,8 +1362,11 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 						int free_index=0;
 						char free_block[BLOCK_SIZE];
 						
+						
+						
+						
 						block_read(free,&free_block);
-						while(z<(int)size){
+						while(z<(int)size&&free_index<512){
 							(free_block[free_index]) = (buf[z]);
 							log_msg("free_block[free_index]: %c and buf[z]:%c\n",free_block[free_index],buf[z]);
 							free_index++;
@@ -1426,7 +1429,7 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 						log_msg("str len %d\n",strlen(buf));
 						log_msg("string buf %s\n",buf);
 						block_read(free,&free_block);
-						while(z<(int)size){
+						while(z<(int)size&&free_index<512){
 							(free_block[free_index]) = (buf[z]);
 							log_msg("free_block that needs a block right away[free_index]: %c and buf[z]:%c\n",free_block[free_index],buf[z]);
 							free_index++;
