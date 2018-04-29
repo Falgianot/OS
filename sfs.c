@@ -83,6 +83,31 @@
  }indir_array;
  
  
+ //Reserve the first x blocks to store the root inodes. If a dir is created
+ //that dir inode will point to a block that has all its inodes. 
+ typedef struct inode{
+	 char file_name[100];
+	 int type; //1 = file, 0 = dir, -1 = not in use
+	 
+	 int file_size;
+	 int num_blocks;
+	 int offset;
+	 mode_t mode;
+	 
+	 uid_t uid;
+	 gid_t gid;
+	 time_t    st_atime;   /* time of last access */
+	 time_t    st_mtime;   /* time of last modification */
+	 time_t    st_ctime;   /* time of last status change */
+	 
+	 
+	 int d_block[NUM_DIRECT];
+	 int indirect_block[NUM_INDIRECT];
+	 int double_indirect_block[2];
+	 
+ }inode;
+ 
+ 
 char * my_strcpy(char * dest, char * src){
 	//log_msg("SRC:%s\n",src);
 	char * start = dest;
@@ -103,73 +128,113 @@ char * my_strcpy(char * dest, char * src){
 }
 
 
+
+ 
+void print_offset(){
+	char buf[BLOCK_SIZE];
+	block_read(3,&buf);
+	inode * in = (inode*)buf;
+	int i =0;
+	while(i<NUM_DIRECT){
+		log_msg("OFFSET OF 138 INODE= %d\n",in->d_block[i]);
+		i++;
+		
+	}
+	
+}
 //subtract block_num-138, mod that by 4096(make sure its int), that is bit map block number
 //add 138 to the mod answer
 
-//given a block number, flip the it in the bit map
-void flip_bit(int block_num){
+//given a block number, flip the bit in the bit map
+int flip_bit(int block_num){
 	int bit_num = block_num-138;
-	int bit_block = (int)((bit_num/4096))+138;
+	int bit_block = (int)((bit_num/4096))+130;
 
 	char buf[BLOCK_SIZE];
 	block_read(bit_block,&buf);
 	
 	int byte = (bit_num/8);
 
-
-	char temp = buf[byte];//byte to flip
+	//print_offset();
+	unsigned char temp ='0';
+	memcpy(&temp,&buf[byte],1);//byte to flip
+	//log_msg("TEMPPPPP:%x\n",temp);
 	int bit_index = bit_num%8;
 	temp = temp >> (7-bit_index);
+	
+	//print_offset();
 	temp = temp &1;
-	char temp2 = temp;
+	unsigned char temp2='0';
+	memcpy(&temp2,&temp,1);
+	
+	//print_offset();
+	temp2 = temp2|1;
 	temp2 = temp2<<(7-bit_index);
-	char flipped = buf[byte];
+	unsigned char flipped;
+	memcpy(&flipped,&buf[byte],1);
 
-	//log_msg("BITNUM:%i      BITBLOCK:%i    BYTE:%i     BITiNDEX:%i     TEMP:%c",bit_num,bit_block,byte,bit_index,temp);
+	//print_offset();
+	//log_msg("BITNUM:%i      BITBLOCK:%i    BYTE:%i     BITiNDEX:%i\n",bit_num,bit_block,byte,bit_index);
+	
+	//log_msg("BEFORE  temp:%x 	temp2:%x 	flipped:%x  buf:%x\n",temp,temp2,flipped,buf[byte]);
 
-
-
+	int to_return = -1;
 	if(temp == 1){
-		log_msg("FLIPPING 1 TO 0\n");
+		//log_msg("FLIPPING 1 TO 0\n");//use to free
 		//XOR
 		flipped = flipped^temp2;
+		//log_msg("flipped from 1 to 0:%x\n",flipped);
+		to_return = 0;
 	}else if(temp == 0){
-		log_msg("FLIPPING 0 TO 1\n");
+		//log_msg("FLIPPING 0 TO 1\n");//free to use
 		//OR
 		flipped = flipped|temp2;
+		//log_msg("flipped from 0 to 1:%x\n",flipped);
+		to_return = 1;
 	}
 
-	buf[byte] = flipped;
+	//log_msg("AFTER :temp:%x 	temp2:%x 	flipped:%x  buf:%x\n",temp,temp2,flipped,buf[byte]);
+
+	//print_offset();
+	memcpy(&buf[byte],&flipped,1);
+	
+	//print_offset();
 	block_write(bit_block,&buf);
+	block_read(bit_block,&buf);
+	//print_offset();
+	//log_msg("AFTER2 :temp:%x 	temp2:%x 	flipped:%x  buf:%x\n",temp,temp2,flipped,(unsigned char)buf[byte]);
+	return to_return;
 }
 
+int find_free_block(){
+	
+	char buf[BLOCK_SIZE];
+	int i = FREE_BLOCK_START;
+	int free = -1;
+	
+	//flip the bit at block location starting at 138. If flip_bit returns 1 it is free. If flip_bit returns 0 it is in use
+	//i is the location of the free block
+	while(i<NUM_BLOCKS){
+		free = flip_bit(i);
+		//found free bit
+		//log_msg("free:%i   blocknum:%i\n",free,i);
+		if(free==1){
+			//print_offset();
+			return i;
+		}
+		//not free
+		else if(free==0){
+			flip_bit(i);
+		}
+		
+		i++;
+	}
+	
+	return -1;
+	
+}
 
- //Reserve the first x blocks to store the root inodes. If a dir is created
- //that dir inode will point to a block that has all its inodes. 
- typedef struct inode{
-	 char file_name[100];
-	 int type; //1 = file, 0 = dir, -1 = not in use
-	 
-	 int file_size;
-	 int num_blocks;
-	 mode_t mode;
-	 
-	 uid_t uid;
-	 gid_t gid;
-	 time_t    st_atime;   /* time of last access */
-	 time_t    st_mtime;   /* time of last modification */
-	 time_t    st_ctime;   /* time of last status change */
-	 
-	 
-	 int d_block[NUM_DIRECT];
-	 int indirect_block[NUM_INDIRECT];
-	 int double_indirect_block[2];
-	 
- }inode;
- 
- 
- 
- inode * search_dir(const char * path, inode * in){
+int search_dir(const char * path, inode * in){
 	/* So find filename/dirname by going to end or upto next /
 	 * Then indirect pointers for filename/dirname
 	 * If filename/dirname = path, get that inode.
@@ -211,7 +276,7 @@ void flip_bit(int block_num){
 		//Now compare file name to path
 		if(strcmp(temp_inode->file_name,new_path)==0){
 			log_msg("FOUND INODE IN SEARCH DIR\n");
-			return temp_inode;
+			return temp_inode->offset;
 		}
 		
 		
@@ -223,21 +288,21 @@ void flip_bit(int block_num){
 			}
 			char* to_send = new_path+end;
 			log_msg("Send to:%s\n",to_send);
-			inode * ii = search_dir(to_send,temp_inode);
-			if(ii!=NULL){
+			int ii = search_dir(to_send,temp_inode);
+			if(ii!=-1){
 				return ii;
 			}
 		}
 		i++;
 	}
 	
-	return NULL;
+	return -1;
 	
  }
  
  
  //function to find inode with given path
- inode * find_inode(const char * path){
+ int find_inode(const char * path){
 	
 	
 	//REMEMBER TO ADJUST THIS WHEN WE INCORPORATE DIRECTORIES
@@ -250,7 +315,7 @@ void flip_bit(int block_num){
 	log_msg("FINDING INODE for :%s     %s\n",path, in->file_name);
 	if(strcmp(path,in->file_name)==0){
 		log_msg("FOUND INODE\n");
-		return in;
+		return 1;//index of root inode
 	}
 	
 	
@@ -265,8 +330,8 @@ void flip_bit(int block_num){
  typedef struct super_block{
 	int init;
 	int size_fs;
-	int num_files;
-	int max_file_size;
+	int num_files;//update on create and unlink
+	int max_file_size;//update on write and unlink. max amount file can write.
 	int num_inodes;
 	//bitmap for free inodes and blocks
 	
@@ -288,16 +353,15 @@ void *sfs_init(struct fuse_conn_info *conn)
 	disk_open("/.freespace/dv262/testfsfile");
 	log_msg("OPENING DISK\n");
     
-	
+	//RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRREMEMBER TO CHECK SUPERBLOCK TO PRESERVE FS
 	int i = 0;
 	char zero[512];
 	memset(zero,0,512);
+	
 	while(i<32768){
 		block_write(i,&zero);
 		i++;
 	}
-	
-	
 	
 	
     //first block is superblock
@@ -328,15 +392,16 @@ void *sfs_init(struct fuse_conn_info *conn)
 	a->st_atime = time(NULL);
 	a->st_mtime = a->st_atime;
 	a->st_ctime = a->st_atime;
+	a->offset = 0;
 	
 	a->indirect_block[0] = 2;
 	char bb[BLOCK_SIZE];
-	block_read(100,&bb);
+	block_read(2,&bb);
 	indir_array * o = (indir_array *)bb;
-	int q = 0;
-	while(q<128){
-		o[q] = 0;
-		q++;
+	int z = 0;
+	while(z<128){
+		o->offsets[z] = 0;
+		z++;
 		}
 	block_write(2,o);
     block_write(1,a);
@@ -349,7 +414,7 @@ void *sfs_init(struct fuse_conn_info *conn)
         int r = block_read(i+3,&buff2);
         //log_msg("after INODE\n");
         inode * in = (inode *)buff2;
-	in->file_name[0] = 0;
+		in->file_name[0] = 0;
         in->type = -1;
         in->file_size = 0;
         in->num_blocks = 0;
@@ -359,6 +424,7 @@ void *sfs_init(struct fuse_conn_info *conn)
         in->st_atime = time(NULL);
         in->st_mtime = in->st_atime;
 		in->st_ctime = in->st_atime;
+		in->offset = i+3;
         
         int j = 0;
         while(j<NUM_DIRECT){
@@ -421,8 +487,14 @@ int sfs_getattr(const char *path, struct stat *statbuf)
 	
 	//find inode with path
 	//log_msg("BOUT TO FIND INODE\n");
-	inode * in = find_inode(path);
+	char b[BLOCK_SIZE];
+	int o = find_inode(path);
+	block_read(o,&b);
 	
+	inode * in = (inode *)b;
+	if(o==-1){
+		in = NULL;
+	}
 	if(in!=NULL){
 	//log_msg("NAME:%s\n",in->file_name);
 	
@@ -477,6 +549,14 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 	char * new_path = n_path + 1;
 	log_msg("New path from create:%s\n",new_path);
 	
+	
+	int exist = sfs_open(path,fi);
+	if(exist==0){
+			return 0;
+		
+	}
+	
+	//we will have to change this when we do directories
 	char buf[BLOCK_SIZE];
 	block_read(1,&buf);
 	inode * in = (inode *)buf;
@@ -488,6 +568,16 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 	block_read(indir_offset,&buf3);
 	
 	indir_array * c = (indir_array *)buf3;
+	
+	
+	
+	//get super block
+	char buf_super[BLOCK_SIZE];
+	block_read(0,&buf_super);
+	super_block * sb = (super_block *)buf_super;
+	
+	
+	
     //find free inode
 	int i = 0;
 	while(i<NUM_FILES){
@@ -508,6 +598,7 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 				in2->type = 1;
 			}
 			strcpy(in2->file_name,new_path);
+			in2->file_name[strlen(new_path)] = '\0';
 			//log_msg("CHECKING WHATEVER:%s\n",in2->file_name);
 			in2->file_size = 0;
 			in2->num_blocks = 0;
@@ -521,7 +612,15 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 			in2->st_ctime = requestStart.tv_sec;
 			//log_msg("WRITING INODE:%i\n",i+3);
 			block_write(i+3,in2);
-			char bu[512];
+			
+			//update number of files in fs
+			sb->num_files = sb->num_files + 1;
+			block_write(0,sb);
+			
+			
+			
+			//log_msg("SIZEOF:%i\n",sizeof(*in2));
+			//char bu[512];
 			//block_read(i+3,&bu);
 			//log_msg("Reading back:%s\n",((inode *)bu)->file_name);
 			break;
@@ -539,8 +638,7 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 		}
 		j++;
 	}
-	log_msg("PUTTING INODE:%i\n",c->offsets[0]);
-	log_msg("PUTTING INODE:%i\n",c->offsets[1]);
+
 	block_write(indir_offset,c);
 	//log_msg("PUTTING INODE:%i\n",indir_o);
 	
@@ -573,8 +671,21 @@ int sfs_unlink(const char *path)
 {
     int retstat = 0;
     log_msg("sfs_unlink(path=\"%s\")\n", path);
+	
+	
+	
+	//get the superblock
+	char buf_super[BLOCK_SIZE];
+	block_read(0,&buf_super);
+	super_block * sb = (super_block *)buf_super;
+	
+	
+	
 	//find the inode
-	inode * in = find_inode(path);
+	char b[BLOCK_SIZE];
+	int o = find_inode(path);
+	block_read(o,&b);
+	inode * in = (inode *)b;
 	
 	//free blocks and set the bitmap
 	int j = 0;
@@ -605,7 +716,6 @@ int sfs_unlink(const char *path)
 			int k = 0;
 			block_read(offset,&buf);
 			indir_array * arr =(indir_array *)buf;
-			
 			while(k<128){
 				if(arr->offsets[k]!=0){
 					block_write(arr->offsets[k],&empty_buf);
@@ -617,7 +727,7 @@ int sfs_unlink(const char *path)
 			
 		}
 		
-		
+		flip_bit(offset);
 		block_write(offset,empty_buf);
 		in->indirect_block[j] = 0;
 		j++;
@@ -626,8 +736,46 @@ int sfs_unlink(const char *path)
 	
 	//do later
 	j = 0;
+	char buf1[BLOCK_SIZE];
+	char buf2[BLOCK_SIZE];
 	while(j<2){
-		in->double_indirect_block[j] = 0;
+		offset = in->double_indirect_block[j];
+
+		//There is a double indirect. Read it and loop through it
+		if(offset!=0){
+			block_read(offset,&buf1);
+			indir_array * d_indir = (indir_array *)buf1;
+			int a = 0;
+			while(a<128){
+				if(d_indir->offsets[a]!=0){
+					log_msg("DOUBLE INDIR PUTTING BACK IN\n");
+					block_read(d_indir->offsets[a],&buf2);
+					indir_array * indir = (indir_array *)buf2;
+					int b = 0;
+					while(b<128){
+
+						if(indir->offsets[b]!=0){
+              block_write(indir->offsets[b],&empty_buf);
+              flip_bit(indir->offsets[b]);
+
+						}
+						
+						b++;
+					}
+          flip_bit(d_indir->offsets[a]);
+					block_write(d_indir->offsets[a],&empty_buf);
+				}
+
+        
+				a++;
+			}
+      flip_bit(offset);
+      block_write(offset,&empty_buf);
+
+		}
+
+
+    in->double_indirect_block[j] = 0;
 		j++;
 	}
 	
@@ -663,6 +811,7 @@ int sfs_unlink(const char *path)
 					in->st_atime = time(NULL);
 					in->st_mtime = in->st_atime;
 					in->st_ctime = in->st_atime;
+					//WILL THE OFFSET BE RESET?
 					block_write(a->offsets[l],in);
 					a->offsets[l]=0;
 					block_write(2,a);
@@ -680,8 +829,9 @@ int sfs_unlink(const char *path)
 	
 	
 }
-	
-
+	//update num files in fs
+	sb->num_files = sb->num_files + 1;
+	block_write(0,sb);
 
     
     return retstat;
@@ -702,7 +852,43 @@ int sfs_open(const char *path, struct fuse_file_info *fi)
     int retstat = 0;
     log_msg("\nsfs_open(path\"%s\", fi=0x%08x)\n",
 	    path, fi);
-
+	
+	//check if file exists
+	char b[BLOCK_SIZE];
+	int o = find_inode(path);
+	block_read(o,&b);
+	inode * in = (inode *)b;
+	
+	if(in==NULL){
+		log_msg("ERROR ON OPEN\n");
+		return -EACCES;
+	}
+	
+	if(in->mode!=(S_IFREG|S_IRUSR|S_IWUSR)){
+			log_msg("ERROR ON OPEN   perm:0%03o\n",in->mode);
+			return -EACCES;
+		}
+	
+	
+	//if file exists, check permissions. Return
+	if(in->mode==(S_IFREG|S_IRUSR|S_IWUSR)){
+		//Update access time
+		log_msg("OPENING FILE\n");
+	
+		struct timespec requestStart;
+		clock_gettime(CLOCK_REALTIME, &requestStart);
+		in->st_atime = requestStart.tv_sec;
+		
+		block_write(in->offset,in);
+		
+		retstat = 0;
+		return retstat;
+	}else{
+		return -EACCES;
+	}
+	
+	
+	
     
     return retstat;
 }
@@ -731,6 +917,174 @@ int sfs_release(const char *path, struct fuse_file_info *fi)
     return retstat;
 }
 
+
+//This function fills in the passed buffer with the files data
+void fill_buffer(char * buffer, inode * in){
+	
+	log_msg("FILLING BUFFER from file %s\n",in->file_name);	
+	int offset = 0;
+	
+	int global_offset = 0;
+	
+	int j = 0;
+	char empty_buf[BLOCK_SIZE];
+	int z= 0;
+	while(z<BLOCK_SIZE){
+		empty_buf[z]=0;
+		z++;
+		
+	}
+	//direct
+	while(j<NUM_DIRECT){
+		int z= 0;
+		while(z<BLOCK_SIZE){
+			empty_buf[z]=0;
+			z++;
+			
+		}
+		offset = in->d_block[j];
+		//print_offset();
+		log_msg("offfffff:%i\n",offset);
+		if(offset!=0){
+			block_read(offset,&empty_buf);
+			//log_msg("Reading %s from fill_buffer\n",empty_buf);
+			//strcat(buffer,empty_buf);
+			int c = 0;
+			while(c<512&&global_offset<in->file_size){
+				
+				buffer[global_offset] = empty_buf[c];
+				c++;
+				global_offset++;
+			}
+			
+		}
+		j++;
+	}
+	
+	
+	
+	
+	j = 0;
+	//indirect
+	char buf[BLOCK_SIZE];
+		z= 0;
+		while(z<BLOCK_SIZE){
+			buf[z]=0;
+			z++;
+			
+		}
+	while(j<NUM_INDIRECT){
+		offset = in->indirect_block[j];
+		if(offset!=0){
+			log_msg(" in indirect:%i\n");
+			int k = 0;
+			block_read(offset,&buf);
+			indir_array * arr =(indir_array *)buf;
+			
+			while(k<128){
+				z= 0;
+				while(z<BLOCK_SIZE){
+					empty_buf[z]=0;
+					z++;
+					
+				}
+				if(arr->offsets[k]!=0){
+					block_read(arr->offsets[k],&empty_buf);
+					
+					log_msg(" in 2nd if indirect:%i\n");
+					int d = 0;
+					while(d<512&&global_offset<in->file_size){
+						//log_msg("Reading in indirect %s from fill_buffer\n",empty_buf);
+						buffer[global_offset] = empty_buf[d];
+						d++;
+						global_offset++;
+					}
+					
+					
+					//strcat(buffer,empty_buf);
+				}
+				k++;
+			}
+			
+		}
+		
+		j++;
+
+	}
+	//double indirect
+	//do later
+	j = 0;
+	
+	
+	char d_indir[BLOCK_SIZE];
+	char indir[BLOCK_SIZE];
+	char dir[BLOCK_SIZE];
+	while(j<2){
+		offset = in->double_indirect_block[j];//tells you where the indirect block is
+		if(offset!=0){
+			log_msg("FOUND A SPOT IN D_INDIRECT!~!!!!!!@!");
+			block_read(offset,&d_indir);//list of offsets for indirect blocks
+			indir_array * ar = (indir_array *)d_indir;
+			
+			int t = 0;
+			while(t<128){
+				
+				//This means we found an indirect block so follow above loop.
+				if(ar->offsets[t]!=0){
+					z= 0;
+					while(z<BLOCK_SIZE){
+						indir[z]=0;
+						z++;
+						
+					}
+					block_read(ar->offsets[t],&indir);
+					indir_array * a = (indir_array *)indir;//list of direct block offsets
+					int w = 0;
+					while(w<128){
+						z= 0;
+						while(z<BLOCK_SIZE){
+							dir[z]=0;
+							z++;
+							
+						}
+						//found dir
+						if(a->offsets[w]!=0){
+							block_read(a->offsets[w],&dir);
+				
+							int d = 0;
+							while(d<512&&global_offset<in->file_size){
+								//log_msg("Reading in indirect %d from fill_buffer\n",global_offset);
+								buffer[global_offset] = dir[d];
+								d++;
+								global_offset++;
+							}
+							
+						}
+						
+						w++;
+					}
+						
+					
+				}
+				t++;
+			}
+			
+			
+		}
+		
+		
+		
+		
+		j++;
+	}
+	
+	
+	
+}
+
+
+
+
 /** Read data from an open file
  *
  * Read should return exactly the number of bytes requested except
@@ -743,13 +1097,352 @@ int sfs_release(const char *path, struct fuse_file_info *fi)
  * Changed in version 2.2
  */
 int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
-{
+{	
+
     int retstat = 0;
     log_msg("\nsfs_read(path=\"%s\", buf=0x%08x, size=%d, offset=%lld, fi=0x%08x)\n",
 	    path, buf, size, offset, fi);
+	   // print_offset();
+	    char b[BLOCK_SIZE];
+	    int o = find_inode(path);
+	    block_read(o,&b);
+	    inode* in = (inode*) b;
+	    int bytes_to_return = 0;
+	    char buffer_data[in->num_blocks*512];
+	    
+		log_msg("before fill buffer the num block is %d!!!!!!!!!!!!!!!!!!!!\n",in->num_blocks);
+		fill_buffer(buffer_data,in);
+		log_msg("buffer_data includes : %s\n",buffer_data);
+		
+		//char final_buffer[(in->num_blocks*512)-offset];
+		
+		int i =0;
+		int z = offset;
+		//log_msg("strlen of buffer_data:%d\n",strlen(buffer_data));
+		while(i< in->file_size -(int)offset && i < (int)size){
+			(buf[i]) = (buffer_data[z]);
+		//	log_msg("final_buffer in read[insert]: %c and buffer_data[z]:%c\n",buf[i],buffer_data[z]);
+			z++;
+			i++;
+			bytes_to_return= bytes_to_return +1;
+		}
+		log_msg("strlen in read is: : %d\n",strlen(buf));
+		/*if(strlen(buf) > in->file_size){
+			log_msg("GGGF");
+			return 0;
+		}*/
+	
 
+    return bytes_to_return;
    
-    return retstat;
+}
+
+
+//This function puts data back into inodes data blocks after a write
+void fill_data(char * buffer, inode * in){
+	
+	//log_msg("FILLING DATA\n");	
+	int offset = 0;
+	int global_offset = 0;
+	int j = 0;
+	char empty_buf[BLOCK_SIZE];
+	//direct
+	while(j<NUM_DIRECT){
+		offset = in->d_block[j];
+		//log_msg("offfffff:%i\n");
+		if(offset!=0){
+			//log_msg("DIR PUTTING BACK IN:%s\n",buffer+(512*global_offset));
+			block_write(offset,buffer+(512*global_offset));
+			global_offset++;
+			
+		}
+		j++;
+	}
+	
+	j = 0;
+	//indirect
+	char buf[BLOCK_SIZE];
+	while(j<NUM_INDIRECT){
+		offset = in->indirect_block[j];
+		if(offset!=0){
+			int k = 0;
+			block_read(offset,&buf);
+			indir_array * arr =(indir_array *)buf;
+			
+			while(k<128){
+				if(arr->offsets[k]!=0){
+					//log_msg("INDIR PUTTING BACK IN:%s\n",buffer+(512*global_offset));
+					block_write(arr->offsets[k],buffer+(512*global_offset));
+					global_offset++;
+				}
+				k++;
+			}
+			
+		}
+		
+		j++;
+
+	}
+	//double indirect
+	//do later
+	j = 0;
+	char buf1[BLOCK_SIZE];
+	char buf2[BLOCK_SIZE];
+	while(j<2){
+		offset = in->double_indirect_block[j];
+		
+		//There is a double indirect. Read it and loop through it
+		if(offset!=0){
+			block_read(offset,&buf1);
+			indir_array * d_indir = (indir_array *)buf1;
+			int a = 0;
+			while(a<128){
+				if(d_indir->offsets[a]!=0){
+					log_msg("DOUBLE INDIR PUTTING BACK IN\n");
+					block_read(d_indir->offsets[a],&buf2);
+					indir_array * indir = (indir_array *)buf2;
+					int b = 0;
+					while(b<128){
+						
+						if(indir->offsets[b]!=0){
+						//	log_msg("INDIR PUTTING BACK IN:%s\n",buffer+(512*global_offset));
+							block_write(indir->offsets[b],buffer+(512*global_offset));
+							global_offset++;
+							
+						}
+						
+						b++;
+					}
+					
+				}
+				a++;
+			}
+			
+		}
+		
+		
+		
+		j++;
+	}
+	
+	
+	
+}
+
+//These functions loop through the blocks to write the offset into the arrays.
+int find_free_direct(inode * in,int off){
+	//log_msg("FIND FREE DIRECT\n");
+	int offset = 0;
+	
+	int j = 0;
+	char empty_buf[BLOCK_SIZE];
+	//direct
+	while(j<NUM_DIRECT){
+		if(in->d_block[j]==0){
+			//print_offset();
+			in->d_block[j] = off;
+			block_write(in->offset,in);
+			//log_msg("FOUND FREE DIRECT index:%i   offset:%i\n",j,off);
+			return 1;
+		}
+		j++;
+	}
+	
+	return -1;
+}
+
+int find_free_indirect(inode * in,int off){
+	//log_msg("FIND FREE INDIRECT\n");
+	
+	int offset = 0;
+	
+	int j = 0;
+	char empty_buf[BLOCK_SIZE];
+	char buf[BLOCK_SIZE];
+	while(j<NUM_INDIRECT){
+		offset = in->indirect_block[j];
+		if(offset==0){
+			//make a new indirect block
+			int free = find_free_block();
+			if(free!=-1){
+				//found a free block to make an indirect
+				in->indirect_block[j] = free;//set index of indirect block which was free
+				block_write(in->offset,in);
+				
+			}else{
+				log_msg("ERROR FINDING INDIRECT\n");
+				return -1;
+			}
+			block_read(free,&buf);//read that indirect block and initializeit
+			indir_array * arr =(indir_array *)buf;
+			int l = 0;
+			while(l<128){
+				arr->offsets[l] = 0;
+				l++;
+			}
+			
+			arr->offsets[0] = off;//set the offset of data block in indirect bock
+			block_write(free,arr);
+			//log_msg("FOUND NEW FREE INDIRECT off:%i\n",off);
+			return 1;
+				
+		}else{
+			//check curent indirect block for an open spot.
+			int k = 0;
+			block_read(offset,&buf);//offset is index of indirect block
+			indir_array * arr =(indir_array *)buf;
+			
+			while(k<128){
+				if(arr->offsets[k]==0){
+					arr->offsets[k] = off;
+					block_write(offset,arr);
+					log_msg("FOUND FREE SPOT IN INDIRECT BLOCK index:%i  off\n",k,off);
+					return 1;
+				}
+				k++;
+			}
+				
+			
+			
+		}
+		
+		j++;
+
+	}
+	
+	return -1;
+}
+
+int find_free_d_indirect(inode * in, int off){
+	log_msg("FIND FREE DOUBLE INDIRECT\n");
+	
+	int offset = 0;
+	
+	char empty_buf[BLOCK_SIZE];//holds single indirect
+	char buf[BLOCK_SIZE];//hold double indirect
+	int j = 0;
+	
+	//read in double indir block and see if there is one
+	while(j<2){
+		offset = in->double_indirect_block[j];
+		
+		//need to make a new double block
+		if(offset == 0){
+			log_msg("MAKING NEW DOUBLE\n");
+			int free = find_free_block();
+			
+			if(free!=-1){
+				in->double_indirect_block[j] = free;//set offset of double indirect to free block
+			
+			}else{
+				log_msg("ERROR FINDING DOUBLE INDIRECT\n");
+				return -1;	
+				
+			}
+			
+			//read in free block and init it
+			block_read(free, &buf);
+			indir_array * arr = (indir_array *)buf;//list of offsets of indirect blocks
+			int l = 0;
+			while(l<128){
+				arr->offsets[l] = 0;
+				l++;
+			}
+			
+			//Now find a free indir block
+			int old_free = free;//save offset of double_indir block
+			free = find_free_block(); //new free block for indir block
+			if(free!=-1){
+				//found a free block to make a indir block. init it, make first index off.
+				arr->offsets[0] = free;
+			}else{
+				log_msg("ERROR FINDING INDIRECT IN DOUBLE\n");
+				return -1;
+				
+			}
+			block_read(free,empty_buf);//read that indirect block and initializeit
+			indir_array * ar =(indir_array *)empty_buf;
+			int r = 0;
+			while(r<128){
+				arr->offsets[r] = 0;
+				r++;
+			}
+			
+			ar->offsets[0] = off;//set the offset of data block in indirect block
+			block_write(old_free,arr);
+			block_write(free,ar);
+			block_write(in->offset,in);
+			log_msg("Finished setting up double:%i\n",off);
+			return 1;
+			
+		}else{
+			log_msg("THERE IS ALREADY A DOUBLE\n");
+			//There is already a double indirect block
+			block_read(offset,&buf);//get that double
+			//loop through it
+			indir_array * arr =(indir_array *)buf;//list of indirects
+			int k = 0;
+			while(k<128){
+				log_msg("THERE IS ALREADY A SINGLE\n");
+				//There is a indir block
+				if(arr->offsets[k]!=0){
+					block_read(arr->offsets[k],&empty_buf);//read in that indirect
+					indir_array * ar = (indir_array *)empty_buf;
+					int d = 0;
+					
+					//loop through indirect looking for an open spot
+					while(d<128){
+						int dir_o = ar->offsets[d];
+						if(dir_o==0){
+							//found free direct spot 
+							ar->offsets[d] = off;
+							log_msg("FOUND FREE SPOT IN INDIR\n");
+							block_write(arr->offsets[k],ar);//update the indirect and return
+							return 1;
+						}
+						
+						d++;
+					}
+				}else{
+					//make a new indir block. make first index of that off
+					log_msg("NEED TO MAKE NEW INDIR\n");
+					int free = find_free_block();
+					if(free!=-1){
+						//found a free block to make an indirect
+						arr->offsets[k] = free; //update list of indirects with that free block
+						
+					}else{
+						log_msg("ERROR FINDING INDIRECT\n");
+						return -1;
+					}
+					block_read(free,&empty_buf);//read that indirect block and initializeit
+					indir_array * ar =(indir_array *)empty_buf;
+					int l = 0;
+					while(l<128){
+						ar->offsets[l] = 0;
+						l++;
+					}
+					
+					ar->offsets[0] = off;//set the offset of data block in indirect bock
+					//update double and signle block
+					block_write(offset,arr);
+					block_write(free,ar);
+					log_msg("FOUND NEW FREE INDIRECT.Updating double and single off:%i\n",off);
+					return 1;
+					
+					
+					
+				}
+				k++;
+			}
+			
+		}
+			
+		
+	}
+	//IF WE GET TO HERE I BELEIVE WE RAN OUT OF SPACE.
+	return -1;
+	
 }
 
 /** Write data to an open file
@@ -766,9 +1459,311 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
     int retstat = 0;
     log_msg("\nsfs_write(path=\"%s\", buf=0x%08x, size=%d, offset=%lld, fi=0x%08x)\n",
 	    path, buf, size, offset, fi);
+	
+	
+	
+		//log_msg("strlen:%d\n",strlen(buf));
+		//log_msg("this is the fucking buf:%s\n",buf);
+	//find inode for path
+	char bbb[BLOCK_SIZE];
+	int o = find_inode(path);
+	block_read(o,&bbb);
+	inode * in = (inode *)bbb;
+	
+	//construct buffer with all data from that nodes data blocks. // max they can write is 4096
+	//char * buffer_data = (char *)malloc(sizeof(char)*(in->num_blocks*512));//load files data into this
+	char buffer_data[in->num_blocks*512];
+
+
+	int ok = 0;
+	while(ok<in->num_blocks*512){
+		buffer_data[ok]=0;
+		ok++;
+	}
+	
+	log_msg("File name to write:%s\n",in->file_name);
+	fill_buffer(buffer_data,in);
+	
+	
+	//figure out how many blocks we will need. ((num_blocks*512)-(file_size))-size = rest needed to fill
+	//(rest/512)+1=#of blocks needed
+	
+	int num_blks_needed = 0;
+	if(in->file_size==0){
+		
+		log_msg("INIT WRITE\n");
+		num_blks_needed = (size/512)+1;
+		if(size%512==0){
+			num_blks_needed-=1;		
+		}
+		//data to be written into fs
+		char write_data[num_blks_needed*512];
+		//log_msg("wd init size:%i\n",strlen(write_data));
+	//	memcpy(write_data,buf,(strlen(buf)-1));
+		//log_msg("Data:%s   numblocks:%i\n",write_data,num_blks_needed);
+		int f=0;
+		int g=0;
+		
+		//log_msg("strlen:%d\n",strlen(buf));
+		
+		//log_msg("this is the fucking buf:%s\n",buf);
+		while(f<(int)size){
+			(write_data[g]) = (buf[f]);
+			//log_msg("buffer_data[insert]: %c and buf[z]:%c\n",write_data[g],buf[f]);
+			g++;
+			f++;
+		}
+		
+		
+		//search for free blocks and write to it
+		int i = 0;
+		while(i<num_blks_needed){
+			int free =find_free_block();
+			if(free!=-1){
+				//found free block
+				//log_msg("FREE:%i     Data written:%s    writedata:%i\n",free,write_data+(512*i),strlen(write_data));
+				//update blocks
+				
+				int success = 0;
+				success = find_free_direct(in,free);
+				
+				//log_msg("writing to block:%s\n",(write_data + (512*i)));
+				block_write(free,(write_data+(512*i)));
+				
+				char asshole[512];
+				block_read(free,&asshole);
+				
+				
+				//log_msg("this is in asshole:%s\n",asshole);
+				
+				
+				
+			}
+			else{
+				//error
+				log_msg("ERROR ON WRITE\n");
+				return 0;
+					
+			}
+		
+		
+			i++;		
+		}
+		
+		in->file_size = in->file_size + (int)(size);
+		log_msg("NEW FILE SIZE:%i   offset:%i   num_blks%i\n",in->file_size,in->offset,num_blks_needed);
+		in->num_blocks = in->num_blocks + num_blks_needed;
+		block_write(in->offset,in);
+		return size;
+		
+	}else{
+		log_msg("EXTRA WRITE fillbuffer:%s  blocks in inode:%i         filesize:%i\n",buffer_data,in->num_blocks,in->file_size);
+		
+		//Start at offset.
+		int remainder = ((in->num_blocks * 512) - (in->file_size));//how much we can put in current block
+		log_msg("Remainder:%i      size-rem:%i\n",remainder,size-remainder);
+		
+		//This means we can fit the write in the last block possibly
+		if((int)(size - remainder) < 0){        //CHANGED TO <
+			int z = 0;
+			int insert = offset;//starting point to insert
+			//log_msg("insert::%i      srlen(buf);:%i\n",insert,strlen(buf));
+			
+			//copy byte by byte into buffer_data
+			while(z<(int)size){
+				(buffer_data[insert]) = (buf[z]);
+				//log_msg("buffer_data[insert]: %c and buf[z]:%c\n",buffer_data[insert],buf[z]);
+				insert++;
+				z++;
+			}
+			
+			//write it back in
+			//log_msg("EXTRA BUFFER:%s\n",buffer_data);
+			fill_data(buffer_data,in);
+			in->file_size = strlen(buffer_data);
+			log_msg("NEW FILE SIZE:%i   offset:%i   num_blks%i\n",in->file_size,in->offset,num_blks_needed);
+			block_write(in->offset,in);
+			
+		}else{
+		//This means we need fill last block, and then need new blocks.
+		
+		
+			log_msg("filling oriignal block and need more\n");
+			
+			//fill in last block if possible.Take remainder bytes from buf, put it in buffer_data then get new blocks.
+			if(remainder !=0){
+				int z = 0;
+				int insert = offset;//starting point to insert
+				//log_msg("insert::%i      srlen(buf);:%i\n",insert,strlen(buf));
+				
+				//copy byte by byte into buffer_data
+				while(z<remainder){
+					(buffer_data[insert]) = (buf[z]);
+					//log_msg("buffer_data[insert]: %c and buf[z]:%c\n",buffer_data[insert],buf[z]);
+					insert++;
+					z++;
+				}
+				
+				num_blks_needed =(((int)(size)-z)/512)+1;//MAYBE
+				if(((int)(size)-z)%512==0){
+					num_blks_needed-=1;		
+				}
+				
+				
+				//write it back in
+				log_msg("EXTRA BUFFER:%s\n",buffer_data);
+				fill_data(buffer_data,in);
+				in->file_size = in->file_size+remainder;
+				log_msg("NEW FILE SIZE:%i   offset:%i   num_blks%i\n",in->file_size,in->offset,num_blks_needed);
+				block_write(in->offset,in);
+				
+				int i = 0;
+				while(i<num_blks_needed){
+					int free =find_free_block();//direcr block that has data
+					log_msg("FOUND NEW FREE BLOCK IN WRITE:%i\n",free);
+					if(free!=-1){
+						//found free block
+						//log_msg("FREE:%i     Data written:%s    writedata:%i\n",free,write_data+(512*i),strlen(write_data));
+						//update blocks
+						int free_index=0;
+						char free_block[BLOCK_SIZE];
+						
+						
+						
+						
+						block_read(free,&free_block);
+						int byte_counter = 0;
+						while(z<(int)size&&free_index<512){
+							(free_block[free_index]) = (buf[z]);
+							//log_msg("free_block[free_index]: %c and buf[z]:%c\n",free_block[free_index],buf[z]);
+							free_index++;
+							byte_counter++;
+							z++;	
+						}
+						int success = 0;
+						//log_msg("DIR:LOOKING FOR FREE SPOT\n");
+						success = find_free_direct(in,free);
+						if(success == -1){
+							//single
+							//log_msg("INDIR:LOOKING FOR FREE SPOT\n");
+							success = find_free_indirect(in,free);
+							
+							if(success==-1){
+								//double
+								log_msg("DOUBLE INDIR:LOOKING FOR FREE SPOT\n"); 	
+								success = find_free_d_indirect(in,free);
+								if(success == -1){
+										//error?
+								}
+								
+							}
+							
+							
+							
+						}
+						in->file_size += byte_counter;//MABYE NEED TO CHANGE TO 512
+						in->num_blocks = in->num_blocks + 1;
+						
+						log_msg("NEW FILE SIZE WITH EXTRA BLOCKS:%i   offset:%i   num_blks%i\n",in->file_size,in->offset,num_blks_needed);
+						block_write(in->offset,in);
+						block_write(free,free_block);
+					}
+					else{
+						//error
+						log_msg("ERROR ON WRITE\n");
+						return 0;
+							
+					}
+				
+				
+					i++;		
+				}
+				
+				
+				
+			}else{
+				//Need new blocks right away.
+				int z =0;
+				int i = 0;
+				num_blks_needed =((int)(size)/512)+1;//MAYBE
+				if(((int)(size))%512==0){
+					num_blks_needed-=1;		
+				}
+				while(i<num_blks_needed){
+					int free =find_free_block();
+					if(free!=-1){
+						//found free block
+						//log_msg("FREE:%i     Data written:%s    writedata:%i\n",free,write_data+(512*i),strlen(write_data));
+						//update blocks
+						int free_index=0;
+						char free_block[BLOCK_SIZE];
+						int abc = 0;
+						while (abc < BLOCK_SIZE){
+							free_block[abc] = 0;
+							abc++;
+						}
+						//log_msg("str len %d\n",strlen(buf));
+						//log_msg("string buf %s\n",buf);
+						block_read(free,&free_block);
+						int byte_counter = 0;
+						while(z<(int)size&&free_index<512){
+							(free_block[free_index]) = (buf[z]);
+						//	log_msg("free_block that needs a block right away[free_index]: %c and buf[z]:%c\n",free_block[free_index],buf[z]);
+							byte_counter ++;
+							free_index++;
+							z++;	
+						}
+						int success = 0;
+						//log_msg("DIR:LOOKING FOR FREE SPOT\n");
+						success = find_free_direct(in,free);
+						if(success == -1){
+							//log_msg("INDIR:LOOKING FOR FREE SPOT\n");
+							success = find_free_indirect(in,free);
+							
+							if(success == -1){
+								//double do later
+								log_msg("DOUBLE INDIR:LOOKING FOR FREE SPOT\n");
+								success = find_free_d_indirect(in,free);
+								if(success == -1){
+										//error?
+								}
+							}
+							
+						}
+						in->file_size += byte_counter;
+						in->num_blocks = in->num_blocks + 1;
+						
+						log_msg("NEW FILE SIZE WITH EXTRA BLOCKS only!!!!!!!!!!!!!!!!!!:%i   offset:%i   num_blks%i\n",in->file_size,in->offset,num_blks_needed);
+						block_write(in->offset,in);
+						block_write(free,free_block);
+					}
+					else{
+						//error
+						log_msg("ERROR ON WRITE\n");
+						return 0;
+							
+					}
+				
+				
+					i++;		
+				}
+			}
+		}
+		
+	}
+	//in->file_size += size;
+	//in->num_blocks += num_blks_needed;
+	
+	
+	//update sb
+	
+	//write to that buffer at offset with buf passed in. this may overwrite data.
+	
+	//if they need a new block, check bitmap.
     
     
-    return retstat;
+	log_msg("return size %d\n",size);
+    return size;
 }
 
 
@@ -840,7 +1835,10 @@ int sfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offse
     int retstat = 0;
 	log_msg("IN READDIR\n");
     //find inode with given path
-	inode * in = find_inode(path);
+    char bbb[BLOCK_SIZE];
+    int o = find_inode(path);
+    block_read(o,&bbb);
+	inode * in = (inode *)bbb;
 	//get indirect block
 	int indir_offset = in->indirect_block[0];
 	log_msg("indir off:%d\n",indir_offset);
@@ -851,11 +1849,16 @@ int sfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offse
 	//Cast it 
 	indir_array * b = (indir_array *)buff;
 	int i = 0;
-	
+	//log_msg("b[0]:%i     b[1]:%i\n",b->offsets[0],b->offsets[1]);
 	while(i<128){
+		int a = block_read(indir_offset,&buff);
+	
+		//Cast it 
+		indir_array * b = (indir_array *)buff;
+		
 		int inode_offset = b->offsets[i];
 		
-		log_msg("%d\n",inode_offset);
+		//log_msg("%reaadier offset: %d\n",inode_offset);
 		//if offset is 0 then there is not an inode
 		if(inode_offset==0){
 			i++;
@@ -863,9 +1866,13 @@ int sfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offse
 		}
 		block_read(inode_offset, &buff);
 		inode * temp_inode = (inode *)buff;
-		log_msg("%s\n",temp_inode->file_name);
+		//log_msg("readdir filename: %s\n",temp_inode->file_name);
 		int status = filler(buf,temp_inode->file_name,NULL,0);
-		
+		if(status ==1)
+			log_msg("buffer full\n");
+		else
+			log_msg("buffer not full\n");
+		//log_msg("second time b[0]:%i     b[1]:%i\n",b->offsets[0],b->offsets[1]);
 		
 		i++;
 	}
