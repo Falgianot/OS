@@ -729,7 +729,7 @@ int sfs_unlink(const char *path)
 			
 		}
 		
-		
+		flip_bit(offset);
 		block_write(offset,empty_buf);
 		in->indirect_block[j] = 0;
 		j++;
@@ -738,8 +738,46 @@ int sfs_unlink(const char *path)
 	
 	//do later
 	j = 0;
+	char buf1[BLOCK_SIZE];
+	char buf2[BLOCK_SIZE];
 	while(j<2){
-		in->double_indirect_block[j] = 0;
+		offset = in->double_indirect_block[j];
+
+		//There is a double indirect. Read it and loop through it
+		if(offset!=0){
+			block_read(offset,&buf1);
+			indir_array * d_indir = (indir_array *)buf1;
+			int a = 0;
+			while(a<128){
+				if(d_indir->offsets[a]!=0){
+					log_msg("DOUBLE INDIR PUTTING BACK IN\n");
+					block_read(d_indir->offsets[a],&buf2);
+					indir_array * indir = (indir_array *)buf2;
+					int b = 0;
+					while(b<128){
+
+						if(indir->offsets[b]!=0){
+              block_write(indir->offsets[b],&empty_buf);
+              flip_bit(indir->offsets[b]);
+
+						}
+						
+						b++;
+					}
+          flip_bit(d_indir->offsets[a]);
+					block_write(d_indir->offsets[a],&empty_buf);
+				}
+
+        
+				a++;
+			}
+      flip_bit(offset);
+      block_write(offset,&empty_buf);
+
+		}
+
+
+    in->double_indirect_block[j] = 0;
 		j++;
 	}
 	
@@ -1074,7 +1112,7 @@ int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse
 		int i =0;
 		int z = offset;
 		log_msg("strlen of buffer_data:%d\n",strlen(buffer_data));
-		while(i< in->file_size -(int)offset){
+		while(i< in->file_size -(int)offset && i < (int)size){
 			(buf[i]) = (buffer_data[z]);
 			log_msg("final_buffer in read[insert]: %c and buffer_data[z]:%c\n",buf[i],buffer_data[z]);
 			z++;
@@ -1096,7 +1134,7 @@ int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse
 //This function puts data back into inodes data blocks after a write
 void fill_data(char * buffer, inode * in){
 	
-	log_msg("FILLING DATA\n");	
+	//log_msg("FILLING DATA\n");	
 	int offset = 0;
 	int global_offset = 0;
 	int j = 0;
@@ -1106,7 +1144,7 @@ void fill_data(char * buffer, inode * in){
 		offset = in->d_block[j];
 		//log_msg("offfffff:%i\n");
 		if(offset!=0){
-			log_msg("DIR PUTTING BACK IN:%s\n",buffer+(512*global_offset));
+			//log_msg("DIR PUTTING BACK IN:%s\n",buffer+(512*global_offset));
 			block_write(offset,buffer+(512*global_offset));
 			global_offset++;
 			
@@ -1126,7 +1164,7 @@ void fill_data(char * buffer, inode * in){
 			
 			while(k<128){
 				if(arr->offsets[k]!=0){
-					log_msg("INDIR PUTTING BACK IN:%s\n",buffer+(512*global_offset));
+					//log_msg("INDIR PUTTING BACK IN:%s\n",buffer+(512*global_offset));
 					block_write(arr->offsets[k],buffer+(512*global_offset));
 					global_offset++;
 				}
@@ -1141,9 +1179,42 @@ void fill_data(char * buffer, inode * in){
 	//double indirect
 	//do later
 	j = 0;
-
+	char buf1[BLOCK_SIZE];
+	char buf2[BLOCK_SIZE];
 	while(j<2){
-		in->double_indirect_block[j] = 0;
+		offset = in->double_indirect_block[j];
+		
+		//There is a double indirect. Read it and loop through it
+		if(offset!=0){
+			block_read(offset,&buf1);
+			indir_array * d_indir = (indir_array *)buf1;
+			int a = 0;
+			while(a<128){
+				if(d_indir->offsets[a]!=0){
+					log_msg("DOUBLE INDIR PUTTING BACK IN\n");
+					block_read(d_indir->offsets[a],&buf2);
+					indir_array * indir = (indir_array *)buf2;
+					int b = 0;
+					while(b<128){
+						
+						if(indir->offsets[b]!=0){
+							log_msg("INDIR PUTTING BACK IN:%s\n",buffer+(512*global_offset));
+							block_write(indir->offsets[b],buffer+(512*global_offset));
+							global_offset++;
+							
+						}
+						
+						b++;
+					}
+					
+				}
+				a++;
+			}
+			
+		}
+		
+		
+		
 		j++;
 	}
 	
@@ -1153,7 +1224,7 @@ void fill_data(char * buffer, inode * in){
 
 //These functions loop through the blocks to write the offset into the arrays.
 int find_free_direct(inode * in,int off){
-	log_msg("FIND FREE DIRECT\n");
+	//log_msg("FIND FREE DIRECT\n");
 	int offset = 0;
 	
 	int j = 0;
@@ -1161,10 +1232,10 @@ int find_free_direct(inode * in,int off){
 	//direct
 	while(j<NUM_DIRECT){
 		if(in->d_block[j]==0){
-			print_offset();
+			//print_offset();
 			in->d_block[j] = off;
 			block_write(in->offset,in);
-			log_msg("FOUND FREE DIRECT index:%i   offset:%i\n",j,off);
+			//log_msg("FOUND FREE DIRECT index:%i   offset:%i\n",j,off);
 			return 1;
 		}
 		j++;
@@ -1174,7 +1245,7 @@ int find_free_direct(inode * in,int off){
 }
 
 int find_free_indirect(inode * in,int off){
-	log_msg("FIND FREE INDIRECT\n");
+	//log_msg("FIND FREE INDIRECT\n");
 	
 	int offset = 0;
 	
@@ -1205,7 +1276,7 @@ int find_free_indirect(inode * in,int off){
 			
 			arr->offsets[0] = off;//set the offset of data block in indirect bock
 			block_write(free,arr);
-			log_msg("FOUND NEW FREE INDIRECT off:%i\n",off);
+			//log_msg("FOUND NEW FREE INDIRECT off:%i\n",off);
 			return 1;
 				
 		}else{
@@ -1235,7 +1306,135 @@ int find_free_indirect(inode * in,int off){
 	return -1;
 }
 
-int find_free_d_indirect(inode * in){
+int find_free_d_indirect(inode * in, int off){
+	log_msg("FIND FREE DOUBLE INDIRECT\n");
+	
+	int offset = 0;
+	
+	char empty_buf[BLOCK_SIZE];//holds single indirect
+	char buf[BLOCK_SIZE];//hold double indirect
+	int j = 0;
+	
+	//read in double indir block and see if there is one
+	while(j<2){
+		offset = in->double_indirect_block[j];
+		
+		//need to make a new double block
+		if(offset == 0){
+			log_msg("MAKING NEW DOUBLE\n");
+			int free = find_free_block();
+			
+			if(free!=-1){
+				in->double_indirect_block[j] = free;//set offset of double indirect to free block
+			
+			}else{
+				log_msg("ERROR FINDING DOUBLE INDIRECT\n");
+				return -1;	
+				
+			}
+			
+			//read in free block and init it
+			block_read(free, &buf);
+			indir_array * arr = (indir_array *)buf;//list of offsets of indirect blocks
+			int l = 0;
+			while(l<128){
+				arr->offsets[l] = 0;
+				l++;
+			}
+			
+			//Now find a free indir block
+			int old_free = free;//save offset of double_indir block
+			free = find_free_block(); //new free block for indir block
+			if(free!=-1){
+				//found a free block to make a indir block. init it, make first index off.
+				arr->offsets[0] = free;
+			}else{
+				log_msg("ERROR FINDING INDIRECT IN DOUBLE\n");
+				return -1;
+				
+			}
+			block_read(free,empty_buf);//read that indirect block and initializeit
+			indir_array * ar =(indir_array *)empty_buf;
+			int r = 0;
+			while(r<128){
+				arr->offsets[r] = 0;
+				r++;
+			}
+			
+			ar->offsets[0] = off;//set the offset of data block in indirect block
+			block_write(old_free,arr);
+			block_write(free,ar);
+			log_msg("Finished setting up double:%i\n",off);
+			return 1;
+			
+		}else{
+			log_msg("THERE IS ALREADY A DOUBLE\n");
+			//There is already a double indirect block
+			block_read(offset,&buf);//get that double
+			//loop through it
+			indir_array * arr =(indir_array *)buf;//list of indirects
+			int k = 0;
+			while(k<128){
+				log_msg("THERE IS ALREADY A SINGLE\n");
+				//There is a indir block
+				if(arr->offsets[k]!=0){
+					block_read(arr->offsets[k],&empty_buf);//read in that indirect
+					indir_array * ar = (indir_array *)empty_buf;
+					int d = 0;
+					
+					//loop through indirect looking for an open spot
+					while(d<128){
+						int dir_o = ar->offsets[d];
+						if(dir_o==0){
+							//found free direct spot 
+							ar->offsets[d] = off;
+							log_msg("FOUND FREE SPOT IN INDIR\n");
+							block_write(arr->offsets[k],ar);//update the indirect and return
+							return 1;
+						}
+						
+						d++;
+					}
+				}else{
+					//make a new indir block. make first index of that off
+					log_msg("NEED TO MAKE NEW INDIR\n");
+					int free = find_free_block();
+					if(free!=-1){
+						//found a free block to make an indirect
+						arr->offsets[k] = free; //update list of indirects with that free block
+						
+					}else{
+						log_msg("ERROR FINDING INDIRECT\n");
+						return -1;
+					}
+					block_read(free,&empty_buf);//read that indirect block and initializeit
+					indir_array * ar =(indir_array *)empty_buf;
+					int l = 0;
+					while(l<128){
+						ar->offsets[l] = 0;
+						l++;
+					}
+					
+					ar->offsets[0] = off;//set the offset of data block in indirect bock
+					//update double and signle block
+					block_write(offset,arr);
+					block_write(free,ar);
+					log_msg("FOUND NEW FREE INDIRECT.Updating double and single off:%i\n",off);
+					return 1;
+					
+					
+					
+				}
+				k++;
+			}
+			
+		}
+			
+		
+	}
+	//IF WE GET TO HERE I BELEIVE WE RAN OUT OF SPACE.
+	return -1;
+	
 }
 
 /** Write data to an open file
@@ -1297,12 +1496,12 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 		int f=0;
 		int g=0;
 		
-		log_msg("strlen:%d\n",strlen(buf));
+		//log_msg("strlen:%d\n",strlen(buf));
 		
-		log_msg("this is the fucking buf:%s\n",buf);
+		//log_msg("this is the fucking buf:%s\n",buf);
 		while(f<(int)size){
 			(write_data[g]) = (buf[f]);
-			log_msg("buffer_data[insert]: %c and buf[z]:%c\n",write_data[g],buf[f]);
+			//log_msg("buffer_data[insert]: %c and buf[z]:%c\n",write_data[g],buf[f]);
 			g++;
 			f++;
 		}
@@ -1320,20 +1519,21 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 				int success = 0;
 				success = find_free_direct(in,free);
 				
-				log_msg("writing to block:%s\n",(write_data + (512*i)));
+				//log_msg("writing to block:%s\n",(write_data + (512*i)));
 				block_write(free,(write_data+(512*i)));
 				
 				char asshole[512];
 				block_read(free,&asshole);
 				
 				
-				log_msg("this is in asshole:%s\n",asshole);
+				//log_msg("this is in asshole:%s\n",asshole);
 				
 				
 				
 			}
 			else{
 				//error
+				log_msg("ERROR ON WRITE\n");
 				return 0;
 					
 			}
@@ -1356,7 +1556,7 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 		log_msg("Remainder:%i      size-rem:%i\n",remainder,size-remainder);
 		
 		//This means we can fit the write in the last block possibly
-		if((int)(size - remainder) <= 0){
+		if((int)(size - remainder) < 0){        //CHANGED TO <
 			int z = 0;
 			int insert = offset;//starting point to insert
 			//log_msg("insert::%i      srlen(buf);:%i\n",insert,strlen(buf));
@@ -1364,13 +1564,13 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 			//copy byte by byte into buffer_data
 			while(z<(int)size){
 				(buffer_data[insert]) = (buf[z]);
-				log_msg("buffer_data[insert]: %c and buf[z]:%c\n",buffer_data[insert],buf[z]);
+				//log_msg("buffer_data[insert]: %c and buf[z]:%c\n",buffer_data[insert],buf[z]);
 				insert++;
 				z++;
 			}
 			
 			//write it back in
-			log_msg("EXTRA BUFFER:%s\n",buffer_data);
+			//log_msg("EXTRA BUFFER:%s\n",buffer_data);
 			fill_data(buffer_data,in);
 			in->file_size = strlen(buffer_data);
 			log_msg("NEW FILE SIZE:%i   offset:%i   num_blks%i\n",in->file_size,in->offset,num_blks_needed);
@@ -1391,7 +1591,7 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 				//copy byte by byte into buffer_data
 				while(z<remainder){
 					(buffer_data[insert]) = (buf[z]);
-					log_msg("buffer_data[insert]: %c and buf[z]:%c\n",buffer_data[insert],buf[z]);
+					//log_msg("buffer_data[insert]: %c and buf[z]:%c\n",buffer_data[insert],buf[z]);
 					insert++;
 					z++;
 				}
@@ -1405,12 +1605,13 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 				//write it back in
 				log_msg("EXTRA BUFFER:%s\n",buffer_data);
 				fill_data(buffer_data,in);
-				in->file_size = strlen(buffer_data);
+				in->file_size = in->file_size+remainder;
 				log_msg("NEW FILE SIZE:%i   offset:%i   num_blks%i\n",in->file_size,in->offset,num_blks_needed);
+				block_write(in->offset,in);
 				
 				int i = 0;
 				while(i<num_blks_needed){
-					int free =find_free_block();
+					int free =find_free_block();//direcr block that has data
 					log_msg("FOUND NEW FREE BLOCK IN WRITE:%i\n",free);
 					if(free!=-1){
 						//found free block
@@ -1423,27 +1624,36 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 						
 						
 						block_read(free,&free_block);
+						int byte_counter = 0;
 						while(z<(int)size&&free_index<512){
 							(free_block[free_index]) = (buf[z]);
-							log_msg("free_block[free_index]: %c and buf[z]:%c\n",free_block[free_index],buf[z]);
+							//log_msg("free_block[free_index]: %c and buf[z]:%c\n",free_block[free_index],buf[z]);
 							free_index++;
+							byte_counter++;
 							z++;	
 						}
 						int success = 0;
+						//log_msg("DIR:LOOKING FOR FREE SPOT\n");
 						success = find_free_direct(in,free);
 						if(success == -1){
+							//single
+							//log_msg("INDIR:LOOKING FOR FREE SPOT\n");
 							success = find_free_indirect(in,free);
 							
 							if(success==-1){
-								//double do later	
-								
+								//double
+								log_msg("DOUBLE INDIR:LOOKING FOR FREE SPOT\n"); 	
+								success = find_free_indirect(in,free);
+								if(success == -1){
+										//error?
+								}
 								
 							}
 							
 							
 							
 						}
-						in->file_size += strlen(free_block);//MABYE NEED TO CHANGE TO 512
+						in->file_size += byte_counter;//MABYE NEED TO CHANGE TO 512
 						in->num_blocks = in->num_blocks + 1;
 						
 						log_msg("NEW FILE SIZE WITH EXTRA BLOCKS:%i   offset:%i   num_blks%i\n",in->file_size,in->offset,num_blks_needed);
@@ -1452,6 +1662,7 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 					}
 					else{
 						//error
+						log_msg("ERROR ON WRITE\n");
 						return 0;
 							
 					}
@@ -1483,21 +1694,35 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 							free_block[abc] = 0;
 							abc++;
 						}
-						log_msg("str len %d\n",strlen(buf));
-						log_msg("string buf %s\n",buf);
+						//log_msg("str len %d\n",strlen(buf));
+						//log_msg("string buf %s\n",buf);
 						block_read(free,&free_block);
+						int byte_counter = 0;
 						while(z<(int)size&&free_index<512){
 							(free_block[free_index]) = (buf[z]);
-							log_msg("free_block that needs a block right away[free_index]: %c and buf[z]:%c\n",free_block[free_index],buf[z]);
+						//	log_msg("free_block that needs a block right away[free_index]: %c and buf[z]:%c\n",free_block[free_index],buf[z]);
+							byte_counter ++;
 							free_index++;
 							z++;	
 						}
 						int success = 0;
+						//log_msg("DIR:LOOKING FOR FREE SPOT\n");
 						success = find_free_direct(in,free);
 						if(success == -1){
+							//log_msg("INDIR:LOOKING FOR FREE SPOT\n");
 							success = find_free_indirect(in,free);
+							
+							if(success == -1){
+								//double do later
+								log_msg("DOUBLE INDIR:LOOKING FOR FREE SPOT\n");
+								success = find_free_indirect(in,free);
+								if(success == -1){
+										//error?
+								}
+							}
+							
 						}
-						in->file_size += (int)size;
+						in->file_size += byte_counter;
 						in->num_blocks = in->num_blocks + 1;
 						
 						log_msg("NEW FILE SIZE WITH EXTRA BLOCKS only!!!!!!!!!!!!!!!!!!:%i   offset:%i   num_blks%i\n",in->file_size,in->offset,num_blks_needed);
@@ -1506,6 +1731,7 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 					}
 					else{
 						//error
+						log_msg("ERROR ON WRITE\n");
 						return 0;
 							
 					}
@@ -1528,6 +1754,7 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 	//if they need a new block, check bitmap.
     
     
+	log_msg("return size %d\n",size);
     return size;
 }
 
